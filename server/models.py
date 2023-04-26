@@ -91,7 +91,7 @@ class Expense(db.Model, SerializerMixin):
     serialize_rules = ('-created_at', '-updated_at')
 
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
     type = db.Column(db.String, nullable=False)
     amount = db.Column(db.Float)
     unit_id = db.Column(db.Integer, db.ForeignKey('units.id'), nullable=False)
