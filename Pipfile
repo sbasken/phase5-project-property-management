@@ -15,6 +15,7 @@ flask-bcrypt = "*"
 db = "*"
 flask-session = "*"
 requests = "*"
+faker = "==15.3.2"
 
 [dev-packages]
 

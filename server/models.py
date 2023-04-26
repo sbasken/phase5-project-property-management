@@ -20,6 +20,12 @@ class User(db.Model, SerializerMixin):
 
     properties = db.relationship(
         'Property', backref='user',
+        foreign_keys='Property.owner_id',
+        cascade='all, delete-orphan')
+
+    agents_properties = db.relationship(
+        'Property', backref='agent',
+        foreign_keys='Property.agent_id',
         cascade='all, delete-orphan')
 
     @hybrid_property
