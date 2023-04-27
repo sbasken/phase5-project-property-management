@@ -1,8 +1,12 @@
 import React from 'react'
+import GenerateTable from './GenerateTable'
 
 const ExpensePage = () => {
   return (
-    <h1>ExpensePage</h1>
+    <div className='ui container hidden divider'>
+        <h1>Property 1</h1>
+        <GenerateTable />
+  </div>
   )
 }
 

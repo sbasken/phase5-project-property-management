@@ -10,7 +10,7 @@ const PropertyPage = () => {
     console.log(properties)
 
     return (
-        <div className='ui container'>
+        <div className='ui container hidden divider'>
             <Grid>
                 <Grid.Column stretched width={13}>
                     <PropertyCard />
