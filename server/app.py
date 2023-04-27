@@ -76,10 +76,10 @@ class Properties(Resource):
 
         found_user = User.query.filter(User.id == session.get('user_id')).first()
         if found_user.type == 'owner':
-            properties = [p.to_dict() for p in Property.query.filter(Property.owner_id == session.get('user_id')).all()]
+            properties = [ p.to_dict() for p in Property.query.filter(Property.owner_id == session.get('user_id')).all() ]
             return make_response(properties, 200)
         elif found_user.type == 'agent':
-            properties = [p.to_dict() for p in Property.query.filter(Property.agent_id == session.get('user_id')).all()]
+            properties = [ p.to_dict() for p in Property.query.filter(Property.agent_id == session.get('user_id')).all() ]
             return make_response(properties, 200)
     
     def post(self):
@@ -122,6 +122,45 @@ class PropertyByID(Resource):
         db.session.commit()
 
         return make_response({'meggage': 'Property successfully deleted'}, 204)
+    
+class Units(Resource):
+
+    def post(self):
+        found_user = User.query.filter(User.id == session.get('user_id')).first()
+        if found_user.type == 'owner':
+            data = request.get_json()
+
+            new_unit = Unit(
+                date = data['date'],
+                type = data['type'],
+                amount = data['amount'],
+                unit_id = data['unit_id']
+            )
+            db.session.add(new_unit)
+            db.session.commit()
+            return make_response(new_unit.to_dict(), 201)
+        return {'error': 'Unauthorized'}, 401
+    
+class UnitByID(Resource):
+
+    def patch(self, id):
+        data = request.get_json()
+        to_update = Unit.query.filter(Unit.id == id).first()
+        if to_update:
+            for key in data:
+                setattr(to_update, key, data[key])
+                db.session.add(to_update)
+                db.session.commit()
+        else:
+            return {'error': 'Unit not found'}, 404
+
+    def delete(self, id):
+
+        to_delete = Unit.query.filter(Unit.id == id).first()
+        db.session.delete(to_delete)
+        db.session.commit()
+
+        return make_response({'meggage': 'Unit successfully deleted'}, 204)
 
 
 api.add_resource(Home, '/')
@@ -130,6 +169,8 @@ api.add_resource(CheckSession, '/check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Properties, '/properties')
+api.add_resource(Units, '/units')
+api.add_resource(UnitByID, '/unit/<int:id>')
 
 
 if __name__ == '__main__':
