@@ -1,5 +1,8 @@
 import React from 'react'
 import { useSelector } from'react-redux'
+import { Grid, Menu, Button } from 'semantic-ui-react'
+import PropertyCard from './PropertyCard'
+import { Link } from 'react-router-dom'
 
 const PropertyPage = () => {
 
@@ -7,10 +10,19 @@ const PropertyPage = () => {
     console.log(properties)
 
     return (
-        <div>PropertyPage
-            <h2>properties</h2>
-            <h3>{properties.property1}</h3>
+        <div className='ui container'>
+            <Grid>
+                <Grid.Column stretched width={13}>
+                    <PropertyCard />
+                </Grid.Column>
+                <Grid.Column width={3}>
+                <Button as={Link} to='/newproperty'>Add More</Button>
+                </Grid.Column>
+
+            </Grid>
+            
         </div>
+
     )
 }
 

@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const propertiesSlice = createSlice({
     name: 'properties',
-    initialState: {property1 : 'Francisco'},
+    initialState: {
+        property1 : 'Francisco'
+    },
     reducers: {
         addProperty(state, action) {
 
