@@ -121,7 +121,7 @@ class PropertyByID(Resource):
         db.session.delete(to_delete)
         db.session.commit()
 
-        return make_response({'meggage': 'Property successfully deleted'}, 204)
+        return make_response({'message': 'Property successfully deleted'}, 204)
     
 class Units(Resource):
 
@@ -166,7 +166,7 @@ class UnitByID(Resource):
             db.session.delete(to_delete)
             db.session.commit()
 
-            return make_response({'meggage': 'Unit successfully deleted'}, 204)
+            return make_response({'message': 'Unit successfully deleted'}, 204)
         return {'error': 'Unauthorized'}, 401
     
 class Expenses(Resource):
@@ -203,7 +203,42 @@ class ExpenseByID(Resource):
         db.session.delete(to_delete)
         db.session.commit()
 
-        return make_response({'meggage': 'Expense successfully deleted'}, 204)
+        return make_response({'message': 'Expense successfully deleted'}, 204)
+    
+class Tenants(Resource):
+    
+    def post(self):
+        data = request.get_json()
+
+        new_tenant = Tenant(
+            name = data['name'],
+            phone_number = data['phone_number'],
+            email = data['amount'],
+        )
+        db.session.add(new_tenant)
+        db.session.commit()
+        return make_response(new_tenant.to_dict(), 201)
+
+class TenantByID(Resource):
+    
+    def patch(self, id):
+        data = request.get_json()
+        to_update = Tenant.query.filter(Tenant.id == id).first()
+        if to_update:
+            for key in data:
+                setattr(to_update, key, data[key])
+                db.session.add(to_update)
+                db.session.commit()
+        else:
+            return {'error': 'Tenant not found'}, 404
+    
+    def delete(self, id):
+
+        to_delete = Tenant.query.filter(Tenant.id == id).first()
+        db.session.delete(to_delete)
+        db.session.commit()
+
+        return make_response({'message': 'Tenant successfully deleted'}, 204)
 
 
 api.add_resource(Home, '/')
@@ -216,6 +251,8 @@ api.add_resource(Units, '/units')
 api.add_resource(UnitByID, '/unit/<int:id>')
 api.add_resource(Expenses, '/expenses')
 api.add_resource(ExpenseByID, '/expense/<int:id>')
+api.add_resource(Tenants, '/tenants')
+api.add_resource(TenantByID, '/tenant/<int:id>')
 
 
 if __name__ == '__main__':
