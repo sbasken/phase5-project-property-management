@@ -239,6 +239,31 @@ class TenantByID(Resource):
         db.session.commit()
 
         return make_response({'message': 'Tenant successfully deleted'}, 204)
+    
+    # start_date = db.Column(db.DateTime)
+    # end_date = db.Column(db.String)
+    # rent = db.Column(db.Integer)
+    # deposit = db.Column(db.Integer)
+    # unit_id = db.Column(db.Integer, db.ForeignKey('units.id'), nullable=False)
+    # tenent_id = db.Column(db.Integer, db.ForeignKey('tenants.id'), nullable=False)
+
+class Leases(Resource):
+
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+class LeaseByID(Resource):
+
+    def patch(self, id):
+        pass
+
+    def delete(self, id):
+        pass
+
+
 
 
 api.add_resource(Home, '/')
