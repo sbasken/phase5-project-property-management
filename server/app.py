@@ -131,10 +131,10 @@ class Units(Resource):
             data = request.get_json()
 
             new_unit = Unit(
-                date = data['date'],
-                type = data['type'],
-                amount = data['amount'],
-                unit_id = data['unit_id']
+                unit_number = data['unit_number'],
+                owner_occupied = data['owner_occupied'],
+                vacant = data['vacant'],
+                property_id = data['property_id']
             )
             db.session.add(new_unit)
             db.session.commit()
@@ -144,23 +144,66 @@ class Units(Resource):
 class UnitByID(Resource):
 
     def patch(self, id):
+        found_user = User.query.filter(User.id == session.get('user_id')).first()
+        if found_user.type == 'owner':
+            data = request.get_json()
+            to_update = Unit.query.filter(Unit.id == id).first()
+            if to_update:
+                for key in data:
+                    setattr(to_update, key, data[key])
+                    db.session.add(to_update)
+                    db.session.commit()
+            else:
+                return {'error': 'Unit not found'}, 404
+        return {'error': 'Unauthorized'}, 401
+
+    def delete(self, id):
+
+        found_user = User.query.filter(User.id == session.get('user_id')).first()
+        if found_user.type == 'owner':
+
+            to_delete = Unit.query.filter(Unit.id == id).first()
+            db.session.delete(to_delete)
+            db.session.commit()
+
+            return make_response({'meggage': 'Unit successfully deleted'}, 204)
+        return {'error': 'Unauthorized'}, 401
+    
+class Expenses(Resource):
+
+    def post(self):
         data = request.get_json()
-        to_update = Unit.query.filter(Unit.id == id).first()
+
+        new_expense = Expense(
+            date = data['date'],
+            type = data['type'],
+            amount = data['amount'],
+            unit_id = data['unit_id']
+        )
+        db.session.add(new_expense)
+        db.session.commit()
+        return make_response(new_expense.to_dict(), 201)
+
+class ExpenseByID(Resource):
+
+    def patch(self, id):
+        data = request.get_json()
+        to_update = Expense.query.filter(Expense.id == id).first()
         if to_update:
             for key in data:
                 setattr(to_update, key, data[key])
                 db.session.add(to_update)
                 db.session.commit()
         else:
-            return {'error': 'Unit not found'}, 404
-
+            return {'error': 'Expense not found'}, 404
+    
     def delete(self, id):
 
-        to_delete = Unit.query.filter(Unit.id == id).first()
+        to_delete = Expense.query.filter(Expense.id == id).first()
         db.session.delete(to_delete)
         db.session.commit()
 
-        return make_response({'meggage': 'Unit successfully deleted'}, 204)
+        return make_response({'meggage': 'Expense successfully deleted'}, 204)
 
 
 api.add_resource(Home, '/')
@@ -171,6 +214,8 @@ api.add_resource(Logout, '/logout')
 api.add_resource(Properties, '/properties')
 api.add_resource(Units, '/units')
 api.add_resource(UnitByID, '/unit/<int:id>')
+api.add_resource(Expenses, '/expenses')
+api.add_resource(ExpenseByID, '/expense/<int:id>')
 
 
 if __name__ == '__main__':
