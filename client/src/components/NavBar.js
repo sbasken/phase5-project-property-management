@@ -65,7 +65,7 @@ const NavBar = () => {
                     name='login'
                     active={activeItem === 'login'}
                     onClick={handleItemClick}
-                >{ currentUser ? `Hi, ${ currentUser.name }!  🐾` : "Login" }</NavLink>
+                >{ currentUser ? `Hi, ${ currentUser.username }!  🐾` : "Login" }</NavLink>
                 { currentUser? <NavLink to="/" ><Icon name='sign out' size='large' inverted color='black'></Icon></NavLink> : null}
             </div>
         </div>

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const currentUserSlice = createSlice({
     name: 'currentUser',
-    initialState: { name: 'Saki'},
+    initialState: { username: 'pukitaro'},
     reducers: {
         setCurrentUser(state, action) {
             state.value = action.payload

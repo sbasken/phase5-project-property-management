@@ -1,5 +1,5 @@
 import React from 'react'
-import { Segment, Grid, Form, Button } from 'semantic-ui-react'
+import { Grid, Form, Button } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate, Link } from 'react-router-dom';
@@ -59,7 +59,7 @@ const Login = () => {
                 value={formik.values.username}
                 onChange={formik.handleChange}
               />
-              <p style={{ color: "red" }}> {formik.errors.username}</p>
+              <p style={{ color: "orange" }}> {formik.errors.username}</p>
             </Form.Field>
             <br/>
             <Form.Field>
@@ -71,7 +71,7 @@ const Login = () => {
                 value={formik.values.password} 
                 onChange={formik.handleChange}
               />
-              <p style={{ color: "red" }}> {formik.errors.password}</p>
+              <p style={{ color: "orange" }}> {formik.errors.password}</p>
               </Form.Field>
               <br/>
               <Button 
