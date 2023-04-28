@@ -26,8 +26,7 @@ const Login = () => {
   })
 
   return (
-    <>
-    <Segment secondary>
+    <div className='ui container hidden divider'>
       <Grid >
         <Grid.Column >
           <Form onSubmit={formik.handleSubmit}>
@@ -64,9 +63,8 @@ const Login = () => {
           </Form>
         </Grid.Column>
       </Grid>
-    </Segment>
         <h4 style={{textAlign:'center'}}>No a panda yet? Sign up <a href="/signup">here</a></h4>
-    </>
+    </div>
   )
 }
 
