@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Icon, Image, Button } from 'semantic-ui-react'
 
 const PropertyCard = () => {
   return (
+    <>
     <Card 
         style={{ height: '320px' }}
         as={Link}
@@ -30,7 +31,9 @@ const PropertyCard = () => {
                 4 units
             </a>
         </Card.Content>
-  </Card>
+    </Card>
+    <Button>Notify Tenants</Button>
+  </>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from'react-redux'
-import { Grid, Menu, Icon, Button } from 'semantic-ui-react'
+import { Grid, Button } from 'semantic-ui-react'
 import PropertyCard from './PropertyCard'
 import { Link } from 'react-router-dom';
 
