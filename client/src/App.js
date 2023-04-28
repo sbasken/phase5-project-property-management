@@ -6,6 +6,8 @@ import PropertyPage from './components/PropertyPage';
 import ExpensePage from './components/ExpensePage';
 import Profile from './components/Profile';
 import Login from './components/Login';
+import Units from './components/Units';
+
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -23,6 +25,9 @@ function App() {
         <Route path='/expense' element={<ExpensePage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/units' element={<Units />} />
+        <Route path='/newProperty' element={<NewProperty />} />
+        <Route path='/newUnit' element={<NewUnit />} />
       </Routes>
       </div>
     </div>
