@@ -2,10 +2,12 @@ import React from 'react'
 import { Segment, Grid, Form, Button } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom';
+import { setCurrentUser } from '../features/currentUser/currentUserSlice';
 
 const Login = () => {
-
+  
+  console.log(setCurrentUser)
   const navigate = useNavigate();
 
   const formSchema = yup.object({
@@ -20,8 +22,24 @@ const Login = () => {
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
-      console.log(values)
-      navigate('/properties')
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+      .then(res => {
+        if (res.ok) {
+            res.json().then(
+              (user) => {
+                setCurrentUser(user)
+                navigate('/home')}
+            ) 
+        } else {
+        alert('Oops, username and password don\'t match');
+        }
+      })
     }
   })
 
@@ -63,7 +81,7 @@ const Login = () => {
           </Form>
         </Grid.Column>
       </Grid>
-        <h4 style={{textAlign:'center'}}>No a panda yet? Sign up <a href="/signup">here</a></h4>
+        <h4 style={{textAlign:'center'}}>No a panda yet? Sign up <Link to="/signup">here</Link></h4>
     </div>
   )
 }

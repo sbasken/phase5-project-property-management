@@ -1,8 +1,8 @@
-"""empty message
+"""Create tables
 
-Revision ID: 26d3a917e856
+Revision ID: be5b5f6e3f4e
 Revises: 
-Create Date: 2023-04-26 13:08:58.855084
+Create Date: 2023-04-28 08:48:33.520368
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '26d3a917e856'
+revision = 'be5b5f6e3f4e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,7 +31,7 @@ def upgrade():
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=False),
+    sa.Column('username', sa.String(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('_password_hash', sa.String(), nullable=False),
     sa.Column('type', sa.String(), nullable=True),
@@ -68,7 +68,7 @@ def upgrade():
     )
     op.create_table('expenses',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('data', sa.DateTime(), nullable=False),
+    sa.Column('date', sa.DateTime(), nullable=False),
     sa.Column('type', sa.String(), nullable=False),
     sa.Column('amount', sa.Float(), nullable=True),
     sa.Column('unit_id', sa.Integer(), nullable=False),

@@ -6,6 +6,7 @@ import PropertyPage from './components/PropertyPage';
 import ExpensePage from './components/ExpensePage';
 import Profile from './components/Profile';
 import Login from './components/Login';
+import Signup from './components/Signup';
 import Units from './components/Units';
 import NewProperty from './components/NewProperty';
 import NewUnit from './components/NewUnit';
@@ -26,6 +27,7 @@ function App() {
         <Route path='/properties' element={<PropertyPage />} />
         <Route path='/expense' element={<ExpensePage />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/units' element={<Units />} />
         <Route path='/newProperty' element={<NewProperty />} />

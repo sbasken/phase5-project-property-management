@@ -29,12 +29,12 @@ if __name__ == '__main__':
         for i in range(3):
 
             user = User(
-                name = fake.name(),
+                username = fake.user_name(),
                 email = fake.email(),
                 type = 'owner'
             )
 
-            user.password_hash = user.name + 'pw'
+            user.password_hash = user.username + 'pw'
             print("Committing owner data...")
             db.session.add(user)
             db.session.commit()
@@ -44,12 +44,12 @@ if __name__ == '__main__':
         print('Adding an agent...')
 
         user = User(
-            name = fake.name(), 
+            username = fake.user_name(), 
             email = fake.email(), 
             type = 'agent'
         )
 
-        user.password_hash = user.name + 'pw'
+        user.password_hash = user.username + 'pw'
         print("Committing agent data...")
         db.session.add(user)
         db.session.commit()
