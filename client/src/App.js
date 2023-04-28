@@ -7,6 +7,8 @@ import ExpensePage from './components/ExpensePage';
 import Profile from './components/Profile';
 import Login from './components/Login';
 import Units from './components/Units';
+import NewProperty from './components/NewProperty';
+import NewUnit from './components/NewUnit';
 
 import { Route, Routes } from "react-router-dom";
 
