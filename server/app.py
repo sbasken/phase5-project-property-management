@@ -55,7 +55,7 @@ class Login(Resource):
     def post(self):
         data = request.get_json()
 
-        check_user = User.query.filter(User.email == data['email']).first()
+        check_user = User.query.filter(User.username == data['username']).first()
         if not check_user:
             return {'error': 'Unauthorized'}, 401
         check_user.authenticate(data['password'])

@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import { NavLink } from'react-router-dom'
-import { useSelector } from'react-redux'
 import { Icon } from 'semantic-ui-react'
 
-const NavBar = () => {
+const NavBar = ({ currentUser, handleLogout }) => {
     const [ activeItem, setActiveItem ] = useState('home');
-
-    const currentUser = useSelector(state => state.currentUser)
     
     const handleItemClick = (e) => {
         setActiveItem(e.target.name)
@@ -66,7 +63,7 @@ const NavBar = () => {
                     active={activeItem === 'login'}
                     onClick={handleItemClick}
                 >{ currentUser ? `Hi, ${ currentUser.username }!  🐾` : "Login" }</NavLink>
-                { currentUser? <NavLink to="/" ><Icon name='sign out' size='large' inverted color='black'></Icon></NavLink> : null}
+                { currentUser? <Icon name='sign out' size='large' inverted color='black' onClick={handleLogout}></Icon> : null}
             </div>
         </div>
     )

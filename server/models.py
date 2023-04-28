@@ -8,7 +8,7 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-created_at', '-updated_at', '-_password_hash')
+    serialize_rules = ('-created_at', '-updated_at', '-_password_hash', '-properties', '-agent_properties')
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
@@ -48,7 +48,7 @@ class User(db.Model, SerializerMixin):
 class Property(db.Model, SerializerMixin):
     __tablename__ = 'properties'
 
-    serialize_rules = ('-created_at', '-updated_at')
+    serialize_rules = ('-created_at', '-updated_at', '-units')
 
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(db.String, nullable=False)
@@ -69,7 +69,7 @@ class Property(db.Model, SerializerMixin):
 class Unit(db.Model, SerializerMixin):
     __tablename__ = 'units'
 
-    serialize_rules = ('-created_at', '-updated_at')
+    serialize_rules = ('-created_at', '-updated_at', '-expenses', '-leases')
 
     id = db.Column(db.Integer, primary_key=True)
     unit_number = db.Column(db.String, nullable=False)
@@ -104,7 +104,7 @@ class Expense(db.Model, SerializerMixin):
 class Tenant(db.Model, SerializerMixin):
     __tablename__ = 'tenants'
 
-    serialize_rules = ('-created_at', '-updated_at', '-_password_hash')
+    serialize_rules = ('-created_at', '-updated_at', '-_password_hash', '-leases')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)

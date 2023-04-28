@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import propertiesReducer from '../features/properties/propertiesSlice'
-import currentUserReducer from '../features/currentUser/currentUserSlice'
+import { propertiesAPI } from '../features/properties/propertiesSlice'
 
 export const store = configureStore({
     reducer: {
-        properties: propertiesReducer,
-        currentUser: currentUserReducer
-    }
+        [propertiesAPI.reducerPath]: propertiesAPI.reducer,
+    },
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(propertiesAPI.middleware)
 })

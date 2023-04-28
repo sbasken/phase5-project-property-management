@@ -1,13 +1,15 @@
 import React from 'react'
-import { useSelector } from'react-redux'
 import { Grid, Button } from 'semantic-ui-react'
 import PropertyCard from './PropertyCard'
 import { Link } from 'react-router-dom';
 
+import { useFetchPropertiesQuery } from '../features/properties/propertiesSlice'
+
 const PropertyPage = () => {
 
-    const properties = useSelector(state => state.properties)
-    console.log(properties)
+    const { data=[], isLoading, isSuccess, isError, error } = useFetchPropertiesQuery()
+
+    console.log(data)
 
     return (
         <div className='ui container hidden divider'>

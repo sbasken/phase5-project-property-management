@@ -3,9 +3,8 @@ import { Grid, Form, Button } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate, Link } from 'react-router-dom';
-import { setCurrentUser } from '../features/currentUser/currentUserSlice';
 
-const Login = () => {
+const Login = ({ setCurrentUser }) => {
   
   console.log(setCurrentUser)
   const navigate = useNavigate();
