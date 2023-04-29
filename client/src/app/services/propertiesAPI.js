@@ -5,11 +5,34 @@ export const propertiesAPI = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:4000'
     }),
+    tagTypes: ['Property'],
     endpoints: builder => ({
         getProperties: builder.query({
-            query: () => '/properties'
+            query() {
+                return '/properties'
+            },
+            providesTags: ['Property']
+        }),
+        addProperty: builder.mutation({
+            query: (newProperty) => ({
+                url:'/properties',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: newProperty
+            }),
+            invalidatesTags: ['Property']
+        }),
+        deleteProperty: builder.mutation({
+            query: (id) => ({
+                url: `/properties/${id}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['Property']
         })
+
     })
 })
 
-export const { useGetPropertiesQuery } = propertiesAPI
+export const { useGetPropertiesQuery, useAddPropertyMutation, useDeletePropertyMutation } = propertiesAPI

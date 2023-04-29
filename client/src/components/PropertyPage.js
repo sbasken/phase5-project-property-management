@@ -22,11 +22,7 @@ const PropertyPage = () => {
     return (
         <div className='ui container hidden divider'>
             <Grid Columns={3} stackable>
-                <Grid.Column computer={7} tablet={16} mobile={16}>
-                    { content }
-                </Grid.Column>
-                <Grid.Column computer={7} tablet={16} mobile={16}>
-                </Grid.Column>
+                { content }
                 <Grid.Column width={2}>
                 <Button as={Link} to='/newProperty'>
                     Add More

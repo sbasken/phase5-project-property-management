@@ -54,7 +54,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/units' element={<Units />} />
-        <Route path='/newProperty' element={<NewProperty />} />
+        <Route path='/newProperty' element={<NewProperty currentUser={currentUser}/>} />
         <Route path='/newUnit' element={<NewUnit />} />
       </Routes>
       </div>

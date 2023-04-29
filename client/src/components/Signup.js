@@ -14,8 +14,7 @@ const Signup = () => {
         username: yup.string()
             .required('Required')
             .min(5, 'Username needs to be at least 5 characters long.')
-            .max(15, 'Username needs to be at least 5 characters long.')
-            .required('Required'),
+            .max(15, 'Username needs to be at least 5 characters long.'),
         email: yup.string()
             .required('Required')
             .email('Invalid email'),
