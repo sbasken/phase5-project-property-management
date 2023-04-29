@@ -1,24 +1,31 @@
 import React from 'react'
-import { Grid, Button } from 'semantic-ui-react'
 import PropertyCard from './PropertyCard'
+import { Grid, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
-import { useFetchPropertiesQuery } from '../features/properties/propertiesSlice'
+import { useGetPropertiesQuery } from '../app/services/propertiesAPI'
 
 const PropertyPage = () => {
 
-    const { data=[], isLoading, isSuccess, isError, error } = useFetchPropertiesQuery()
+    const { data: properties = [], isLoading, isSuccess, isError, error } = useGetPropertiesQuery()
 
-    console.log(data)
+    let content
+
+    if (isLoading) {
+        content = <h1>Loading...</h1>
+    } else if (isSuccess) {
+        content = properties.map(property => <PropertyCard key={property.id} property={property}/>)
+    } else if (isError) {
+        content = <div>{error.toString()}</div>
+    }
 
     return (
         <div className='ui container hidden divider'>
             <Grid Columns={3} stackable>
                 <Grid.Column computer={7} tablet={16} mobile={16}>
-                    <PropertyCard />
+                    { content }
                 </Grid.Column>
                 <Grid.Column computer={7} tablet={16} mobile={16}>
-                    <PropertyCard />
                 </Grid.Column>
                 <Grid.Column width={2}>
                 <Button as={Link} to='/newProperty'>

@@ -28,7 +28,6 @@ function App() {
           )}
       });
   }, []);
-  console.log(currentUser)
 
   const handleLogout = () => {
     fetch("/logout", {method: "DELETE"})

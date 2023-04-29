@@ -10,12 +10,14 @@ from models import User, Property, Unit, Expense, Tenant
 
 @app.before_request
 def is_Logged_in():
+    user_id = session.get('user_id')
     ok_list = [
         'signup',
         'login',
         'logout',
+        'check_session'
     ]
-    if not session.get('user_id') and request.endpoint not in ok_list:
+    if (not user_id) and (request.endpoint not in ok_list):
         return {'message': 'Please login or signup first'}, 401
 
 class Home(Resource):
@@ -78,7 +80,7 @@ class Properties(Resource):
         if found_user.type == 'owner':
             properties = [ p.to_dict() for p in Property.query.filter(Property.owner_id == session.get('user_id')).all() ]
             return make_response(properties, 200)
-        elif found_user.type == 'agent':
+        if found_user.type == 'agent':
             properties = [ p.to_dict() for p in Property.query.filter(Property.agent_id == session.get('user_id')).all() ]
             return make_response(properties, 200)
     
@@ -170,6 +172,12 @@ class UnitByID(Resource):
         return {'error': 'Unauthorized'}, 401
     
 class Expenses(Resource):
+
+    def get(self):
+        found_user = User.query.filter(User.id == session.get('user_id')).first()
+        if found_user.type == 'owner':
+            expense_list = [ exp.to_dict() for exp in Expense.query.filter(Property.owner_id == session.get('user_id')).all() ]
+            return expense_list        
 
     def post(self):
         data = request.get_json()
@@ -268,10 +276,10 @@ class LeaseByID(Resource):
 
 api.add_resource(Home, '/')
 api.add_resource(Signup, '/signup')
-api.add_resource(CheckSession, '/check_session')
+api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
-api.add_resource(Properties, '/properties')
+api.add_resource(Properties, '/properties', endpoint='properties')
 api.add_resource(Units, '/units')
 api.add_resource(UnitByID, '/unit/<int:id>')
 api.add_resource(Expenses, '/expenses')

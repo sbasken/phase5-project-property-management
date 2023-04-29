@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { propertiesAPI } from '../features/properties/propertiesSlice'
+import { propertiesAPI } from './services/propertiesAPI'
+
 
 export const store = configureStore({
     reducer: {
