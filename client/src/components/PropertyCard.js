@@ -39,7 +39,7 @@ const PropertyCard = ({ property }) => {
                     <Icon name='delete' />
                 </Button.Content>
             </Button>
-            <Button animated='fade' floated='right'>
+            <Button animated='fade' floated='right' as={Link} to={`/properties/${property.id}`}>
                 <Button.Content visible>Edit</Button.Content>
                 <Button.Content hidden>
                     <Icon name='edit' />

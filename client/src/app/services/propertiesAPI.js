@@ -13,6 +13,9 @@ export const propertiesAPI = createApi({
             },
             providesTags: ['Property']
         }),
+        getProperty: builder.query({
+            query: (id) => `/properties/${id}`
+        }),
         addProperty: builder.mutation({
             query: (newProperty) => ({
                 url:'/properties',
@@ -30,9 +33,11 @@ export const propertiesAPI = createApi({
                 method: 'DELETE'
             }),
             invalidatesTags: ['Property']
-        })
+        }),
+        // updateProperty: builder.mutation({
+        // })
 
     })
 })
 
-export const { useGetPropertiesQuery, useAddPropertyMutation, useDeletePropertyMutation } = propertiesAPI
+export const { useGetPropertiesQuery, useGetPropertyQuery, useAddPropertyMutation, useDeletePropertyMutation } = propertiesAPI

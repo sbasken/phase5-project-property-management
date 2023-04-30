@@ -106,6 +106,10 @@ class Properties(Resource):
         
 class PropertyByID(Resource):
 
+    def get(self, id):
+        found_property = Property.query.filter(Property.id == id).first()
+        return make_response(found_property.to_dict(), 200)
+
     def patch(self, id):
         data = request.get_json()
         to_update = Property.query.filter(Property.id == id).first()

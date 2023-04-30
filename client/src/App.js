@@ -14,6 +14,7 @@ import NewUnit from './components/NewUnit';
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
 import { useNavigate } from 'react-router-dom'
+import EditProperty from './components/EditProperty';
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
@@ -49,12 +50,13 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/properties' element={<PropertyPage />} />
+        <Route path='/properties/:id' element={<EditProperty currentUser={currentUser}/>} />
+        <Route path='/newProperty' element={<NewProperty currentUser={currentUser}/>} />
         <Route path='/expense' element={<ExpensePage />} />
         <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/units' element={<Units />} />
-        <Route path='/newProperty' element={<NewProperty currentUser={currentUser}/>} />
         <Route path='/newUnit' element={<NewUnit />} />
       </Routes>
       </div>
