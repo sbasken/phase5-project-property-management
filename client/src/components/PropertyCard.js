@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Image, Grid, Button, Icon } from 'semantic-ui-react'
+import { Card, Image, Grid, Button, Icon, Confirm } from 'semantic-ui-react'
 
 import { useDeletePropertyMutation } from '../app/services/propertiesAPI'
 
 const PropertyCard = ({ property }) => {
-
     const [ deleteProperty ] = useDeletePropertyMutation()
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     function handleDeleteClick() {
+        handleOpen();
+    }
+
+    function handleConfirm() {
         deleteProperty(property.id)
+        handleClose();
+    }
+
+    function handleCancel() {
+        handleClose();
     }
 
   return (
@@ -51,6 +63,11 @@ const PropertyCard = ({ property }) => {
                     <Icon name='folder open outline' />
                 </Button.Content>
             </Button>
+            <Confirm
+              open={open}
+              onCancel={handleCancel}
+              onConfirm={handleConfirm}
+            />
             </div>
         </Card>
     </Grid.Column>
