@@ -34,10 +34,28 @@ export const propertiesAPI = createApi({
             }),
             invalidatesTags: ['Property']
         }),
-        // updateProperty: builder.mutation({
-        // })
+        editProperty: builder.mutation({
+            query: updatedProperty => {
+                console.log('in editProperty', updatedProperty);
+                return {
+                  url: `/properties/${updatedProperty.id}`,
+                  method: 'PATCH',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(updatedProperty)
+                }
+              },
+              invalidatesTags: ['Property']
+        })
 
     })
 })
 
-export const { useGetPropertiesQuery, useGetPropertyQuery, useAddPropertyMutation, useDeletePropertyMutation } = propertiesAPI
+export const {
+     useGetPropertiesQuery, 
+     useGetPropertyQuery, 
+     useAddPropertyMutation, 
+     useDeletePropertyMutation,
+     useEditPropertyMutation
+} = propertiesAPI

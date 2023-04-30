@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import * as yup from "yup";
 
 const NewProperty = ({ currentUser }) => {
-    const [ addProperty, { isLoading } ] = useAddPropertyMutation()
+    const [ addProperty, isLoading, isError, error ] = useAddPropertyMutation()
     let navigate = useNavigate();
 
     const formSchema = yup.object().shape({
@@ -50,6 +50,14 @@ const NewProperty = ({ currentUser }) => {
         }
     })
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (isError) {
+        return <div>Error: {error.message}</div>;
+    }
+
   return (
     <div className='ui container hidden divider'>
         <h1>New Property Info</h1>
@@ -64,7 +72,7 @@ const NewProperty = ({ currentUser }) => {
                         value={formik.values.nickname}
                         onChange={formik.handleChange}
                     />
-                    <p style={{ color: "orange" }}> {formik.errors.username}</p>
+                    <p style={{ color: "orange" }}> {formik.errors.nickname}</p>
                 </Form.Field>
                 <Form.Field validate>
                     <label>Latitude</label>
@@ -75,7 +83,7 @@ const NewProperty = ({ currentUser }) => {
                         value={formik.values.latitude}
                         onChange={formik.handleChange}
                     />
-                    <p style={{ color: "orange" }}> {formik.errors.username}</p>
+                    <p style={{ color: "orange" }}> {formik.errors.latitude}</p>
                 </Form.Field>
                 <Form.Field validate>
                     <label>Longitude</label>
@@ -86,7 +94,7 @@ const NewProperty = ({ currentUser }) => {
                         value={formik.values.longitude}
                         onChange={formik.handleChange}
                     />
-                    <p style={{ color: "orange" }}> {formik.errors.username}</p>
+                    <p style={{ color: "orange" }}> {formik.errors.longitude}</p>
                 </Form.Field>
             </Form.Group>
             <Form.Group widths='equal'>
@@ -99,7 +107,7 @@ const NewProperty = ({ currentUser }) => {
                         value={formik.values.address}
                         onChange={formik.handleChange}
                     />
-                    <p style={{ color: "orange" }}> {formik.errors.username}</p>
+                    <p style={{ color: "orange" }}> {formik.errors.address}</p>
                 </Form.Field>
             </Form.Group>
             <Form.Group widths='equal'>
@@ -112,7 +120,7 @@ const NewProperty = ({ currentUser }) => {
                         value={formik.values.image_url}
                         onChange={formik.handleChange}
                     />
-                    <p style={{ color: "orange" }}> {formik.errors.username}</p>
+                    <p style={{ color: "orange" }}> {formik.errors.image_url}</p>
                 </Form.Field>
                 <Form.Field validate>
                     <label>Owner ID</label>
@@ -123,7 +131,7 @@ const NewProperty = ({ currentUser }) => {
                         value={formik.values.owner_id}
                         onChange={formik.handleChange}
                     />
-                    <p style={{ color: "orange" }}> {formik.errors.username}</p>
+                    <p style={{ color: "orange" }}> {formik.errors.owner_id}</p>
                 </Form.Field>
                 <Form.Field validate>
                     <label>Agent ID</label>
@@ -134,7 +142,7 @@ const NewProperty = ({ currentUser }) => {
                         value={formik.values.agent_id}
                         onChange={formik.handleChange}
                     />
-                    <p style={{ color: "orange" }}> {formik.errors.username}</p>
+                    <p style={{ color: "orange" }}> {formik.errors.agent_id}</p>
                 </Form.Field>
             </Form.Group>
             <Button type='submit'>Submit</Button>

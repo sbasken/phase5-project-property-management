@@ -112,12 +112,18 @@ class PropertyByID(Resource):
 
     def patch(self, id):
         data = request.get_json()
+        print("data", data)
         to_update = Property.query.filter(Property.id == id).first()
+        print(to_update)
         if to_update:
             for key in data:
+                print(key)
                 setattr(to_update, key, data[key])
-                db.session.add(to_update)
-                db.session.commit()
+            print("adding")
+            db.session.add(to_update)
+            print("committing")
+            db.session.commit()
+            return make_response(to_update.to_dict(), 200)
         else:
             return {'error': 'Property not found'}, 404
 

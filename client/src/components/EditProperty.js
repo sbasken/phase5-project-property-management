@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Button, Form } from 'semantic-ui-react'
-import { useGetPropertyQuery } from '../app/services/propertiesAPI';
+import { useGetPropertyQuery, useEditPropertyMutation } from '../app/services/propertiesAPI';
 // import { useEditPropertyMutation } from '../app/services/propertiesAPI';
 
 import { useFormik } from "formik";
@@ -11,7 +11,9 @@ const EditProperty = ({ currentUser }) => {
     // const [ editProperty ] = useEditPropertyMutation()
     const navigate = useNavigate();
     const { id } = useParams();
+    const propertyId = parseInt(id);
     const { data: property = [], isLoading, isSuccess, isError, error } = useGetPropertyQuery(id)
+    const [ editProperty ] = useEditPropertyMutation()
 
 
     const formSchema = yup.object().shape({
@@ -20,9 +22,11 @@ const EditProperty = ({ currentUser }) => {
             .min(5, 'Nicknamename needs to be at least 5 characters long.')
             .max(15, 'Nicknamename needs to be at least 5 characters long.'),
         latitude: yup.number()
+            .nullable()
             .min(-90, 'Latitude must be greater than or equal to -90')
             .max(90, 'Latitude must be less than or equal to 90'),
         longitude: yup.number()
+            .nullable()
             .min(-180, 'Longitude must be greater than or equal to -180')
             .max(180, 'Longitude must be less than or equal to 180'),
         address: yup.string()
@@ -34,6 +38,7 @@ const EditProperty = ({ currentUser }) => {
     
     const formik = useFormik({
         initialValues: {
+            id: 0,
             nickname: '',
             latitude: 0,
             longitude: 0,
@@ -44,11 +49,15 @@ const EditProperty = ({ currentUser }) => {
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
+            // console.log(values)
+            console.log(values.id)
             console.log("Updating property...")
             if (formik.isValid) {
-                // editProperty(values)
-                console.log("User successfully updated!")
-                navigate('/properties')
+                editProperty(values)
+                .then(() => {
+                    console.log("Property successfully updated!")
+                    navigate('/properties')
+                })
             }
         }
     })
@@ -56,6 +65,7 @@ const EditProperty = ({ currentUser }) => {
     useEffect(() => {
         if (isSuccess) {
           formik.setValues({
+            id: property.id,
             nickname: property.nickname,
             latitude: property.latitude,
             longitude: property.longitude,
@@ -82,6 +92,14 @@ const EditProperty = ({ currentUser }) => {
         <h1>Edit Your Property Details</h1>
         <Form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
             <Form.Group widths='equal'>
+                <Form.Field>
+                    <label>Property ID</label>
+                    <input 
+                        name="id"
+                        placeholder='ID' 
+                        value={formik.values.id}
+                    />
+                 </Form.Field>
                 <Form.Field validate>
                     <label>Nickname</label>
                     <input 
