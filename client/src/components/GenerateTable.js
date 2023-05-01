@@ -3,7 +3,6 @@ import { Table, Icon } from 'semantic-ui-react';
 const GenerateTable = () => {
   return (
     <div className='ui container hidden divider'>
-        <h1>Property 1</h1>
         <Table columns={5} unstackable>
             <Table.Header>
             <Table.Row>

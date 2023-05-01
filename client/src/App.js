@@ -10,11 +10,11 @@ import Signup from './components/Signup';
 import Units from './components/Units';
 import NewProperty from './components/NewProperty';
 import NewUnit from './components/NewUnit';
+import EditProperty from './components/EditProperty';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
 import { useNavigate } from 'react-router-dom'
-import EditProperty from './components/EditProperty';
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
@@ -51,12 +51,12 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/properties' element={<PropertyPage />} />
         <Route path='/properties/:id' element={<EditProperty currentUser={currentUser}/>} />
+        <Route path='/properties/:id/units' element={<Units />} />
         <Route path='/newProperty' element={<NewProperty currentUser={currentUser}/>} />
         <Route path='/expense' element={<ExpensePage />} />
         <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/properties/:id/units' element={<Units />} />
         <Route path='/newUnit' element={<NewUnit />} />
       </Routes>
       </div>
