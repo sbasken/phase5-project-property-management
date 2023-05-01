@@ -56,7 +56,7 @@ function App() {
         <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/units' element={<Units />} />
+        <Route path='/properties/:id/units' element={<Units />} />
         <Route path='/newUnit' element={<NewUnit />} />
       </Routes>
       </div>
