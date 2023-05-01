@@ -78,7 +78,7 @@ class Properties(Resource):
 
         found_user = User.query.filter(User.id == session.get('user_id')).first()
         if found_user.type == 'owner':
-            properties = [ p.to_dict() for p in Property.query.filter(Property.owner_id == session.get('user_id')).all() ]
+            properties = [ p.to_dict(rules=('units','units.expenses')) for p in Property.query.filter(Property.owner_id == session.get('user_id')).all() ]
             return make_response(properties, 200)
         if found_user.type == 'agent':
             properties = [ p.to_dict() for p in Property.query.filter(Property.agent_id == session.get('user_id')).all() ]
@@ -108,7 +108,7 @@ class PropertyByID(Resource):
 
     def get(self, id):
         found_property = Property.query.filter(Property.id == id).first()
-        return make_response(found_property.to_dict(), 200)
+        return make_response(found_property.to_dict(rules=('units','units.expenses')), 200)
 
     def patch(self, id):
         data = request.get_json()

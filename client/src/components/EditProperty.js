@@ -11,7 +11,6 @@ const EditProperty = ({ currentUser }) => {
     // const [ editProperty ] = useEditPropertyMutation()
     const navigate = useNavigate();
     const { id } = useParams();
-    const propertyId = parseInt(id);
     const { data: property = [], isLoading, isSuccess, isError, error } = useGetPropertyQuery(id)
     const [ editProperty ] = useEditPropertyMutation()
 
@@ -49,7 +48,6 @@ const EditProperty = ({ currentUser }) => {
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
-            // console.log(values)
             console.log(values.id)
             console.log("Updating property...")
             if (formik.isValid) {

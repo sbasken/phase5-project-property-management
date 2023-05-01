@@ -57,7 +57,12 @@ const PropertyCard = ({ property }) => {
                     <Icon name='edit' />
                 </Button.Content>
             </Button>
-            <Button animated='fade' floated='right' as={Link} to='/units'>
+            <Button 
+                animated='fade' 
+                floated='right' 
+                as={Link} 
+                to={`/properties/${property.id}/units`}
+            >
                 <Button.Content visible>See Details</Button.Content>
                 <Button.Content hidden>
                     <Icon name='folder open outline' />
