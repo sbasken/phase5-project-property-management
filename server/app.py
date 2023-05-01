@@ -108,7 +108,7 @@ class PropertyByID(Resource):
 
     def get(self, id):
         found_property = Property.query.filter(Property.id == id).first()
-        return make_response(found_property.to_dict(rules=('units','units.expenses')), 200)
+        return make_response(found_property.to_dict(rules=('units','units.expenses', 'units.leases')), 200)
 
     def patch(self, id):
         data = request.get_json()
@@ -154,6 +154,11 @@ class Units(Resource):
         return {'error': 'Unauthorized'}, 401
     
 class UnitByID(Resource):
+
+    def get(self, id):
+        found_unit = Unit.query.filter(Unit.id == id).first()
+        return make_response(found_unit.to_dict(), 200)
+
 
     def patch(self, id):
         found_user = User.query.filter(User.id == session.get('user_id')).first()

@@ -11,6 +11,7 @@ const Units = () => {
   const units = property.units
 
   const noUnitsYetMessage = (
+    // <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h1>You have no units for this property yet.</h1>
       <Button animated='fade'>
@@ -31,10 +32,10 @@ const Units = () => {
     
       { units && units.length > 0 ? 
       <>
-        <Grid Columns={3} stackable>
+        <Grid Columns={2} stackable>
           { units.map(unit => <UnitCard key={unit.id} unit={unit}/>) }
     
-          <Grid.Column width={2}>
+          <Grid.Column width={1}>
             <Button animated='fade'>
               <Button.Content visible>Add More</Button.Content>
               <Button.Content hidden>
