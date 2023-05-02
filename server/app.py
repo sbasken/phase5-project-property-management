@@ -218,6 +218,7 @@ class ExpenseByID(Resource):
                 setattr(to_update, key, data[key])
                 db.session.add(to_update)
                 db.session.commit()
+            return make_response(to_update.to_dict(), 200)
         else:
             return {'error': 'Expense not found'}, 404
     

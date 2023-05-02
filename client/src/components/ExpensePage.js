@@ -25,7 +25,7 @@ const ExpensePage = () => {
                 </Menu>
             </Grid.Column>
             <Grid.Column width={13}>
-                <GenerateTable properties={properties}/>
+                <GenerateTable />
             </Grid.Column>
 
         </Grid>

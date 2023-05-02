@@ -16,8 +16,7 @@ export const expensesAPI = createApi({
         getExpense: builder.query({
             query: (id) => ({
                 url: `/expenses/${id}`
-            }),
-            providesTags: ['Expense']
+            })
         }),
         addExpense: builder.mutation({
             query: (newExpense) => ({
