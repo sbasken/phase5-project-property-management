@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import GenerateTable from './GenerateTable'
-import { Grid, Menu } from 'semantic-ui-react'
+import { Grid, Menu, Button, Icon } from 'semantic-ui-react'
+
 
 import { useGetPropertiesQuery } from '../app/services/propertiesAPI'
 
@@ -35,6 +37,15 @@ const ExpensePage = () => {
                     />
                     {menu_items}
                 </Menu>
+                { category? <>
+                <Button animated='fade'>
+                    <Button.Content visible>Generate Report</Button.Content>
+                    <Button.Content hidden>
+                    <Link to='/properties/:id/units/add-new'>
+                        <Icon name='clipboard list'/>
+                    </Link>
+                    </Button.Content>
+                </Button></> : null}
             </Grid.Column>
             <Grid.Column width={13}>
                 <GenerateTable category={category}/>
