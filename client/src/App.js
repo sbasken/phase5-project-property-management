@@ -10,12 +10,12 @@ import Signup from './components/Signup';
 import Units from './components/Units';
 import NewProperty from './components/NewProperty';
 import NewUnit from './components/NewUnit';
+import EditProperty from './components/EditProperty';
 import NewExpense from './components/NewExpense';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
 import { useNavigate } from 'react-router-dom'
-import EditProperty from './components/EditProperty';
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
