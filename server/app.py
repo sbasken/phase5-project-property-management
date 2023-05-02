@@ -193,7 +193,7 @@ class Expenses(Resource):
         user_id = session.get('user_id')
         found_user = User.query.filter_by(id=user_id).first()
         if found_user.type == 'owner':
-            expenses = Expense.query.join(Property).filter(Property.owner_id == user_id).all()
+            expenses = Expense.query.join(Property).filter(Property.owner_id == user_id).order_by(Expense.date).all()
             expense_list = [exp.to_dict() for exp in expenses]
             return expense_list
 
