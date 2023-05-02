@@ -1,12 +1,11 @@
 import React from 'react'
 import GenerateTable from './GenerateTable'
-import { Grid, Menu, Button, Pagination } from 'semantic-ui-react'
+import { Grid, Menu } from 'semantic-ui-react'
 
 import { useGetPropertiesQuery } from '../app/services/propertiesAPI'
 
 const ExpensePage = () => {
     const { data: properties = [], isLoading, isSuccess, isError, error } = useGetPropertiesQuery()
-
     const menu_items = properties.map(property => {
         return (
         <Menu.Item
@@ -26,7 +25,7 @@ const ExpensePage = () => {
                 </Menu>
             </Grid.Column>
             <Grid.Column width={13}>
-                <GenerateTable />
+                <GenerateTable properties={properties}/>
             </Grid.Column>
 
         </Grid>

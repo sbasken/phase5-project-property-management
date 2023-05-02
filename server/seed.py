@@ -85,14 +85,15 @@ if __name__ == '__main__':
 
         print('Creating expenses...')
         expenses = []
-        types = ['maintenance', 'repairs', 'management fees', 'insurance', 'interest','mortgage' ]
+        expense_type = ['maintenance', 'repairs', 'management fees', 'insurance', 'interest','mortgage' ]
 
         for i in range(10):
             expense = Expense(
                 date = fake.date_this_year(),
-                type = random.choice(types),
+                expense_type = random.choice(expense_type),
                 amount = random.randint(0, 1000),
-                unit_id = random.randint(1, 2)
+                unit_id = random.randint(1, 2),
+                property_id = random.randint(1, 2)
             )
             print("Committing expense data...")
             db.session.add(expense)

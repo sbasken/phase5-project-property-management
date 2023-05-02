@@ -14,7 +14,10 @@ export const expensesAPI = createApi({
             providesTags: ['Expense']
         }),
         getExpense: builder.query({
-            query: (id) => `/expenses/${id}`
+            query: (id) => ({
+                url: `/expenses/${id}`
+            }),
+            providesTags: ['Expense']
         }),
         addExpense: builder.mutation({
             query: (newExpense) => ({
@@ -36,7 +39,7 @@ export const expensesAPI = createApi({
         }),
         editExpense: builder.mutation({
             query: updatedExpense => {
-                console.log('in editExpense', updatedExpense);
+                // console.log('in editExpense', updatedExpense);
                 return {
                   url: `/expenses/${updatedExpense.id}`,
                   method: 'PATCH',

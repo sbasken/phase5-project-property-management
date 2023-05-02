@@ -27,7 +27,6 @@ const NewProperty = ({ currentUser }) => {
             .required('No address provided.'),
         image_url: yup.string(),
         owner_id: yup.number()
-            .required("The terms and conditions must be accepted."),
       })
 
     const formik = useFormik({

@@ -3,6 +3,7 @@
 from flask import jsonify, make_response, request, session
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
+from datetime import datetime
 
 
 from config import app, api, db
@@ -191,11 +192,16 @@ class Expenses(Resource):
 
     def post(self):
         data = request.get_json()
+        print(data)
+
+        date_str = data['date']
+        date_obj = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S.%fZ')
 
         new_expense = Expense(
-            date = data['date'],
-            type = data['type'],
+            date=date_obj,
+            expense_type = data['expense_type'],
             amount = data['amount'],
+            property_id = data['property_id'],
             unit_id = data['unit_id']
         )
         db.session.add(new_expense)

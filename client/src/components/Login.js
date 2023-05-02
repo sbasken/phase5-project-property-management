@@ -33,7 +33,7 @@ const Login = ({ setCurrentUser }) => {
             res.json().then(
               (user) => {
                 setCurrentUser(user)
-                navigate('/home')}
+                navigate('/properties')}
             ) 
         } else {
         alert('Oops, username and password don\'t match');
