@@ -16,8 +16,12 @@ const GenerateTable = () => {
                 <Table.Cell>{expense.unit_id ? expense.unit_id : 'BLDG'}</Table.Cell>
                 <Table.Cell>{expense.property_id}</Table.Cell>
                 <Table.Cell textAlign='right'>
-                    <Icon name='edit' size='large'></Icon>
-                    <Icon name='trash alternate' size='large'></Icon>
+                    <Link to={`/expenses/${expense.id}`}>
+                        <Icon name='edit' size='large'/>
+                    </Link>
+                    <Link >
+                        <Icon name='trash alternate' size='large' />
+                    </Link>
                 </Table.Cell>
             </Table.Row>
         );
@@ -35,7 +39,7 @@ const GenerateTable = () => {
                 <Table.HeaderCell>Unit ID</Table.HeaderCell>
                 <Table.HeaderCell>Property ID</Table.HeaderCell>
                 <Table.HeaderCell textAlign='right'>
-                    <Button as={Link} to={'/expense/add-new'}>
+                    <Button as={Link} to={'/expenses/add-new'}>
                        ＋
                     </Button>
                     

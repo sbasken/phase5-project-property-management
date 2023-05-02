@@ -17,7 +17,9 @@ const Units = () => {
       <Button animated='fade'>
         <Button.Content visible>Add Unit</Button.Content>
         <Button.Content hidden>
-          <Icon name='key' />
+          <Link to='/properties/:id/units/add-new'>
+            <Icon name='key'/>
+          </Link>
         </Button.Content>
       </Button>
       <br></br>

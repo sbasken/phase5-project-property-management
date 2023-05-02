@@ -44,7 +44,7 @@ const NewProperty = ({ currentUser }) => {
             console.log("Creating a new property...")
             if (formik.isValid) {
                 addProperty(values)
-                console.log("User successfully created!")
+                console.log("Property successfully created!")
                 navigate('/properties')
             }
         }

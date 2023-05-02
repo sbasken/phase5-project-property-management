@@ -79,10 +79,10 @@ class Properties(Resource):
 
         found_user = User.query.filter(User.id == session.get('user_id')).first()
         if found_user.type == 'owner':
-            properties = [ p.to_dict(rules=('units','units.expenses')) for p in Property.query.filter(Property.owner_id == session.get('user_id')).all() ]
+            properties = [ p.to_dict(rules=('units','units.expenses')) for p in Property.query.filter(Property.owner_id == found_user.id).all() ]
             return make_response(properties, 200)
         if found_user.type == 'agent':
-            properties = [ p.to_dict() for p in Property.query.filter(Property.agent_id == session.get('user_id')).all() ]
+            properties = [ p.to_dict() for p in Property.query.filter(Property.agent_id == found_user.id).all() ]
             return make_response(properties, 200)
     
     def post(self):
@@ -190,10 +190,12 @@ class UnitByID(Resource):
 class Expenses(Resource):
 
     def get(self):
-        found_user = User.query.filter(User.id == session.get('user_id')).first()
+        user_id = session.get('user_id')
+        found_user = User.query.filter_by(id=user_id).first()
         if found_user.type == 'owner':
-            expense_list = [ exp.to_dict() for exp in Expense.query.filter(Property.owner_id == session.get('user_id')).all() ]
-            return expense_list        
+            expenses = Expense.query.join(Property).filter(Property.owner_id == user_id).all()
+            expense_list = [exp.to_dict() for exp in expenses]
+            return expense_list
 
     def post(self):
         data = request.get_json()
@@ -215,17 +217,26 @@ class Expenses(Resource):
 
 class ExpenseByID(Resource):
 
+    def get(self, id):
+        found_expense = Expense.query.filter(Expense.id == id).first()
+        return make_response(found_expense.to_dict(), 200)
+
     def patch(self, id):
         data = request.get_json()
         to_update = Expense.query.filter(Expense.id == id).first()
         if to_update:
+            if 'date' in data:
+                date_str = data['date']
+                date_obj = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+                data['date'] = date_obj
             for key in data:
                 setattr(to_update, key, data[key])
-                db.session.add(to_update)
-                db.session.commit()
+            db.session.add(to_update)
+            db.session.commit()
             return make_response(to_update.to_dict(), 200)
         else:
             return {'error': 'Expense not found'}, 404
+
     
     def delete(self, id):
 
@@ -306,7 +317,7 @@ api.add_resource(PropertyByID, '/properties/<int:id>', endpoint='properties/<int
 api.add_resource(Units, '/units')
 api.add_resource(UnitByID, '/unit/<int:id>')
 api.add_resource(Expenses, '/expenses')
-api.add_resource(ExpenseByID, '/expense/<int:id>')
+api.add_resource(ExpenseByID, '/expenses/<int:id>')
 api.add_resource(Tenants, '/tenants')
 api.add_resource(TenantByID, '/tenant/<int:id>')
 

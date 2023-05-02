@@ -12,6 +12,7 @@ import NewProperty from './components/NewProperty';
 import NewUnit from './components/NewUnit';
 import EditProperty from './components/EditProperty';
 import NewExpense from './components/NewExpense';
+import EditExpense from './components/EditExpense';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
@@ -53,13 +54,14 @@ function App() {
         <Route path='/properties' element={<PropertyPage />} />
         <Route path='/properties/:id' element={<EditProperty currentUser={currentUser}/>} />
         <Route path='/properties/:id/units' element={<Units />} />
-        <Route path='/newProperty' element={<NewProperty currentUser={currentUser}/>} />
-        <Route path='/expense' element={<ExpensePage />} />
-        <Route path='/expense/add-new' element={<NewExpense />} />
+        <Route path='/properties/add-new' element={<NewProperty currentUser={currentUser}/>} />
+        <Route path='/expenses' element={<ExpensePage />} />
+        <Route path='/expenses/add-new' element={<NewExpense />} />
+        <Route path='/expenses/:id' element={<EditExpense/>} />
         <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/newUnit' element={<NewUnit />} />
+        <Route path='/properties/:id/units/add-new' element={<NewUnit />} />
       </Routes>
       </div>
     </div>

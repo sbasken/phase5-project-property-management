@@ -38,9 +38,9 @@ const NavBar = ({ currentUser, handleLogout }) => {
                 >Property</NavLink>
                 <NavLink 
                     className="item" 
-                    to="/expense"
-                    name='expense'
-                    active={activeItem === 'expense'}
+                    to="/expenses"
+                    name='expenses'
+                    active={activeItem === 'expenses'}
                     onClick={handleItemClick}
                 >
                 Expense </NavLink>

@@ -1,23 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 
 import { Button, Form } from 'semantic-ui-react'
-import { useAddExpenseMutation } from '../app/services/expensesAPI';
+import { useGetExpenseQuery, useEditExpenseMutation } from '../app/services/expensesAPI';
 import { useGetPropertiesQuery } from '../app/services/propertiesAPI';
 import { useFormik } from "formik";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import * as yup from "yup";
 import 'react-datepicker/dist/react-datepicker.css';
 
-const NewExpense = () => {
-    const [ addExpense, isLoading, isError, error ] = useAddExpenseMutation()
+const EditExpense = () => {
+    const [ editExpense ] = useEditExpenseMutation();
     const { data: properties = [] } = useGetPropertiesQuery()
     const units = properties.map( property => property.units)
     // console.log('NewExpense: properties', properties)
     // console.log('NewExpense: units', units[0])
     const navigate = useNavigate();
-
+    const { id } = useParams();
+    const { data: expense = [], isSuccess, isLoading, isError, error } = useGetExpenseQuery(id);
+    console.log(expense)
+    
     const propertyOptions = properties.map(property => ({
         key: `${property.nickname} BLDG`,
         text: `${property.nickname} BLDG`,
@@ -46,6 +49,7 @@ const NewExpense = () => {
 
     const formik = useFormik({
         initialValues: {
+            id: 0,
             date: '',
             expense_type: '',
             amount: 0,
@@ -57,30 +61,59 @@ const NewExpense = () => {
             console.log(values)
             console.log("Creating a new expense item...")
             if (formik.isValid) {
-                addExpense(values)
-                console.log("Expense item successfully created!")
-                navigate('/expenses')
+                editExpense(values)
+                .then(() => {
+                    console.log("Expense successfully updated!")
+                    navigate('/expenses')
+                })
             }
         }
     })
 
+    console.log(expense.date)
+    useEffect(() => {
+        if (isSuccess) {
+          formik.setValues({
+            id: expense.id,
+            date: new Date(expense.date),
+            expense_type: expense.expense_type,
+            amount: expense.amount,
+            property_id: expense.property_id,
+            unit_id: expense.unit_id
+          });
+        }
+    }, [expense, isSuccess]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
     if (isError) {
         return <div>Error: {error.message}</div>;
     }
+
 
   return (
     <div className='ui container hidden divider'>
         <h1>New Expense Info</h1>
         <Form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
             <Form.Group widths='equal'>
-            <Form.Field validate>
-                <label>Date</label>
-                <DatePicker
-                    name="date"
-                    selected={formik.values.date}
-                    onChange={(date) => formik.setFieldValue('date', date)}
-                    dateFormat="yyyy-MM-dd"
-                    placeholderText="Date"
+                <Form.Field>
+                    <label>Expense ID</label>
+                    <input 
+                        name="id"
+                        placeholder='ID' 
+                        value={formik.values.id}
+                    />
+                 </Form.Field>
+                <Form.Field validate>
+                    <label>Date</label>
+                    <DatePicker
+                        name="date"
+                        selected={formik.values.date}
+                        onChange={(date) => formik.setFieldValue('date', date)}
+                        dateFormat="yyyy-MM-dd"
+                        placeholderText="Date"
                 />
                 <p style={{ color: 'orange' }}> {formik.errors.date}</p>
                 </Form.Field>
@@ -149,4 +182,4 @@ const NewExpense = () => {
   )
 }
 
-export default NewExpense
+export default EditExpense
