@@ -1,18 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Table, Icon, Button, Confirm } from 'semantic-ui-react';
 import { useGetExpensesQuery, useDeleteExpenseMutation } from '../app/services/expensesAPI';
 
-const GenerateTable = () => {
+const GenerateTable = ({ category }) => {
     const { data: expenses = [], isLoading } = useGetExpensesQuery();
+    const [ filteredExpenses, setFilteredExpenses ] = useState([])
     const [ deleteExpense ] = useDeleteExpenseMutation();
     const [ open, setOpen ] = useState(false);
     const [ expenseId, setExpenseId ] = useState(null);
 
+    useEffect(() => {
+        const filteredList = expenses.filter(expense => {
+          if (category === null) {
+            return expense;
+          } else {
+            return expense.property_id === category;
+          }
+        });
+        setFilteredExpenses(filteredList);
+    }, [expenses, category]);
+
     const handleOpen = (id) => {
         setExpenseId(id);
         setOpen(true);
-      };
+    };
+
     const handleClose = () => {
         setExpenseId(null);
         setOpen(false)
@@ -27,10 +40,10 @@ const GenerateTable = () => {
         handleClose();
     }
 
-    const tableRow = expenses.map(expense => {
+    const tableRow = filteredExpenses.map(expense => {
         const expenseDate = new Date(expense.date);
         return (
-            <Table.Row>
+            <Table.Row key={expense.id}>
                 <Table.Cell>{expenseDate.toLocaleDateString()}</Table.Cell>
                 <Table.Cell>{expense.expense_type}</Table.Cell>
                 <Table.Cell>{expense.amount}</Table.Cell>

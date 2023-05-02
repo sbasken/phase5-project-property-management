@@ -8,8 +8,8 @@ export const expensesAPI = createApi({
     tagTypes: ['Expense'],
     endpoints: builder => ({
         getExpenses: builder.query({
-            query() {
-                return '/expenses'
+            query: (property_id) => {
+                return `/expenses${property_id ? `?property_id=${property_id}` : ''}`;
             },
             providesTags: ['Expense']
         }),

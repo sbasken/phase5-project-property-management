@@ -245,7 +245,7 @@ class ExpenseByID(Resource):
         db.session.commit()
 
         return make_response({'message': 'Expense successfully deleted'}, 204)
-    
+
 class Tenants(Resource):
     
     def post(self):
