@@ -11,6 +11,7 @@ import Units from './components/Units';
 import NewProperty from './components/NewProperty';
 import NewUnit from './components/NewUnit';
 import EditProperty from './components/EditProperty';
+import NewExpense from './components/NewExpense';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
