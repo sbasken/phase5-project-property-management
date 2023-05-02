@@ -6,7 +6,7 @@ import { useDeletePropertyMutation } from '../app/services/propertiesAPI'
 
 const PropertyCard = ({ property }) => {
     const [ deleteProperty ] = useDeletePropertyMutation()
-    const [open, setOpen] = useState(false);
+    const [ open, setOpen ] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

@@ -1,10 +1,31 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Table, Icon, Button } from 'semantic-ui-react';
-import { useGetExpensesQuery } from '../app/services/expensesAPI';
+import { Table, Icon, Button, Confirm } from 'semantic-ui-react';
+import { useGetExpensesQuery, useDeleteExpenseMutation } from '../app/services/expensesAPI';
 
 const GenerateTable = () => {
     const { data: expenses = [], isLoading } = useGetExpensesQuery();
-    console.log(expenses)
+    const [ deleteExpense ] = useDeleteExpenseMutation();
+    const [ open, setOpen ] = useState(false);
+    const [ expenseId, setExpenseId ] = useState(null);
+
+    const handleOpen = (id) => {
+        setExpenseId(id);
+        setOpen(true);
+      };
+    const handleClose = () => {
+        setExpenseId(null);
+        setOpen(false)
+    }
+
+    function handleConfirm() {
+        deleteExpense(expenseId)
+        handleClose();
+    }
+
+    function handleCancel() {
+        handleClose();
+    }
 
     const tableRow = expenses.map(expense => {
         const expenseDate = new Date(expense.date);
@@ -19,9 +40,16 @@ const GenerateTable = () => {
                     <Link to={`/expenses/${expense.id}`}>
                         <Icon name='edit' size='large'/>
                     </Link>
-                    <Link >
-                        <Icon name='trash alternate' size='large' />
-                    </Link>
+                    <Icon 
+                        name='trash alternate' 
+                        size='large'
+                        onClick={() => handleOpen(expense.id)}
+                    />
+                    <Confirm
+                        open={open}
+                        onCancel={handleCancel}
+                        onConfirm={handleConfirm}
+                    />
                 </Table.Cell>
             </Table.Row>
         );
