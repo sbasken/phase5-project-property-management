@@ -1,8 +1,8 @@
 """Create tables
 
-Revision ID: be5b5f6e3f4e
+Revision ID: 58783508f530
 Revises: 
-Create Date: 2023-04-28 08:48:33.520368
+Create Date: 2023-05-01 20:38:07.328928
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'be5b5f6e3f4e'
+revision = '58783508f530'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -69,11 +69,13 @@ def upgrade():
     op.create_table('expenses',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('date', sa.DateTime(), nullable=False),
-    sa.Column('type', sa.String(), nullable=False),
+    sa.Column('expense_type', sa.String(), nullable=False),
     sa.Column('amount', sa.Float(), nullable=True),
     sa.Column('unit_id', sa.Integer(), nullable=False),
+    sa.Column('property_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['property_id'], ['properties.id'], name=op.f('fk_expenses_property_id_properties')),
     sa.ForeignKeyConstraint(['unit_id'], ['units.id'], name=op.f('fk_expenses_unit_id_units')),
     sa.PrimaryKeyConstraint('id')
     )

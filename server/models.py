@@ -48,7 +48,7 @@ class User(db.Model, SerializerMixin):
 class Property(db.Model, SerializerMixin):
     __tablename__ = 'properties'
 
-    serialize_rules = ('-created_at', '-updated_at', '-units')
+    serialize_rules = ('-created_at', '-updated_at', '-units', '-expenses')
 
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(db.String, nullable=False)
@@ -62,6 +62,7 @@ class Property(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     units = db.relationship('Unit', backref='property')
+    expenses = db.relationship('Expense', backref='property')
 
     def ___repr__(self):
         return f'<Property {self.id} * Name: {self.name}, Type: {self.type}>'
@@ -92,14 +93,15 @@ class Expense(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, nullable=False)
-    type = db.Column(db.String, nullable=False)
+    expense_type = db.Column(db.String, nullable=False)
     amount = db.Column(db.Float)
-    unit_id = db.Column(db.Integer, db.ForeignKey('units.id'), nullable=False)
+    unit_id = db.Column(db.Integer, db.ForeignKey('units.id'))
+    property_id = db.Column(db.Integer, db.ForeignKey('properties.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    def ___repr__(self):
-        return f'<Expense {self.id} * Date: {self.date}, Type: {self.type}, Amount: {self.amount}, Unit ID: {self.unit_id}>'
+    def __repr__(self):
+        return f'<Expense {self.id} * Date: {self.date}, Type: {self.expense_type}, Amount: {self.amount}, Unit ID: {self.unit_id}>'
 
 class Tenant(db.Model, SerializerMixin):
     __tablename__ = 'tenants'
