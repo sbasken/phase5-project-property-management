@@ -12,7 +12,7 @@ const ExpensePage = () => {
 
     function handleClick(e, { value }) {
         setCategory(value);
-      }
+    }
 
     const menu_items = properties.map(property => {
         return (
@@ -37,20 +37,19 @@ const ExpensePage = () => {
                     />
                     {menu_items}
                 </Menu>
-                { category? <>
-                <Button animated='fade'>
+                { category ? <>
+                <Button animated='fade' as={Link} to={`/expenses/reports/${category}`}>
                     <Button.Content visible>Generate Report</Button.Content>
                     <Button.Content hidden>
-                    <Link to='/properties/:id/units/add-new'>
                         <Icon name='clipboard list'/>
-                    </Link>
                     </Button.Content>
                 </Button></> : null}
             </Grid.Column>
             <Grid.Column width={13}>
-                <GenerateTable category={category}/>
+                <Grid.Column>
+                    <GenerateTable category={category}/>
+                </Grid.Column>
             </Grid.Column>
-
         </Grid>
     </div>
   )

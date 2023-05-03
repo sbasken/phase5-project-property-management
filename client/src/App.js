@@ -13,6 +13,7 @@ import NewUnit from './components/NewUnit';
 import EditProperty from './components/EditProperty';
 import NewExpense from './components/NewExpense';
 import EditExpense from './components/EditExpense';
+import ReportPage from './components/ReportPage';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
@@ -58,6 +59,7 @@ function App() {
         <Route path='/expenses' element={<ExpensePage />} />
         <Route path='/expenses/add-new' element={<NewExpense />} />
         <Route path='/expenses/:id' element={<EditExpense/>} />
+        <Route path='/expenses/reports/:id' element={<ReportPage />} />
         <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
