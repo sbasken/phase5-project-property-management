@@ -1,28 +1,33 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import { Table, Icon } from 'semantic-ui-react'
 import { useGetExpensesQuery } from '../../app/services/expensesAPI';
-
 import { useGetPropertyQuery } from '../../app/services/propertiesAPI'
 
 const GenerateReport = () => {
   const { id } = useParams()
   const { data: property = [], isLoading, isSuccess, isError, error } = useGetPropertyQuery(id)
-  // console.log(property)
-
   const { data: expenses = [] } = useGetExpensesQuery();
   const [ filteredExpenses, setFilteredExpenses ] = useState([])
+  const selectedYear = useSelector(state => state.selectedYear.value)
+  console.log(filteredExpenses)
 
   useEffect(() => {
     const filteredList = expenses.filter(expense => expense.property_id === property.id);
-    setFilteredExpenses(filteredList);
-  }, [expenses, property.id]);
+    setFilteredExpenses(filteredList.filter(expense => new Date(expense.date).getFullYear() === selectedYear));
+  }, [expenses, property.id, selectedYear]);
 
   // Group expenses by expense_type and calculate the total amount for each group
+  
   const expenseTypeGroups = filteredExpenses.reduce((groups, expense) => {
     const expenseType = expense.expense_type;
     const amount = expense.amount;
     const unit_id = expense.unit_id
+    const year = new Date(expense.date).getFullYear()
+    // console.log('expense:', expense);
+    // console.log('year:', year);
+
     if ((unit_id === null || unit_id === 0) && (!groups[expenseType] || !groups[expenseType + ': BLDG'])) {
         groups[expenseType + ': BLDG'] = { expense_type: expenseType + ': BLDG', total_amount: 0 };
     }
@@ -58,7 +63,7 @@ const GenerateReport = () => {
 
   return (
     <div className='ui container hidden divider'>
-      <h1>Summary Report for {property.nickname}</h1>
+      <h1>Summary Report for {property.nickname} for {selectedYear}</h1>
       <Table columns={5} unstackable>
         <Table.Header>
           <Table.Row>

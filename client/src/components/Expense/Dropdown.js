@@ -1,5 +1,6 @@
-import React from 'react'
-import { Dropdown } from 'semantic-ui-react'
+import { useDispatch } from 'react-redux';
+import { Dropdown } from 'semantic-ui-react';
+import { updateYear } from '../../features/selectedYear/selectedYearSlice'
 
 const yearOptions = [
   { key: '2020', text: '2020', value: '2020' },
@@ -9,10 +10,11 @@ const yearOptions = [
 
 ]
 
-const DropdownExampleSearchDropdown = ({ setSelectedyear }) => {
+const DropdownExampleSearchDropdown = () => {
+    const dispatch = useDispatch()
 
     const handleOptionChange = (e, data) => {
-        setSelectedyear(data.value)
+        dispatch(updateYear(data.value))
     }
 
     return (

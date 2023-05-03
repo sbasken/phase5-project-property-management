@@ -70,7 +70,7 @@ const EditExpense = () => {
         }
     })
 
-    console.log(expense.date)
+    // console.log(expense.date)
     useEffect(() => {
         if (isSuccess) {
           formik.setValues({
