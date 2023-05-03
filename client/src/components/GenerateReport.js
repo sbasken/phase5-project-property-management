@@ -25,18 +25,17 @@ const GenerateReport = () => {
     const expenseType = expense.expense_type;
     const amount = expense.amount;
     const unit_id = expense.unit_id
-    if ((unit_id === null || unit_id === 0) && !groups[expenseType]) {
-        groups[expenseType + ':BLDG'] = { expense_type: expenseType + 'BLDG', total_amount: 0 };
+    if ((unit_id === null || unit_id === 0) && (!groups[expenseType] || !groups[expenseType + ': BLDG'])) {
+        groups[expenseType + ': BLDG'] = { expense_type: expenseType + ': BLDG', total_amount: 0 };
     }
     if (!groups[expenseType]) {
       groups[expenseType] = { expense_type: expenseType, total_amount: 0 };
     }
-    if ( unit_id === null ){
-    groups[expenseType + ':BLDG'].total_amount += amount;
+    if ( unit_id === null || unit_id === 0 ){
+    groups[expenseType + ': BLDG'].total_amount += amount;
     } else {
         groups[expenseType].total_amount += amount;
     }
-    console.log(groups)
     return groups;
   }, {});
 
@@ -46,7 +45,7 @@ const GenerateReport = () => {
       <Table.Row key={group.expense_type}>
         <Table.Cell></Table.Cell>
         <Table.Cell>{group.expense_type}</Table.Cell>
-        <Table.Cell>{group.total_amount}</Table.Cell>
+        <Table.Cell>${group.total_amount}</Table.Cell>
         <Table.Cell></Table.Cell>
         <Table.Cell></Table.Cell>
       </Table.Row>
@@ -69,18 +68,6 @@ const GenerateReport = () => {
 
         <Table.Body>
           {tableRows}
-          {filteredExpenses.map(expense => {
-            const expenseDate = new Date(expense.date);
-            return (
-              <Table.Row key={expense.id}>
-                <Table.Cell>{expenseDate.toLocaleDateString()}</Table.Cell>
-                <Table.Cell>{expense.expense_type}</Table.Cell>
-                <Table.Cell>{expense.amount}</Table.Cell>
-                <Table.Cell>{expense.unit_id ? expense.unit_id : 'BLDG'}</Table.Cell>
-                <Table.Cell>{expense.property_id}</Table.Cell>
-              </Table.Row>
-            );
-          })}
         </Table.Body>
       </Table>
     </div>
