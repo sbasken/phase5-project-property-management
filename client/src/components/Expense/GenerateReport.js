@@ -8,7 +8,7 @@ import { useGetPropertyQuery } from '../../app/services/propertiesAPI'
 const GenerateReport = () => {
   const { id } = useParams()
   const { data: property = [], isLoading, isSuccess, isError, error } = useGetPropertyQuery(id)
-  console.log(property)
+  // console.log(property)
 
   const { data: expenses = [] } = useGetExpensesQuery();
   const [ filteredExpenses, setFilteredExpenses ] = useState([])
@@ -80,7 +80,7 @@ const GenerateReport = () => {
               <Table.HeaderCell>
                 Total <Icon floated='right' name='arrow alternate circle right'/>
               </Table.HeaderCell>
-              <Table.HeaderCell>{totalAmount}</Table.HeaderCell>
+              <Table.HeaderCell>${totalAmount}</Table.HeaderCell>
               <Table.HeaderCell />
               <Table.HeaderCell />
           </Table.Row>

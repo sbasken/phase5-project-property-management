@@ -6,7 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Login = ({ setCurrentUser }) => {
   
-  console.log(setCurrentUser)
+  // console.log(setCurrentUser)
   const navigate = useNavigate();
 
   const formSchema = yup.object({
