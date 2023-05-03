@@ -3,7 +3,7 @@ import PropertyCard from './PropertyCard'
 import { Grid, Button, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
-import { useGetPropertiesQuery } from '../app/services/propertiesAPI'
+import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
 
 const PropertyPage = () => {
 

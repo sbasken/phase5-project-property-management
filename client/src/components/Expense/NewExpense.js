@@ -2,8 +2,8 @@ import React from 'react'
 import DatePicker from 'react-datepicker';
 
 import { Button, Form } from 'semantic-ui-react'
-import { useAddExpenseMutation } from '../app/services/expensesAPI';
-import { useGetPropertiesQuery } from '../app/services/propertiesAPI';
+import { useAddExpenseMutation } from '../../app/services/expensesAPI';
+import { useGetPropertiesQuery } from '../../app/services/propertiesAPI';
 import { useFormik } from "formik";
 import { useNavigate } from 'react-router-dom'
 

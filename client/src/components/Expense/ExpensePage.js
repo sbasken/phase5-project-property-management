@@ -4,7 +4,7 @@ import GenerateTable from './GenerateTable'
 import { Grid, Menu, Button, Icon } from 'semantic-ui-react'
 
 
-import { useGetPropertiesQuery } from '../app/services/propertiesAPI'
+import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
 
 const ExpensePage = () => {
     const { data: properties = [], isLoading, isSuccess, isError, error } = useGetPropertiesQuery()

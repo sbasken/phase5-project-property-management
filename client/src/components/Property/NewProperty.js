@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button, Form } from 'semantic-ui-react'
-import { useGetPropertyQuery, useEditPropertyMutation } from '../app/services/propertiesAPI';
-// import { useEditPropertyMutation } from '../app/services/propertiesAPI';
-
+import { useAddPropertyMutation } from '../../app/services/propertiesAPI';
 import { useFormik } from "formik";
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import * as yup from "yup";
 
-const EditProperty = ({ currentUser }) => {
-    // const [ editProperty ] = useEditPropertyMutation()
-    const navigate = useNavigate();
-    const { id } = useParams();
-    const { data: property = [], isLoading, isSuccess, isError, error } = useGetPropertyQuery(id)
-    const [ editProperty ] = useEditPropertyMutation()
-
+const NewProperty = ({ currentUser }) => {
+    const [ addProperty, isLoading, isError, error ] = useAddPropertyMutation()
+    let navigate = useNavigate();
+    console.log(currentUser.id)
 
     const formSchema = yup.object().shape({
         nickname: yup.string()
@@ -32,12 +27,10 @@ const EditProperty = ({ currentUser }) => {
             .required('No address provided.'),
         image_url: yup.string(),
         owner_id: yup.number()
-            .required("The terms and conditions must be accepted."),
       })
-    
+
     const formik = useFormik({
         initialValues: {
-            id: 0,
             nickname: '',
             latitude: 0,
             longitude: 0,
@@ -48,56 +41,24 @@ const EditProperty = ({ currentUser }) => {
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
-            console.log(values.id)
-            console.log("Updating property...")
+            console.log("Creating a new property...")
             if (formik.isValid) {
-                editProperty(values)
-                .then(() => {
-                    console.log("Property successfully updated!")
-                    navigate('/properties')
-                })
+                addProperty(values)
+                console.log("Property successfully created!")
+                navigate('/properties')
             }
         }
     })
-
-    useEffect(() => {
-        if (isSuccess) {
-          formik.setValues({
-            id: property.id,
-            nickname: property.nickname,
-            latitude: property.latitude,
-            longitude: property.longitude,
-            address: property.address,
-            image_url: property.image_url,
-            owner_id: property.owner_id,
-            agent_id: property.agent_id,
-          });
-        }
-    }, [property, isSuccess]);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
 
     if (isError) {
         return <div>Error: {error.message}</div>;
     }
 
-
   return (
-    
     <div className='ui container hidden divider'>
-        <h1>Edit Your Property Details</h1>
+        <h1>New Property Info</h1>
         <Form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
             <Form.Group widths='equal'>
-                <Form.Field>
-                    <label>Property ID</label>
-                    <input 
-                        name="id"
-                        placeholder='ID' 
-                        value={formik.values.id}
-                    />
-                 </Form.Field>
                 <Form.Field validate>
                     <label>Nickname</label>
                     <input 
@@ -186,4 +147,4 @@ const EditProperty = ({ currentUser }) => {
   )
 }
 
-export default EditProperty
+export default NewProperty

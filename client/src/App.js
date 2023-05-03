@@ -1,19 +1,19 @@
 import React from 'react'
-import NavBar from './components/NavBar';
-import Home from './components/Home';
-import About from './components/About';
-import PropertyPage from './components/PropertyPage';
-import ExpensePage from './components/ExpensePage';
-import Profile from './components/Profile';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Units from './components/Units';
-import NewProperty from './components/NewProperty';
-import NewUnit from './components/NewUnit';
-import EditProperty from './components/EditProperty';
-import NewExpense from './components/NewExpense';
-import EditExpense from './components/EditExpense';
-import ReportPage from './components/ReportPage';
+import NavBar from './components/Nav/NavBar';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import PropertyPage from './components/Property/PropertyPage';
+import ExpensePage from './components/Expense/ExpensePage';
+import Profile from './components/Profile/Profile';
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
+import Units from './components/Property/Units';
+import NewProperty from './components/Property/NewProperty';
+import NewUnit from './components/Property/NewUnit';
+import EditProperty from './components/Property/EditProperty';
+import NewExpense from './components/Expense/NewExpense';
+import EditExpense from './components/Expense/EditExpense';
+import ReportPage from './components/Expense/ReportPage';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';

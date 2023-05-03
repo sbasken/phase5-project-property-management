@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Image, Grid, Button, Icon, Confirm } from 'semantic-ui-react'
 
-import { useDeletePropertyMutation } from '../app/services/propertiesAPI'
+import { useDeletePropertyMutation } from '../../app/services/propertiesAPI'
 
 const PropertyCard = ({ property }) => {
     const [ deleteProperty ] = useDeletePropertyMutation()

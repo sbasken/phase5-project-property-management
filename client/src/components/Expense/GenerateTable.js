@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Table, Icon, Button, Confirm } from 'semantic-ui-react';
-import { useGetExpensesQuery, useDeleteExpenseMutation } from '../app/services/expensesAPI';
+import { useGetExpensesQuery, useDeleteExpenseMutation } from '../../app/services/expensesAPI';
 
 const GenerateTable = ({ category }) => {
     const { data: expenses = [], isLoading } = useGetExpensesQuery();

@@ -2,7 +2,7 @@ import React from 'react'
 import UnitCard from './UnitCard'
 import { Grid, Button, Icon, Image } from 'semantic-ui-react'
 import { Link, useParams } from 'react-router-dom'
-import { useGetPropertyQuery } from '../app/services/propertiesAPI'
+import { useGetPropertyQuery } from '../../app/services/propertiesAPI'
 
 const Units = () => {
   const { id } = useParams();

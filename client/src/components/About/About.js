@@ -1,7 +1,7 @@
 // import { useRef } from 'react';
 import { Grid, Image } from 'semantic-ui-react'
 // import video from '../banner.mp4'
-import banner from '../banner.png'
+import banner from './banner.png'
 import Contact from './ContactUs'
 const About = () => {
 
