@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 from config import app, api, db
-from models import User, Property, Unit, Expense, Tenant
+from models import User, Property, Unit, Expense, Tenant, Lease
 
 @app.before_request
 def is_Logged_in():
@@ -199,7 +199,6 @@ class Expenses(Resource):
 
     def post(self):
         data = request.get_json()
-        print(data)
 
         date_str = data['date']
         date_obj = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S.%fZ')
@@ -281,29 +280,56 @@ class TenantByID(Resource):
 
         return make_response({'message': 'Tenant successfully deleted'}, 204)
     
-    # start_date = db.Column(db.DateTime)
-    # end_date = db.Column(db.String)
-    # rent = db.Column(db.Integer)
-    # deposit = db.Column(db.Integer)
-    # unit_id = db.Column(db.Integer, db.ForeignKey('units.id'), nullable=False)
-    # tenent_id = db.Column(db.Integer, db.ForeignKey('tenants.id'), nullable=False)
 
 class Leases(Resource):
 
     def get(self):
-        pass
+        user_id = session.get('user_id')
+        found_user = User.query.filter_by(id=user_id).first()
+        if found_user.type == 'owner':
+            leases_list = [l.to_dict() for l in Lease.query.all()]
+            return make_response(leases_list, 200)
 
     def post(self):
-        pass
+        data = request.get_json()
+
+        start_date_str = data['start_date']
+        start_date_obj = datetime.strptime(start_date_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+        end_date_str = data['end_date']
+        end_date_obj = datetime.strptime(end_date_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+
+        new_lease = Lease(
+            start_date = start_date_obj,
+            end_date = end_date_obj,
+            rent = data['rent'],
+            deposit = data['deposit'],
+            unit_id = data['unit_id'],
+            tenant_id = data['tenant_id']
+        )
+        db.session.add(new_lease)
+        db.session.commit()
+        return make_response(new_lease.to_dict(), 201)
 
 class LeaseByID(Resource):
 
     def patch(self, id):
-        pass
-
+        data = request.get_json()
+        to_update = Lease.query.filter(Lease.id == id).first()
+        if to_update:
+            for key in data:
+                setattr(to_update, key, data[key])
+                db.session.add(to_update)
+                db.session.commit()
+        else:
+            return {'error': 'Tenant not found'}, 404
+    
     def delete(self, id):
-        pass
 
+        to_delete = Lease.query.filter(Lease.id == id).first()
+        db.session.delete(to_delete)
+        db.session.commit()
+
+        return make_response({'message': 'Lease successfully deleted'}, 204)
 
 
 
@@ -320,7 +346,8 @@ api.add_resource(Expenses, '/expenses')
 api.add_resource(ExpenseByID, '/expenses/<int:id>')
 api.add_resource(Tenants, '/tenants')
 api.add_resource(TenantByID, '/tenant/<int:id>')
-
+api.add_resource(Leases, '/leases', endpoint='leases')
+api.add_resource(LeaseByID, '/leases/<int:id>', endpoint='leases/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
