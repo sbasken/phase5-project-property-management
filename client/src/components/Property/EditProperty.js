@@ -93,6 +93,7 @@ const EditProperty = ({ currentUser }) => {
                 <Form.Field>
                     <label>Property ID</label>
                     <input 
+                        readOnly={true}
                         name="id"
                         placeholder='ID' 
                         value={formik.values.id}

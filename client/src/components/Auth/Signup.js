@@ -36,8 +36,9 @@ const Signup = () => {
     const formik = useFormik({
         initialValues: {
             username: '',
+            email: '',
             password: '',
-            customer: true
+            type: true
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
@@ -141,9 +142,9 @@ const Signup = () => {
                 <label>Owner/Agent?</label>
                 <Radio
                     toggle
-                    label={formik.values.customer ? "Agent" : "Owner"}
-                    checked={formik.values.customer}
-                    onChange={() => formik.setFieldValue("customer", !formik.values.customer)}
+                    label={formik.values.type ? "Agent" : "Owner"}
+                    checked={formik.values.type}
+                    onChange={() => formik.setFieldValue("customer", !formik.values.type)}
                 />
             </Form.Field>
             <Form.Field>

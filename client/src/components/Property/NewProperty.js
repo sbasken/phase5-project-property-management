@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import { useAddPropertyMutation } from '../../app/services/propertiesAPI';
 import { useFormik } from "formik";

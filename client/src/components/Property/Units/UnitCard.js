@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Card, Image, Button, Grid } from 'semantic-ui-react'
 
 const UnitCard = ({ unit }) => {
-  console.log(unit)
+  // console.log(unit)
 
   return (
     <>
