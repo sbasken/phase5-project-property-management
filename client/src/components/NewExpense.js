@@ -85,7 +85,7 @@ const NewExpense = () => {
                 <p style={{ color: 'orange' }}> {formik.errors.date}</p>
                 </Form.Field>
                 <Form.Field validate>
-                    <label>Expense Type</label>
+                    <label>Expense/Income Type</label>
                     <input 
                         type="text"
                         name="expense_type"
@@ -104,6 +104,7 @@ const NewExpense = () => {
                         value={formik.values.amount}
                         onChange={formik.handleChange}
                     />
+                    <p>Don't forget to put '-' for expenses 🐼</p>
                     <p style={{ color: "orange" }}> {formik.errors.amount}</p>
                 </Form.Field>
             </Form.Group>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Table } from 'semantic-ui-react'
+import { Table, Icon } from 'semantic-ui-react'
 import { useGetExpensesQuery } from '../app/services/expensesAPI';
 
 import { useGetPropertyQuery } from '../app/services/propertiesAPI'
@@ -17,8 +17,6 @@ const GenerateReport = () => {
     const filteredList = expenses.filter(expense => expense.property_id === property.id);
     setFilteredExpenses(filteredList);
   }, [expenses, property.id]);
-
-  console.log(filteredExpenses)
 
   // Group expenses by expense_type and calculate the total amount for each group
   const expenseTypeGroups = filteredExpenses.reduce((groups, expense) => {
@@ -38,6 +36,12 @@ const GenerateReport = () => {
     }
     return groups;
   }, {});
+
+  let totalAmount = 0;
+
+  for (let group in expenseTypeGroups) {
+    totalAmount += expenseTypeGroups[group].total_amount;
+  }
 
   // Create an array with one row per expense_type and the corresponding total amount
   const tableRows = Object.values(expenseTypeGroups).map(group => {
@@ -69,6 +73,18 @@ const GenerateReport = () => {
         <Table.Body>
           {tableRows}
         </Table.Body>
+
+        <Table.Footer>
+          <Table.Row>
+              <Table.HeaderCell></Table.HeaderCell>
+              <Table.HeaderCell>
+                Total <Icon floated='right' name='arrow alternate circle right'/>
+              </Table.HeaderCell>
+              <Table.HeaderCell>{totalAmount}</Table.HeaderCell>
+              <Table.HeaderCell />
+              <Table.HeaderCell />
+          </Table.Row>
+            </Table.Footer>
       </Table>
     </div>
   )

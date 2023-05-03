@@ -91,7 +91,7 @@ if __name__ == '__main__':
             expense = Expense(
                 date = fake.date_this_year(),
                 expense_type = random.choice(expense_type),
-                amount = random.randint(0, 1000),
+                amount = random.randint(-1000, 0),
                 unit_id = random.randint(1, 2),
                 property_id = random.randint(1, 2)
             )

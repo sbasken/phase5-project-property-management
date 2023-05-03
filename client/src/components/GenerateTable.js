@@ -70,7 +70,7 @@ const GenerateTable = ({ category }) => {
 
   return (
     <div className='ui container hidden divider'>
-        <h1>Expenses</h1>
+        <h1>Expenses and Income</h1>
         <Table columns={5} unstackable>
             <Table.Header>
             <Table.Row>
