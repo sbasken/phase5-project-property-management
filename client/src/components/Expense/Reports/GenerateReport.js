@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { Table, Icon } from 'semantic-ui-react'
-import { useGetExpensesQuery } from '../../app/services/expensesAPI';
-import { useGetPropertyQuery } from '../../app/services/propertiesAPI'
+import { useGetExpensesQuery } from '../../../app/services/expensesAPI';
+import { useGetPropertyQuery } from '../../../app/services/propertiesAPI'
 
 const GenerateReport = () => {
   const { id } = useParams()

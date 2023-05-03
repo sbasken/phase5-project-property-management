@@ -13,7 +13,9 @@ import NewUnit from './components/Property/Units/NewUnit';
 import EditProperty from './components/Property/EditProperty';
 import NewExpense from './components/Expense/NewExpense';
 import EditExpense from './components/Expense/EditExpense';
-import ReportPage from './components/Expense/ReportPage';
+import ReportPage from './components/Expense/Reports/ReportPage';
+import Lease from './components/Property/Leases/Lease';
+import NewLease from './components/Property/Leases/NewLease';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
@@ -64,6 +66,8 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/properties/:id/units/add-new' element={<NewUnit />} />
+        <Route path='/properties/:id/units/:unitid/lease' element={<Lease />} />
+        <Route path='/properties/:id/units/:unitid/lease/add-new' element={<NewLease />} />
       </Routes>
       </div>
     </div>

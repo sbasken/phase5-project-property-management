@@ -147,7 +147,7 @@ class Lease(db.Model, SerializerMixin):
     rent = db.Column(db.Integer)
     deposit = db.Column(db.Integer)
     unit_id = db.Column(db.Integer, db.ForeignKey('units.id'), nullable=False)
-    tenent_id = db.Column(db.Integer, db.ForeignKey('tenants.id'), nullable=False)
+    tenant_id = db.Column(db.Integer, db.ForeignKey('tenants.id'), nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 

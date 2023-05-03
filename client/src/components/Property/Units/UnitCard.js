@@ -1,9 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Card, Image, Button, Grid } from 'semantic-ui-react'
+import { Link, useParams } from 'react-router-dom'
+import { Card, Image, Button, Grid, Icon } from 'semantic-ui-react'
 
 const UnitCard = ({ unit }) => {
-  // console.log(unit)
+  const { id } = useParams()
+  console.log(id)
 
   return (
     <>
@@ -27,8 +28,18 @@ const UnitCard = ({ unit }) => {
             </Card.Description>
           </Card.Content>
           <Button.Group attached='bottom'>
-            <Button>View Lease Details</Button>
-          </Button.Group>
+            <Button 
+                animated='fade' 
+                floated='right' 
+                as={Link} 
+                to={`/properties/${id}/units/${unit.id}/lease`}
+              >
+                <Button.Content visible>View Lease Details</Button.Content>
+                <Button.Content hidden>
+                    <Icon name='folder open outline' />
+                </Button.Content>
+              </Button>
+            </Button.Group>
         </Card>
       </Grid.Column>
     </>

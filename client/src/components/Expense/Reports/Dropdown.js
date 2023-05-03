@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
-import { updateYear } from '../../features/selectedYear/selectedYearSlice'
+import { updateYear } from '../../../features/selectedYear/selectedYearSlice'
 
 const yearOptions = [
   { key: '2020', text: '2020', value: '2020' },

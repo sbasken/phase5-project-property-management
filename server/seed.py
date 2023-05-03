@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
-
-# Standard library imports
 from random import randint, choice as rc
 
-# Remote library imports
+from datetime import date, timedelta
 from faker import Faker
 import random
 
 # Local imports
 from app import app
 from config import db, app
-from models import User, Property, Unit, Expense, Tenant
+from models import User, Property, Unit, Expense, Tenant, Lease
 
 if __name__ == '__main__':
     fake = Faker()
@@ -22,6 +20,7 @@ if __name__ == '__main__':
         Unit.query.delete()
         Expense.query.delete()
         Tenant.query.delete()
+        Lease.query.delete()
 
         print('Creating owners...')
         users = []
@@ -101,7 +100,7 @@ if __name__ == '__main__':
             expenses.append(expense)
 
         print('Creating tenant data...')
-        for i in range(7):
+        for i in range(10):
             tenant = Tenant(
                 name = fake.name(),
                 email = fake.email(),
@@ -111,6 +110,24 @@ if __name__ == '__main__':
             print("Committing tenant data...")
             db.session.add(tenant)
             db.session.commit()
+
+        print('Creating lease data...')
+        for i in range(6):
+            date1 = fake.date_this_year()
+            date2 = date1 + timedelta(days=364)
+            lease = Lease(
+                start_date = date1,
+                end_date = date2,
+                rent = random.randint(1500, 3000),
+                deposit = random.randint(1500, 3000),
+                unit_id = i,
+                tenant_id = random.randint(1,7)
+            )
+            print("Committing lease data...")
+            db.session.add(lease)
+            db.session.commit()
+
+    print('Seeding complete!!')
 
 
 

@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Button, Form } from 'semantic-ui-react';
 
 const ContactUs = () => {
     const form = useRef();
@@ -18,8 +18,9 @@ const ContactUs = () => {
 
     return (
         <div>
-            <Grid.Row >
+            <Grid.Row textAlign='center'>
                 <h2>Contact</h2>
+                <p>If you would like to leave a feedback or any suggestion, please send us a message below.</p>
                 <form className='ui form' ref={form} onSubmit={sendEmail}>
                     <label>Name</label>
                     <input type="text" name="user_name" />
@@ -27,7 +28,7 @@ const ContactUs = () => {
                     <input type="email" name="user_email" />
                     <label>Message</label>
                     <textarea name="message" />
-                    <input type="submit" value="Send" />
+                    <Button value="Send">Submit</Button>
                 </form>
             </Grid.Row>
         </div>
