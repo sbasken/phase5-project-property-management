@@ -79,7 +79,7 @@ class Properties(Resource):
 
         found_user = User.query.filter(User.id == session.get('user_id')).first()
         if found_user.type == 'owner':
-            properties = [ p.to_dict() for p in Property.query.filter(Property.owner_id == found_user.id).all() ]
+            properties = [ p.to_dict(rules=('units',)) for p in Property.query.filter(Property.owner_id == found_user.id).all() ]
             return make_response(properties, 200)
         if found_user.type == 'agent':
             properties = [ p.to_dict() for p in Property.query.filter(Property.agent_id == found_user.id).all() ]

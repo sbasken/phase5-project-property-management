@@ -6,7 +6,13 @@ const Home = () => {
   return (
     <>
       <Image src={banner} />
-      <Grid columns={2} textAlign='center' className='hidden divider' stackable>
+      <Grid 
+        columns={2} 
+        textAlign='center' 
+        className='hidden divider' 
+        stackable
+        style={{ margin: '1.5rem' }}
+      >
         <Grid.Column style={{ paddingLeft:'2px'}}>
           <br></br>
           <h2> We work hard while you sleep like a panda</h2>
@@ -21,7 +27,7 @@ const Home = () => {
           <Image 
               className='about_panda'
               src='https://images.unsplash.com/photo-1593526492327-b071f3d5333e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80' 
-              style={{ maxHeight: '25rem', margin: 'auto' }}    
+              style={{ maxHeight: '25rem', marginTop: '2rem', margin: 'auto' }}    
           />
         </Grid.Column>
       </Grid>

@@ -15,7 +15,7 @@ const NewExpense = () => {
     const { data: properties = [] } = useGetPropertiesQuery()
     const units = properties?.map( property => property.units)
     // console.log('NewExpense: properties', properties)
-    // console.log('NewExpense: units', units[0])
+    console.log('NewExpense: units', units)
     const navigate = useNavigate();
 
     if (isLoading) {

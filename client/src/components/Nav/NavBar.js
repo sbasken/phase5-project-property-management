@@ -53,7 +53,7 @@ const NavBar = ({ currentUser, handleLogout }) => {
                     name='profile'
                     active={activeItem === 'profile'}
                     onClick={handleItemClick}
-                > 👤 </NavLink>
+                > <Icon name='user circle'/></NavLink>
                 {/* icon name 'user circle (outline) */}
                 </> : null }
                 <NavLink 

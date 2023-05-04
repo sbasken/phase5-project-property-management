@@ -18,7 +18,7 @@ const ContactUs = () => {
 
     return (
         <div>
-            <Grid.Row textAlign='center'>
+            <Grid.Row textAlign='center' style={{ marginTop:'6px'}}>
                 <h2>Contact</h2>
                 <p>If you would like to leave a feedback or any suggestion, please send us a message below.</p>
                 <form className='ui form' ref={form} onSubmit={sendEmail}>
