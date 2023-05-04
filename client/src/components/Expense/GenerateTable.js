@@ -75,7 +75,7 @@ const GenerateTable = ({ category }) => {
 
   return (
     <div>
-        <RingLoader color={'#F5A623'} loading={isLoading} size={20} />
+        <RingLoader color={'#F5A623'} loading={isLoading} />
         <div className='ui container hidden divider'>
             <h1>Expenses and Income</h1>
             <Table columns={5} unstackable>

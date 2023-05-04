@@ -50,7 +50,7 @@ const EditUnit = () => {
 
     return (
         <div>
-            <RingLoader color={'#F5A623'} loading={isLoading} size={20} />
+            <RingLoader color={'#F5A623'} loading={isLoading} />
             <div className='ui container hidden divider'>
                 <h1>Edit Unit Info</h1>
                 <Form onSubmit={formik.handleSubmit}>

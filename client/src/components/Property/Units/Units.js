@@ -35,7 +35,7 @@ const Units = () => {
 
   return (
     <div className='ui container hidden divider'>
-      <RingLoader color={'#F5A623'} loading={isLoading} size={20}/>
+      <RingLoader color={'#F5A623'} loading={isLoading} />
     
       { units && units.length > 0 ? 
       <>

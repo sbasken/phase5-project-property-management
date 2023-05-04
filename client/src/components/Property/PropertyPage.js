@@ -36,7 +36,7 @@ const PropertyPage = () => {
 
     return (
         <div>
-            <RingLoader color={'#F5A623'} loading={isLoading} size={20} />
+            <RingLoader color={'#F5A623'} loading={isLoading} />
             <div className='ui container hidden divider'>
                 { properties && properties.length > 0 ? 
                 <Grid Columns={3}>

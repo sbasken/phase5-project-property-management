@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import GenerateTable from './GenerateTable'
-import RingLoader from 'react-spinners/RingLoader'
 import { Link } from 'react-router-dom'
 import { Grid, Menu, Button, Icon } from 'semantic-ui-react'
 import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
@@ -29,35 +28,33 @@ const ExpensePage = () => {
     })
 
   return (
-    <div>
-        <RingLoader color={'#F5A623'} loading={isLoading} size={20} />
-        <div className='ui container hidden divider'>
-            <Grid stackable>
-                <Grid.Column width={3} >
-                    <Menu fluid vertical tabular>
-                        <Menu.Item
-                            name='All'
-                            value={null}
-                            onClick={handleClick}
-                        />
-                        {menu_items}
-                    </Menu>
-                    { category ? <>
-                    <Button animated='fade' as={Link} to={`/expenses/reports/${category}`}>
-                        <Button.Content visible>Generate Report</Button.Content>
-                        <Button.Content hidden>
-                            <Icon name='clipboard list'/>
-                        </Button.Content>
-                    </Button></> : null}
+    <div className='ui container hidden divider'>
+        <Grid stackable>
+            <Grid.Column width={3} >
+                <Menu fluid vertical tabular>
+                    <Menu.Item
+                        name='All'
+                        value={null}
+                        onClick={handleClick}
+                    />
+                    {menu_items}
+                </Menu>
+                { category ? <>
+                <Button animated='fade' as={Link} to={`/expenses/reports/${category}`}>
+                    <Button.Content visible>Generate Report</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='clipboard list'/>
+                    </Button.Content>
+                </Button></> : null}
+            </Grid.Column>
+            <Grid.Column width={13}>
+                <Grid.Column>
+                    <GenerateTable category={category}/>
                 </Grid.Column>
-                <Grid.Column width={13}>
-                    <Grid.Column>
-                        <GenerateTable category={category}/>
-                    </Grid.Column>
-                </Grid.Column>
-            </Grid>
-        </div>
+            </Grid.Column>
+        </Grid>
     </div>
+
   )
 }
 

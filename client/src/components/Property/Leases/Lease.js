@@ -34,7 +34,7 @@ const Lease = () => {
 
     return (
         <div>
-            <RingLoader color={'#F5A623'} loading={isLoading} size={20}/>
+            <RingLoader color={'#F5A623'} loading={isLoading} />
             <div className='ui container hidden divider'>
                 <Grid stackable>
                     <Grid.Column width={3} >
