@@ -112,7 +112,7 @@ if __name__ == '__main__':
             db.session.commit()
 
         print('Creating lease data...')
-        for i in range(6):
+        for i in range(2):
             date1 = fake.date_this_year()
             date2 = date1 + timedelta(days=364)
             lease = Lease(
@@ -120,7 +120,7 @@ if __name__ == '__main__':
                 end_date = date2,
                 rent = random.randint(1500, 3000),
                 deposit = random.randint(1500, 3000),
-                unit_id = i,
+                unit_id = i + 1,
                 tenant_id = random.randint(1,7)
             )
             print("Committing lease data...")

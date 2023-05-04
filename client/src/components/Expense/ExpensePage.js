@@ -24,6 +24,11 @@ const ExpensePage = () => {
         />
         )
     })
+    if (isLoading) {
+        <h1>Loading...</h1>
+    }  else if (isError) {
+        <div>{error.toString()}</div>
+    }
 
   return (
     <div className='ui container hidden divider'>

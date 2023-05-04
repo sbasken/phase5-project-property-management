@@ -6,7 +6,7 @@ const About = () => {
 
     return (
         <Container className='hidden divider'>
-            <Grid columns={2} textAlign='center' >
+            <Grid columns={2} textAlign='center' stackable >
                 <Grid.Column>
                 <h3>Location</h3>
                 <p>777 Flatiron St.</p>

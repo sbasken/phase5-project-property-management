@@ -3,12 +3,15 @@ import UnitCard from './UnitCard'
 import { Grid, Button, Icon, Image } from 'semantic-ui-react'
 import { Link, useParams } from 'react-router-dom'
 import { useGetPropertyQuery } from '../../../app/services/propertiesAPI'
+import { useGetUnitsQuery } from '../../../app/services/unitsAPI'
 
 const Units = () => {
   const { id } = useParams();
   const { data: property = [] } = useGetPropertyQuery(id)
+  const { data: units = [] } = useGetUnitsQuery(id)
   // isLoading, isSuccess, isError, error
-  const units = property.units
+  console.log(property)
+  console.log(units)
   // console.log(id)
 
   const noUnitsYetMessage = (
@@ -35,24 +38,39 @@ const Units = () => {
     
       { units && units.length > 0 ? 
       <>
-        <Grid Columns={2} stackable>
-          { units.map(unit => <UnitCard key={unit.id} unit={unit}/>) }
-    
-          <Grid.Column width={1}>
-            <Button animated='fade' as={Link} to={`/properties/${id}/units/add-new`}>
+        <Grid Columns={3} stackable>
+          <Grid.Column width={2}>
+            <Button 
+              animated='fade' 
+              as={Link} 
+              to={`/properties/${id}/units/add-new`}
+              style={{ marginTop: '10px' }}
+            >
               <Button.Content visible>Add More</Button.Content>
               <Button.Content hidden>
                 <Icon name='key' />
               </Button.Content>
             </Button>
               
-            <Button animated='fade'>
+            <Button animated='fade' style={{ marginTop: '10px' }}>
               <Button.Content visible>Notify All</Button.Content>
               <Button.Content hidden>
                 <Icon name='mail' />
               </Button.Content>
             </Button>
+            <Button 
+              animated='fade' 
+              as={Link} 
+              to={'/properties'}
+              style={{ marginTop: '10px' }}
+            >
+              <Button.Content visible>Go Back</Button.Content>
+              <Button.Content hidden>
+                <Icon name='arrow left'/>
+              </Button.Content>
+            </Button>
           </Grid.Column>
+            { units.map(unit => <UnitCard key={unit.id} unit={unit}/>) }
         </Grid>
       </> : (noUnitsYetMessage)}
     </div>

@@ -8,8 +8,8 @@ export const unitsAPI = createApi({
     tagTypes: ['Unit'],
     endpoints: builder => ({
         getUnits: builder.query({
-            query() {
-                return '/units'
+            query(property_id) {
+                return `/properties/${property_id}/units`
             },
             providesTags: ['Unit']
         }),
@@ -53,9 +53,9 @@ export const unitsAPI = createApi({
 })
 
 export const {
-     useGetuUitsQuery, 
-     useGetUnitQuery, 
-     useAddUnitMutation, 
-     useDeleteUnitMutation,
-     useEditUnitMutation
+    useGetUnitsQuery, 
+    useGetUnitQuery, 
+    useAddUnitMutation, 
+    useDeleteUnitMutation,
+    useEditUnitMutation
 } = unitsAPI

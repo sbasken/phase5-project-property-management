@@ -4,6 +4,7 @@ import { propertiesAPI } from './services/propertiesAPI'
 import { expensesAPI } from './services/expensesAPI'
 import { leasesAPI } from './services/leasesAPI'
 import { unitsAPI } from './services/unitsAPI'
+import { tenantsAPI } from './services/tenantsAPI'
 import selectedYearReducer from '../features/selectedYear/selectedYearSlice'
 
 
@@ -13,9 +14,16 @@ export const store = configureStore({
         [ expensesAPI.reducerPath ]: expensesAPI.reducer,
         [ leasesAPI.reducerPath ]: leasesAPI.reducer,
         [ unitsAPI.reducerPath ]: unitsAPI.reducer,
+        [ tenantsAPI.reducerPath ]: tenantsAPI.reducer,
         selectedYear: selectedYearReducer
     },
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().concat(propertiesAPI.middleware, expensesAPI.middleware, leasesAPI.middleware, unitsAPI.middleware)
+      getDefaultMiddleware().concat(
+            propertiesAPI.middleware, 
+            expensesAPI.middleware, 
+            leasesAPI.middleware, 
+            unitsAPI.middleware, 
+            tenantsAPI.middleware
+        )
 })
 setupListeners(store.dispatch)

@@ -61,8 +61,8 @@ class Property(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    units = db.relationship('Unit', backref='property')
-    expenses = db.relationship('Expense', backref='property')
+    units = db.relationship('Unit', backref='property', cascade='all, delete-orphan')
+    expenses = db.relationship('Expense', backref='property', cascade='all, delete-orphan')
 
     def ___repr__(self):
         return f'<Property {self.id} * Name: {self.name}, Type: {self.type}>'
@@ -106,7 +106,7 @@ class Expense(db.Model, SerializerMixin):
 class Tenant(db.Model, SerializerMixin):
     __tablename__ = 'tenants'
 
-    serialize_rules = ('-created_at', '-updated_at', '-_password_hash', '-leases')
+    serialize_rules = ('-updated_at', '-_password_hash', '-leases')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)

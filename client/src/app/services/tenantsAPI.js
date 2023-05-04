@@ -53,7 +53,7 @@ export const tenantsAPI = createApi({
 })
 
 export const {
-     useGetuUitsQuery, 
+     useGetTenantsQuery, 
      useGetTenantQuery, 
      useAddTenantMutation, 
      useDeleteTenantMutation,

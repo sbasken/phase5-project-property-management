@@ -25,7 +25,7 @@ const PropertyCard = ({ property }) => {
     }
 
   return (
-    <Grid.Column computer={7} tablet={16} mobile={16}>
+    <Grid.Column computer={6} tablet={16} mobile={16} >
         <Card 
             style={{ height: '280px' }}
         >

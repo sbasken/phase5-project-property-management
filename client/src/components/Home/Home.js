@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <Image src={banner} />
-      <Grid columns={2} textAlign='center' className='hidden divider'>
+      <Grid columns={2} textAlign='center' className='hidden divider' stackable>
         <Grid.Column style={{ paddingLeft:'2px'}}>
           <br></br>
           <h2> We work hard while you sleep like a panda</h2>
@@ -17,7 +17,7 @@ const Home = () => {
           <p>Whether you're a property owner, manager, or investor, our application is designed to streamline your operations and help you succeed.</p>
           <p> Join our community today and start managing your properties like a pro!</p>
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column >
           <Image 
               className='about_panda'
               src='https://images.unsplash.com/photo-1593526492327-b071f3d5333e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80' 

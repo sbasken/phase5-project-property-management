@@ -28,9 +28,9 @@ const NewUnit = () => {
             vacant: true,
             property_id: parseInt(id),
         },
-        validationScheme: formSchema,
+        validationSchema: formSchema,
         onSubmit: (values) => {
-            console.log("Creating a new Unit...")
+            console.log("Creating a new unit...")
             if (formik.isValid) {
                 addUnit(values)
                 console.log("Unit successfully created!")
@@ -47,9 +47,9 @@ const NewUnit = () => {
   return (
     <div className='ui container hidden divider'>
         <h1>New Unit Info</h1>
-        <Form onSubmit={formik.oHandleSubmit}>
+        <Form onSubmit={formik.handleSubmit}>
             <Form.Group widths='equal'>
-                <Form.Field>
+                <Form.Field validate>
                     <label>Unit Number</label>
                     <input 
                         type='text'
@@ -97,7 +97,7 @@ const NewUnit = () => {
                     />
                 </Form.Field>
             </Form.Group>
-            <Button type='submit' onClick={formik.handleSubmit}>Submit</Button>
+            <Button type='submit'>Submit</Button>
         </Form>
     </div>
   )

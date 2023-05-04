@@ -79,7 +79,7 @@ class Properties(Resource):
 
         found_user = User.query.filter(User.id == session.get('user_id')).first()
         if found_user.type == 'owner':
-            properties = [ p.to_dict(rules=('units','units.expenses')) for p in Property.query.filter(Property.owner_id == found_user.id).all() ]
+            properties = [ p.to_dict() for p in Property.query.filter(Property.owner_id == found_user.id).all() ]
             return make_response(properties, 200)
         if found_user.type == 'agent':
             properties = [ p.to_dict() for p in Property.query.filter(Property.agent_id == found_user.id).all() ]
@@ -187,6 +187,14 @@ class UnitByID(Resource):
             return make_response({'message': 'Unit successfully deleted'}, 204)
         return {'error': 'Unauthorized'}, 401
     
+class UnitsByProperty(Resource):
+
+    def get(self, property_id):
+        found_user = User.query.filter(User.id == session.get('user_id')).first()
+        if found_user.type == 'owner':
+            found_units = [ u.to_dict() for u in Unit.query.filter(Unit.property_id == property_id).all() ]
+            return make_response(found_units, 200)
+    
 class Expenses(Resource):
 
     def get(self):
@@ -260,6 +268,10 @@ class Tenants(Resource):
         return make_response(new_tenant.to_dict(), 201)
 
 class TenantByID(Resource):
+
+    def get(self, id):
+        found_tenant = Tenant.query.filter(Tenant.id == id).first()
+        return make_response(found_tenant.to_dict(), 200)
     
     def patch(self, id):
         data = request.get_json()
@@ -332,7 +344,6 @@ class LeaseByID(Resource):
         return make_response({'message': 'Lease successfully deleted'}, 204)
 
 
-
 api.add_resource(Home, '/')
 api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
@@ -340,12 +351,13 @@ api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Properties, '/properties', endpoint='properties')
 api.add_resource(PropertyByID, '/properties/<int:id>', endpoint='properties/<int:id>')
+api.add_resource(UnitsByProperty, '/properties/<int:property_id>/units', endpoint='properties/<int:property_id>/units')
 api.add_resource(Units, '/units')
 api.add_resource(UnitByID, '/unit/<int:id>')
 api.add_resource(Expenses, '/expenses')
 api.add_resource(ExpenseByID, '/expenses/<int:id>')
 api.add_resource(Tenants, '/tenants')
-api.add_resource(TenantByID, '/tenant/<int:id>')
+api.add_resource(TenantByID, '/tenants/<int:id>')
 api.add_resource(Leases, '/leases', endpoint='leases')
 api.add_resource(LeaseByID, '/leases/<int:id>', endpoint='leases/<int:id>')
 

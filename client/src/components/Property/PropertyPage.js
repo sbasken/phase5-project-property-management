@@ -8,13 +8,14 @@ import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
 const PropertyPage = () => {
 
     const { data: properties = [], isLoading, isSuccess, isError, error } = useGetPropertiesQuery()
+    console.log(properties)
 
     let content
 
     if (isLoading) {
         content = <h1>Loading...</h1>
     } else if (isSuccess) {
-        content = properties.map(property => <PropertyCard key={property.id} property={property}/>)
+        content = properties.map(property => (<PropertyCard key={property.id} property={property}/>))
     } else if (isError) {
         content = <div>{error.toString()}</div>
     }
@@ -30,18 +31,18 @@ const PropertyPage = () => {
             <Image fluid style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://images.unsplash.com/photo-1560706834-afe1ba5d6737?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1973&q=80' alt='building entrance'/>
         </div>
         </div>
-      )
+    )
 
     return (
         <div className='ui container hidden divider'>
             { properties && properties.length > 0 ? 
-            <Grid Columns={3} stackable>
-                { content }
+            <Grid Columns={3}>
                 <Grid.Column width={2}>
                 <Button as={Link} to='/properties/add-new'>
                     Add More
                 </Button>
                 </Grid.Column>
+                { content }
             </Grid> : (noPropertiesYetMessage)}
             
         </div>
