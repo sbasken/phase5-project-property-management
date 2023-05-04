@@ -72,6 +72,17 @@ class Logout(Resource):
         session['user_id'] = None
         return {}, 204
 
+class Users(Resource):
+
+    def get(self):
+        user_id = session.get('user_id')
+        found_user = User.query.filter(User.id == user_id).first()
+        print(found_user.type)
+        if found_user.type == 'owner':
+            return make_response(found_user.to_dict(rules=('properties',)), 200)
+        if found_user.type == 'agent':
+            return make_response(found_user.to_dict(), 200)
+
     
 class Properties(Resource):
 
@@ -343,6 +354,7 @@ api.add_resource(Signup, '/signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
+api.add_resource(Users, '/users', endpoint='users')
 api.add_resource(Properties, '/properties', endpoint='properties')
 api.add_resource(PropertyByID, '/properties/<int:id>', endpoint='properties/<int:id>')
 api.add_resource(UnitsByProperty, '/properties/<int:property_id>/units', endpoint='properties/<int:property_id>/units')

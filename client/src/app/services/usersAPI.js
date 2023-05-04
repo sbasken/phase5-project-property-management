@@ -7,6 +7,12 @@ export const usersAPI = createApi({
     }),
     tagTypes: ['User'],
     endpoints: builder => ({
+        getUsers: builder.query({
+            query() {
+                return `/users`
+            },
+            providesTags: ['User']
+        }),
         getUser: builder.query({
             query: (id) => `/users/${id}`
         }),
@@ -46,6 +52,7 @@ export const usersAPI = createApi({
 })
 
 export const { 
+    useGetUsersQuery,
     useGetUserQuery, 
     useAddUserMutation, 
     useDeleteUserMutation,
