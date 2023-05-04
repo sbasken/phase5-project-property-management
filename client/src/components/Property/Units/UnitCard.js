@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Card, Image, Button, Grid, Icon } from 'semantic-ui-react'
+import { Card, Image, Button, Grid, Icon, Confirm } from 'semantic-ui-react'
+import { useDeleteUnitMutation } from '../../../app/services/unitsAPI'
+
 
 const UnitCard = ({ unit }) => {
   const { id } = useParams()
-  console.log(id)
+  const [ open, setOpen ] = useState(false);
+  const [ deleteUnit ] = useDeleteUnitMutation()
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  function handleDeleteClick() {
+      handleOpen();
+  }
+
+  function handleConfirm() {
+      deleteUnit(unit.id)
+      handleClose();
+  }
+
+  function handleCancel() {
+      handleClose();
+  }
 
   return (
     <Grid.Column  computer={7} tablet={16} mobile={16}>
@@ -24,18 +43,35 @@ const UnitCard = ({ unit }) => {
             {unit.owner_occupied ? 'Owner Occupied': 'Rental Property'}
           </Card.Description>
         </Card.Content>
-        <Button.Group attached='bottom'>
+        <Button.Group >
           <Button 
             animated='fade' 
             floated='right' 
             as={Link} 
             to={`/properties/${id}/units/${unit.id}/lease`}
           >
-            <Button.Content visible>View Lease Details</Button.Content>
+            <Button.Content visible>View Details</Button.Content>
             <Button.Content hidden>
                 <Icon name='folder open outline' />
             </Button.Content>
           </Button>
+          <Button animated='fade' floated='right' as={Link} to={`/properties/${id}/units/${unit.id}`}>
+            <Button.Content visible>Edit</Button.Content>
+            <Button.Content hidden>
+              <Icon name='edit' />
+            </Button.Content>
+          </Button>
+          <Button animated='fade' floated='right' onClick={handleDeleteClick}>
+            <Button.Content visible>Delete</Button.Content>
+            <Button.Content hidden>
+              <Icon name='delete' />
+            </Button.Content>
+          </Button>
+          <Confirm
+            open={open}
+            onCancel={handleCancel}
+            onConfirm={handleConfirm}
+          />
         </Button.Group>
       </Card>
     </Grid.Column>

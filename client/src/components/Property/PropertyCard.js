@@ -44,7 +44,18 @@ const PropertyCard = ({ property }) => {
                     {property.address}
                 </Card.Description>
             </Card.Content>
-            <div >
+            <Button.Group>
+            <Button 
+                animated='fade' 
+                floated='right' 
+                as={Link} 
+                to={`/properties/${property.id}/units`}
+            >
+                <Button.Content visible>See Details</Button.Content>
+                <Button.Content hidden>
+                    <Icon name='folder open outline' />
+                </Button.Content>
+            </Button>
             <Button animated='fade' floated='right' onClick={handleDeleteClick}>
                 <Button.Content visible>Delete</Button.Content>
                 <Button.Content hidden>
@@ -57,23 +68,12 @@ const PropertyCard = ({ property }) => {
                     <Icon name='edit' />
                 </Button.Content>
             </Button>
-            <Button 
-                animated='fade' 
-                floated='right' 
-                as={Link} 
-                to={`/properties/${property.id}/units`}
-            >
-                <Button.Content visible>See Details</Button.Content>
-                <Button.Content hidden>
-                    <Icon name='folder open outline' />
-                </Button.Content>
-            </Button>
             <Confirm
               open={open}
               onCancel={handleCancel}
               onConfirm={handleConfirm}
             />
-            </div>
+            </Button.Group>
         </Card>
     </Grid.Column>
   )

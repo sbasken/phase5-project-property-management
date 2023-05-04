@@ -34,6 +34,7 @@ const Lease = () => {
         </div>
         </div>
     )}
+    
 
     return (
         <div className='ui container hidden divider'>
