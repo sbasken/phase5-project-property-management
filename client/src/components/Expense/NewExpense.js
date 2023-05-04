@@ -13,18 +13,24 @@ import 'react-datepicker/dist/react-datepicker.css';
 const NewExpense = () => {
     const [ addExpense, isLoading, isError, error ] = useAddExpenseMutation()
     const { data: properties = [] } = useGetPropertiesQuery()
-    const units = properties.map( property => property.units)
+    const units = properties?.map( property => property.units)
     // console.log('NewExpense: properties', properties)
     // console.log('NewExpense: units', units[0])
     const navigate = useNavigate();
 
-    const propertyOptions = properties.map(property => ({
+    if (isLoading) {
+        <h1>Loading...</h1>
+    }  else if (isError) {
+        <div>{error.toString()}</div>
+    }
+
+    const propertyOptions = properties?.map(property => ({
         key: `${property.nickname} BLDG`,
         text: `${property.nickname} BLDG`,
         value: `${property.id}`
     }));
 
-    const unitOptions = units[0].map(unit => ({
+    const unitOptions = units[0]?.map(unit => ({
     key: `${unit.unit_number}`,
     text: `${unit.unit_number}`,
     value: `${unit.id}`
@@ -118,7 +124,7 @@ const NewExpense = () => {
                     onChange={formik.handleChange}
                 >
                     <option value=''>Select a property</option>
-                        {propertyOptions.map((propertyOption) => (
+                        {propertyOptions?.map((propertyOption) => (
                             <option key={propertyOption.key} value={propertyOption.value}>
                                 {propertyOption.text}
                             </option>
@@ -136,7 +142,7 @@ const NewExpense = () => {
                     onChange={formik.handleChange}
                 >
                     <option value=''>Select a unit</option>
-                        {unitOptions.map((unitOption) => (
+                        {unitOptions?.map((unitOption) => (
                             <option key={unitOption.key} value={unitOption.value}>
                                 {unitOption.text}
                             </option>

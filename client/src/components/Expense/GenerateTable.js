@@ -4,7 +4,7 @@ import { Table, Icon, Button, Confirm } from 'semantic-ui-react';
 import { useGetExpensesQuery, useDeleteExpenseMutation } from '../../app/services/expensesAPI';
 
 const GenerateTable = ({ category }) => {
-    const { data: expenses = [], isLoading } = useGetExpensesQuery();
+    const { data: expenses = [], isLoading, isSuccess } = useGetExpensesQuery();
     const [ filteredExpenses, setFilteredExpenses ] = useState([])
     const [ deleteExpense ] = useDeleteExpenseMutation();
     const [ open, setOpen ] = useState(false);
@@ -39,6 +39,10 @@ const GenerateTable = ({ category }) => {
     function handleCancel() {
         handleClose();
     }
+
+    if (isLoading) {
+        <div>Loading...</div>
+    } 
 
     const tableRow = filteredExpenses.map(expense => {
         const expenseDate = new Date(expense.date);

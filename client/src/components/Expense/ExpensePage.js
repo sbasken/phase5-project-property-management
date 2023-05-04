@@ -14,6 +14,12 @@ const ExpensePage = () => {
         setCategory(value);
     }
 
+    if (isLoading) {
+        <h1>Loading...</h1>
+    }  else if (isError) {
+        <div>{error.toString()}</div>
+    }
+
     const menu_items = properties.map(property => {
         return (
         <Menu.Item
@@ -24,11 +30,6 @@ const ExpensePage = () => {
         />
         )
     })
-    if (isLoading) {
-        <h1>Loading...</h1>
-    }  else if (isError) {
-        <div>{error.toString()}</div>
-    }
 
   return (
     <div className='ui container hidden divider'>
