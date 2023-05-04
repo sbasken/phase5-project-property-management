@@ -35,15 +35,15 @@ export const unitsAPI = createApi({
             invalidatesTags: ['Unit']
         }),
         editUnit: builder.mutation({
-            query: updatedUnit => {
+            query: values => {
                 // console.log('in editUnit', updatedUnit);
                 return {
-                  url: `/units/${updatedUnit.id}`,
+                  url: `/units/${values.id}`,
                   method: 'PATCH',
                   headers: {
                     'Content-Type': 'application/json'
                   },
-                  body: JSON.stringify(updatedUnit)
+                  body: JSON.stringify(values)
                 }
               },
               invalidatesTags: ['Unit']

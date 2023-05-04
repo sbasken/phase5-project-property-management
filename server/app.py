@@ -113,16 +113,12 @@ class PropertyByID(Resource):
 
     def patch(self, id):
         data = request.get_json()
-        print("data", data)
         to_update = Property.query.filter(Property.id == id).first()
-        print(to_update)
         if to_update:
             for key in data:
                 print(key)
                 setattr(to_update, key, data[key])
-            print("adding")
             db.session.add(to_update)
-            print("committing")
             db.session.commit()
             return make_response(to_update.to_dict(), 200)
         else:
@@ -162,18 +158,16 @@ class UnitByID(Resource):
 
 
     def patch(self, id):
-        found_user = User.query.filter(User.id == session.get('user_id')).first()
-        if found_user.type == 'owner':
-            data = request.get_json()
-            to_update = Unit.query.filter(Unit.id == id).first()
-            if to_update:
-                for key in data:
-                    setattr(to_update, key, data[key])
-                    db.session.add(to_update)
-                    db.session.commit()
-            else:
-                return {'error': 'Unit not found'}, 404
-        return {'error': 'Unauthorized'}, 401
+        data = request.get_json()
+        to_update = Unit.query.filter(Unit.id == id).first()
+        if to_update:
+            for key in data:
+                setattr(to_update, key, data[key])
+            db.session.add(to_update)
+            db.session.commit()
+            return make_response(to_update.to_dict(), 200)
+        else:
+            return {'error': 'Unit not found'}, 404
 
     def delete(self, id):
 
@@ -353,7 +347,7 @@ api.add_resource(Properties, '/properties', endpoint='properties')
 api.add_resource(PropertyByID, '/properties/<int:id>', endpoint='properties/<int:id>')
 api.add_resource(UnitsByProperty, '/properties/<int:property_id>/units', endpoint='properties/<int:property_id>/units')
 api.add_resource(Units, '/units')
-api.add_resource(UnitByID, '/units/<int:id>')
+api.add_resource(UnitByID, '/units/<int:id>', endpoint='units/<int:id>')
 api.add_resource(Expenses, '/expenses')
 api.add_resource(ExpenseByID, '/expenses/<int:id>')
 api.add_resource(Tenants, '/tenants')

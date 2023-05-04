@@ -2,16 +2,16 @@ import React from 'react'
 import UnitCard from './UnitCard'
 import { Grid, Button, Icon, Image } from 'semantic-ui-react'
 import { Link, useParams } from 'react-router-dom'
-import { useGetPropertyQuery } from '../../../app/services/propertiesAPI'
 import { useGetUnitsQuery } from '../../../app/services/unitsAPI'
+import RingLoader from 'react-spinners/RingLoader'
+import { css } from '@emotion/react'
 
 const Units = () => {
   const { id } = useParams();
-  const { data: property = [] } = useGetPropertyQuery(id)
-  const { data: units = [] } = useGetUnitsQuery(id)
+  const { data: units = [], isLoading } = useGetUnitsQuery(id)
   // isLoading, isSuccess, isError, error
-  console.log(property)
-  console.log(units)
+  // console.log(property)
+  // console.log(units)
   // console.log(id)
 
   const noUnitsYetMessage = (
@@ -21,7 +21,7 @@ const Units = () => {
       <Button animated='fade' as={Link} to={`/properties/${id}/units/add-new`}>
         <Button.Content visible>Add Unit</Button.Content>
         <Button.Content hidden>
-          <Link to='/properties/:id/units/add-new'>
+          <Link to={`/properties/${id}/units/add-new`}>
             <Icon name='key'/>
           </Link>
         </Button.Content>
@@ -35,6 +35,7 @@ const Units = () => {
 
   return (
     <div className='ui container hidden divider'>
+      <RingLoader color={'#F5A623'} loading={isLoading} size={20}/>
     
       { units && units.length > 0 ? 
       <>

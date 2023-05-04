@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Table, Icon, Button, Confirm } from 'semantic-ui-react';
 import { useGetExpensesQuery, useDeleteExpenseMutation } from '../../app/services/expensesAPI';
+import RingLoader from 'react-spinners/RingLoader';
 
 const GenerateTable = ({ category }) => {
-    const { data: expenses = [], isLoading, isSuccess } = useGetExpensesQuery();
+    const { data: expenses = [], isLoading } = useGetExpensesQuery();
     const [ filteredExpenses, setFilteredExpenses ] = useState([])
     const [ deleteExpense ] = useDeleteExpenseMutation();
     const [ open, setOpen ] = useState(false);
@@ -73,29 +74,32 @@ const GenerateTable = ({ category }) => {
     });
 
   return (
-    <div className='ui container hidden divider'>
-        <h1>Expenses and Income</h1>
-        <Table columns={5} unstackable>
-            <Table.Header>
-            <Table.Row>
-                <Table.HeaderCell>Date</Table.HeaderCell>
-                <Table.HeaderCell>Type</Table.HeaderCell>
-                <Table.HeaderCell>Amount</Table.HeaderCell>
-                <Table.HeaderCell>Unit ID</Table.HeaderCell>
-                <Table.HeaderCell>Property ID</Table.HeaderCell>
-                <Table.HeaderCell textAlign='right'>
-                    <Button as={Link} to={'/expenses/add-new'}>
-                       ＋
-                    </Button>
-                    
-                </Table.HeaderCell>
-            </Table.Row>
-            </Table.Header>
+    <div>
+        <RingLoader color={'#F5A623'} loading={isLoading} size={20} />
+        <div className='ui container hidden divider'>
+            <h1>Expenses and Income</h1>
+            <Table columns={5} unstackable>
+                <Table.Header>
+                <Table.Row>
+                    <Table.HeaderCell>Date</Table.HeaderCell>
+                    <Table.HeaderCell>Type</Table.HeaderCell>
+                    <Table.HeaderCell>Amount</Table.HeaderCell>
+                    <Table.HeaderCell>Unit ID</Table.HeaderCell>
+                    <Table.HeaderCell>Property ID</Table.HeaderCell>
+                    <Table.HeaderCell textAlign='right'>
+                        <Button as={Link} to={'/expenses/add-new'}>
+                        ＋
+                        </Button>
+                        
+                    </Table.HeaderCell>
+                </Table.Row>
+                </Table.Header>
 
-            <Table.Body>
-                {tableRow}
-            </Table.Body>
-        </Table>
+                <Table.Body>
+                    {tableRow}
+                </Table.Body>
+            </Table>
+        </div>
     </div>
   )
 }

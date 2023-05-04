@@ -1,5 +1,6 @@
 import React from 'react'
 import PropertyCard from './PropertyCard'
+import RingLoader from 'react-spinners/RingLoader';
 import { Grid, Button, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
@@ -34,17 +35,21 @@ const PropertyPage = () => {
     )
 
     return (
-        <div className='ui container hidden divider'>
-            { properties && properties.length > 0 ? 
-            <Grid Columns={3}>
-                <Grid.Column width={2}>
-                <Button as={Link} to='/properties/add-new'>
-                    Add More
-                </Button>
-                </Grid.Column>
-                { content }
-            </Grid> : (noPropertiesYetMessage)}
-            
+        <div>
+            <RingLoader color={'#F5A623'} loading={isLoading} size={20} />
+            <div className='ui container hidden divider'>
+                { properties && properties.length > 0 ? 
+                <Grid Columns={3}>
+                    <Grid.Column width={2}>
+                    <Image src='https://wdy.h-cdn.co/assets/16/05/480x480/square-1454612525-baby-pandas.jpg' size='tiny' circular />
+                    <Button as={Link} to='/properties/add-new' style={{ marginTop: '10px' }}>
+                        Add More
+                    </Button>
+                    </Grid.Column>
+                    { content }
+                </Grid> : (noPropertiesYetMessage)}
+                
+            </div>
         </div>
 
     )

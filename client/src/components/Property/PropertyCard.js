@@ -56,16 +56,16 @@ const PropertyCard = ({ property }) => {
                     <Icon name='folder open outline' />
                 </Button.Content>
             </Button>
-            <Button animated='fade' floated='right' onClick={handleDeleteClick}>
-                <Button.Content visible>Delete</Button.Content>
-                <Button.Content hidden>
-                    <Icon name='delete' />
-                </Button.Content>
-            </Button>
             <Button animated='fade' floated='right' as={Link} to={`/properties/${property.id}`}>
                 <Button.Content visible>Edit</Button.Content>
                 <Button.Content hidden>
                     <Icon name='edit' />
+                </Button.Content>
+            </Button>
+            <Button animated='fade' floated='right' onClick={handleDeleteClick}>
+                <Button.Content visible>Delete</Button.Content>
+                <Button.Content hidden>
+                    <Icon name='delete' />
                 </Button.Content>
             </Button>
             <Confirm
