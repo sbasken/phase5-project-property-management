@@ -42,7 +42,7 @@ class Signup(Resource):
             db.sessoin.add(new_user)
             db.session.commit()
             session['user_id'] = new_user.id
-            return make_response(new_user.to_dict(), 201)
+            return make_response(new_user.to_dict(rules=('properties',)), 201)
         except:
             return make_response({'error': 'Unprocessable Entity'}, 422)
         
@@ -63,7 +63,7 @@ class Login(Resource):
             return {'error': 'Unauthorized'}, 401
         check_user.authenticate(data['password'])
         session['user_id'] = check_user.id
-        return make_response(check_user.to_dict(), 200)
+        return make_response(check_user.to_dict(rules=('properties',)), 200)
     
 class Logout(Resource):
 

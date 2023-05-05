@@ -38,10 +38,6 @@ function App() {
       })
   }, [checkSession]);
 
-  const handleLogin = (user) => {
-    setCurrentUser(user)
-  }
-
   return (
     <div>
       <RingLoader color={'#F5A623'} loading={isLoading}/>
@@ -59,7 +55,7 @@ function App() {
         <Route path='/expenses/add-new' element={<NewExpense />} />
         <Route path='/expenses/:id' element={<EditExpense/>} />
         <Route path='/expenses/reports/:id' element={<ReportPage />} />
-        <Route path='/login' element={<Login handleLogin={handleLogin}/>} />
+        <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile currentUser={currentUser}/>} />
         <Route path='/properties/:id/units' element={<Units />} />

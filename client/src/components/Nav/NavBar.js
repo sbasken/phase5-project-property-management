@@ -80,6 +80,7 @@ const NavBar = ({ currentUser, setCurrentUser }) => {
                             size='large' 
                             inverted color='black' 
                             onClick={handleLogout}
+                            style={{ marginTop: '8px'}}
                         ></Icon> : null }
                 </div>
             </div>

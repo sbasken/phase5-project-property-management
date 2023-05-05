@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { useNavigate, Link } from 'react-router-dom';
 import { useLoginUserMutation } from '../../app/services/authAPI';
 
-const Login = ({ handleLogin }) => {
+const Login = ({ setCurrentUser }) => {
   const navigate = useNavigate();
   const [ loginUser, { isLoading } ] = useLoginUserMutation();
 
@@ -25,7 +25,7 @@ const Login = ({ handleLogin }) => {
       if (formik.isValid) {
         try {
           const { data } = await loginUser(values)
-          handleLogin(data)
+          setCurrentUser(data)
           navigate('/properties')
         } catch (error) {
           alert('Oops, username and password don\'t match');
