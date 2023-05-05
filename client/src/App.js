@@ -20,11 +20,9 @@ import NewLease from './components/Property/Leases/NewLease';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
-import { useNavigate } from 'react-router-dom'
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
-  const navigate = useNavigate();
   console.log('currentUser in app: ', currentUser)
 
   useEffect(() => {
@@ -37,20 +35,20 @@ function App() {
       });
   }, []);
 
-  const handleLogout = () => {
-    fetch("/logout", {method: "DELETE"})
-      .then((r) => {
-        if (r.ok) {
-          setCurrentUser(null)
-        }
-        navigate('/')
-      })
-    }
+  // const handleLogout = () => {
+  //   fetch("/logout", {method: "DELETE"})
+  //     .then((r) => {
+  //       if (r.ok) {
+  //         setCurrentUser(null)
+  //       }
+  //       navigate('/')
+  //     })
+  //   }
 
   return (
     <div>
       <div className='ui row'>
-        <NavBar handleLogout={handleLogout} currentUser={currentUser}/>
+        <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       </div>
       <div className='ui row'> 
       <Routes>
