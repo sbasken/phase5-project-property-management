@@ -1,10 +1,6 @@
 import { Container, Image, Reveal, Card, Icon} from 'semantic-ui-react'
-import RingLoader from 'react-spinners/RingLoader'
-import { useGetUserQuery } from '../../app/services/authAPI'
 
 const Profile = ({ currentUser }) => {
-//   const { data: user = [], isLoading, isSuccess, isError, error } = useGetUserQuery()
-//   if (isSuccess) {console.log('user', user[0].username)}
     const joinedYear = new Date(currentUser.created_at).getFullYear()
     console.log('in profile:', currentUser)
 

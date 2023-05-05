@@ -20,7 +20,7 @@ export const authAPI = createApi({
                 method: 'DELETE',
             }),
         }),
-        checkSession: builder.query({
+        checkSession: builder.mutation({
             query: () => '/check_session'
         }),
         getUser: builder.query({
@@ -56,7 +56,7 @@ export const authAPI = createApi({
 export const {
      useLoginUserMutation, 
      useLogoutUserMutation, 
-     useCheckSessionQuery,
+     useCheckSessionMutation,
      useGetUserQuery, 
      useDeleteUserMutation,
      useEditUserMutation
