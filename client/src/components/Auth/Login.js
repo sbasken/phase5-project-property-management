@@ -5,9 +5,8 @@ import { Grid, Form, Button } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import { useNavigate, Link } from 'react-router-dom';
 import { useLoginUserMutation } from '../../app/services/authAPI';
-import { updateCurrentUser } from '../../features/currentUser/currentUserSlice';
 
-const Login = () => {
+const Login = ({ setCurrentUser }) => {
   const navigate = useNavigate();
   const [ loginUser, { isLoading } ] = useLoginUserMutation();
 
@@ -25,7 +24,7 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         const { data } = await loginUser(values)
-        updateCurrentUser(data.user)
+        setCurrentUser(data.user)
         navigate('/properties')
       } catch (error) {
         alert('Oops, username and password don\'t match');
