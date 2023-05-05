@@ -25,7 +25,7 @@ import { useNavigate } from 'react-router-dom'
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
   const navigate = useNavigate();
-  console.log(currentUser)
+  console.log('currentUser in app: ', currentUser)
 
   useEffect(() => {
     fetch("/check_session")
@@ -65,7 +65,7 @@ function App() {
         <Route path='/expenses/reports/:id' element={<ReportPage />} />
         <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile' element={<Profile currentUser={currentUser}/>} />
         <Route path='/properties/:id/units' element={<Units />} />
         <Route path='/properties/:id/units/add-new' element={<NewUnit />} />
         <Route path='/properties/:id/units/:unitid' element={<EditUnit />} />
