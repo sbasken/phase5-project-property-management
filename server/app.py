@@ -277,7 +277,7 @@ class Tenants(Resource):
         new_tenant = Tenant(
             name = data['name'],
             phone_number = data['phone_number'],
-            email = data['amount'],
+            email = data['email'],
         )
         db.session.add(new_tenant)
         db.session.commit()

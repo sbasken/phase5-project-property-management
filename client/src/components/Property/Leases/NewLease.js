@@ -13,26 +13,26 @@ const NewLease = () => {
   const { id, unitid } = useParams();
   // console.log(currentUser.id)
   const phoneNumberRegEx = /^(\d{3}[ \-]*)*?\d{3}[ \-]*\d{4}$/
+  
   const formSchema = yup.object().shape({
-    
-      name: yup.string()
-        .required('Required')
-        .min(5, 'Nicknamename needs to be at least 5 characters long.')
-        .max(15, 'Nicknamename needs to be less than 15 characters long.'),
-      phone_number: yup.string()
-        .required('Required')
-        .matches(phoneNumberRegEx, 'Phone number is not valid'),
-      email: yup.string()
-        .required('Required')
-        .email('Invalid email'),
-      start_date: yup.date()
-        .required('Required'),
-      end_date: yup.date()
-        .required('Required'),
-      rent: yup.number()
-        .required('Required'),
-      deposit: yup.number(),
-    })
+    name: yup.string()
+      .required('Required')
+      .min(5, 'Nicknamename needs to be at least 5 characters long.')
+      .max(15, 'Nicknamename needs to be less than 15 characters long.'),
+    phone_number: yup.string()
+      .required('Required')
+      .matches(phoneNumberRegEx, 'Phone number is not valid'),
+    email: yup.string()
+      .required('Required')
+      .email('Invalid email'),
+    start_date: yup.date()
+      .required('Required'),
+    end_date: yup.date()
+      .required('Required'),
+    rent: yup.number()
+      .required('Required'),
+    deposit: yup.number(),
+  })
 
   const formik = useFormik({
       initialValues: {
@@ -47,26 +47,39 @@ const NewLease = () => {
         tenant_id: 0
       },
       validationSchema: formSchema,
-      onSubmit: (values) => {
-          console.log("Creating a new tenant...")
-          if (formik.isValid) {
-            try {
-              const { data: tenant=[] } = addTenant(values)
-              console.log(tenant)
-              console.log("Tenant successfully created!")
-              if (tenant) {
-                const { data:lease=[] } = addLease(tenant)
-                console.log(lease)
-                console.log('Lease successfully created!') 
-                navigate(`/properties/${id}/units/${unitid}/lease`)
-              }
-            } catch (error) {
-              alert('Tenant could not be created. Please try again.')
+      onSubmit: async (values) => {
+        if (formik.isValid) {
+          try {
+            console.log("Creating a new tenant...")
+            const tenantData = {
+              name : values.name,
+              phone_number : values.phone_number,
+              email : values.email
             }
-          }
+            console.log('tenantData',tenantData)
+            const { data } = await addTenant(tenantData)
+            console.log(data)
+            console.log("Tenant successfully created!")
+            const leaseData = {
+              start_date : values.start_date,
+              end_date : values.end_date,
+              rent : values.rent,
+              deposit : values.deposit,
+              unit_id: values.unit_id,
+              tenant_id : data.id
+            }
+            const { data: lease } = await addLease(leaseData)
+            console.log(lease)
+            console.log('Lease successfully created!') 
+            navigate(`/properties/${id}/units/${unitid}/lease`)
+          } catch (error) {
+            alert('Please try again.')
+        }
       }
-    })
+    }
+  })
 
+    console.log(formik.values)
     if (isError) {
         return <div>Error: {error.message}</div>;
     }
@@ -80,9 +93,9 @@ const NewLease = () => {
                 <label>Name</label>
                 <input 
                   type="text"
-                  name="nickname"
-                  placeholder='Nickname' 
-                  value={formik.values.nickname}
+                  name="name"
+                  placeholder='Name' 
+                  value={formik.values.name}
                   onChange={formik.handleChange}
                   />
                   <p style={{ color: "orange" }}> {formik.errors.name}</p>
@@ -170,7 +183,7 @@ const NewLease = () => {
                   <p style={{ color: "orange" }}> {formik.errors.unit_id}</p>
                 </Form.Field>
             </Form.Group>
-            <Button type='submit'>Submit</Button>
+            <Button type='submit' onClick={formik.handleSubmit}>Submit</Button>
         </Form>
     </div>
   )
