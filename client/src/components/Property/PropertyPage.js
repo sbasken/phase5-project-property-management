@@ -7,9 +7,7 @@ import { Link } from 'react-router-dom';
 import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
 
 const PropertyPage = () => {
-
     const { data: properties = [], isLoading, isSuccess, isError, error } = useGetPropertiesQuery()
-    console.log(properties)
 
     let content
 

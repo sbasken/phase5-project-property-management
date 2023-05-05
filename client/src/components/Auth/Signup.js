@@ -37,11 +37,11 @@ const Signup = () => {
         initialValues: {
             username: '',
             email: '',
-            password: '',
-            type: true
+            type: true,
+            password: ''
         },
         validationSchema: formSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             console.log("Creating a user...")
             if (formik.isValid) {
                 fetch('/signup', {
@@ -50,37 +50,7 @@ const Signup = () => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(values)
-                }).then(res => {
-                        if (res.ok) {
-                            res.json().then( (new_user) => {
-                                // setCurrentUser(new_user)
-                                console.log("User successfully created!")
-                                    if (new_user.customer === true) {
-                                        fetch('/receipts', {
-                                        method: 'POST',
-                                        headers: {
-                                        'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({  user_id : new_user.id })
-                                        })
-                                        .then(res => { 
-                                        if (res.ok) {
-                                            res.json()
-                                        .then(receipt => {
-                                            console.log(receipt)
-                                            // setCurrentReceipt(receipt)
-                                        })
-                                        navigate('/home')}
-                                    })}
-                            })
-                            navigate('/home')
-                        } else {
-                            res.json().then( err => {
-                                console.log(err)
-                                alert('Oops, username is already taken. Please choose another one.')
-                            })
-                        }
-                    })
+                })
 
             }
         }

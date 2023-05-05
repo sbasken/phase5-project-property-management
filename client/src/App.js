@@ -17,6 +17,7 @@ import EditExpense from './components/Expense/EditExpense';
 import ReportPage from './components/Expense/Reports/ReportPage';
 import Lease from './components/Property/Leases/Lease';
 import NewLease from './components/Property/Leases/NewLease';
+import RingLoader from 'react-spinners/RingLoader';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
@@ -29,16 +30,21 @@ function App() {
 
   useEffect(() => {
     checkSession()
-    .then(response => {
-      setCurrentUser(response.data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+      .then(response => {
+        setCurrentUser(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }, [checkSession]);
+
+  const handleLogin = (user) => {
+    setCurrentUser(user)
+  }
 
   return (
     <div>
+      <RingLoader color={'#F5A623'} loading={isLoading}/>
       <div className='ui row'>
         <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       </div>
@@ -53,7 +59,7 @@ function App() {
         <Route path='/expenses/add-new' element={<NewExpense />} />
         <Route path='/expenses/:id' element={<EditExpense/>} />
         <Route path='/expenses/reports/:id' element={<ReportPage />} />
-        <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
+        <Route path='/login' element={<Login handleLogin={handleLogin}/>} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/profile' element={<Profile currentUser={currentUser}/>} />
         <Route path='/properties/:id/units' element={<Units />} />

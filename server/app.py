@@ -34,7 +34,7 @@ class Signup(Resource):
 
         try:
             new_user = User(
-                name = data['name'],
+                username = data['username'],
                 email = data['email'],
                 type = data['type']
             )
