@@ -20,30 +20,22 @@ import NewLease from './components/Property/Leases/NewLease';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
+import { useCheckSessionMutation } from './app/services/authAPI'
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
+  const [ checkSession, { isLoading } ] = useCheckSessionMutation(); 
   console.log('currentUser in app: ', currentUser)
 
   useEffect(() => {
-    fetch("/check_session")
-      .then((r) => {
-        if (r.ok) {
-          r.json()
-          .then((user) => setCurrentUser(user)
-          )}
-      });
-  }, []);
-
-  // const handleLogout = () => {
-  //   fetch("/logout", {method: "DELETE"})
-  //     .then((r) => {
-  //       if (r.ok) {
-  //         setCurrentUser(null)
-  //       }
-  //       navigate('/')
-  //     })
-  //   }
+    checkSession()
+    .then(response => {
+      setCurrentUser(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }, [checkSession]);
 
   return (
     <div>
