@@ -12,6 +12,9 @@ const ExpensePage = () => {
         setCategory(value);
     }
 
+    if (isLoading) {
+        <div>Loading</div>
+    }
     if (isError) {
         <div>{error.toString()}</div>
     }

@@ -41,10 +41,10 @@ const PropertyPage = () => {
                 { properties && properties.length > 0 ? 
                 <Grid Columns={3}>
                     <Grid.Column width={2}>
-                    <Image src='https://wdy.h-cdn.co/assets/16/05/480x480/square-1454612525-baby-pandas.jpg' size='tiny' circular />
                     <Button as={Link} to='/properties/add-new' style={{ marginTop: '10px' }}>
                         Add More
                     </Button>
+                    <Image src='https://wdy.h-cdn.co/assets/16/05/480x480/square-1454612525-baby-pandas.jpg' size='tiny' circular style={{ marginTop: '10px' }}/>
                     </Grid.Column>
                     { content }
                 </Grid> : (noPropertiesYetMessage)}

@@ -25,6 +25,7 @@ import { useNavigate } from 'react-router-dom'
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
   const navigate = useNavigate();
+  console.log(currentUser)
 
   useEffect(() => {
     fetch("/check_session")

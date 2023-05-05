@@ -6,8 +6,8 @@ import { leasesAPI } from './services/leasesAPI'
 import { unitsAPI } from './services/unitsAPI'
 import { tenantsAPI } from './services/tenantsAPI'
 import selectedYearReducer from '../features/selectedYear/selectedYearSlice'
-import { usersAPI } from './services/usersAPI'
-
+import currentUserReducer from '../features/currentUser/currentUserSlice'
+import { authAPI } from './services/authAPI'
 
 export const store = configureStore({
     reducer: {
@@ -16,8 +16,10 @@ export const store = configureStore({
         [ leasesAPI.reducerPath ]: leasesAPI.reducer,
         [ unitsAPI.reducerPath ]: unitsAPI.reducer,
         [ tenantsAPI.reducerPath ]: tenantsAPI.reducer,
-        [ usersAPI.reducerPath ]: usersAPI.reducer,
-        selectedYear: selectedYearReducer
+        [ authAPI.reducerPath ]: authAPI.reducer,
+        selectedYear: selectedYearReducer,
+        currentUser: currentUserReducer
+        
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().concat(
@@ -26,7 +28,7 @@ export const store = configureStore({
             leasesAPI.middleware, 
             unitsAPI.middleware, 
             tenantsAPI.middleware,
-            usersAPI.middleware,
+            authAPI.middleware
         )
 })
 setupListeners(store.dispatch)

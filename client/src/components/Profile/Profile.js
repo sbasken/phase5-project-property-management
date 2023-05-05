@@ -4,7 +4,6 @@ import { useGetUsersQuery } from '../../app/services/usersAPI'
 
 const Profile = () => {
   const { data: user = [], isLoading, isError, error } = useGetUsersQuery()
-  console.log(user)
   const joinedYear = new Date(user.created_at).getFullYear()
 
   if (isError) {
