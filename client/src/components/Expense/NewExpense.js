@@ -13,8 +13,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 const NewExpense = () => {
     const [ addExpense, isLoading, isError, error ] = useAddExpenseMutation()
     const { data: properties = [] } = useGetPropertiesQuery()
-    const units = properties?.map( property => property.units)
-    // console.log('NewExpense: properties', properties)
+    let units 
+    if (properties.length > 0) {
+        units = properties.map( property => property.units)
+    }
     console.log('NewExpense: units', units)
     const navigate = useNavigate();
 

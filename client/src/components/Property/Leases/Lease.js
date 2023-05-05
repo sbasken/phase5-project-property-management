@@ -19,6 +19,7 @@ const Lease = () => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1>You have no lease for this unit yet.</h1>
             <Button animated='fade' as={Link} to={`/properties/${id}/units/${unitid}/lease/add-new`}>
+                
                 <Button.Content visible>New Lease</Button.Content>
                 <Button.Content hidden>
                     <Icon name='user plus'/>
@@ -27,7 +28,7 @@ const Lease = () => {
             </Button>
         <br></br>
         <div style={{ width: '50rem', height: '30rem', position: 'relative', overflow: 'hidden' }}>
-            <Image fluid style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://images.unsplash.com/photo-1560706834-afe1ba5d6737?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1973&q=80' alt='building entrance'/>
+            <Image fluid style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80' alt='lease agreement'/>
         </div>
         </div>
     )}

@@ -4,7 +4,6 @@ import { Grid, Button, Icon, Image } from 'semantic-ui-react'
 import { Link, useParams } from 'react-router-dom'
 import { useGetUnitsQuery } from '../../../app/services/unitsAPI'
 import RingLoader from 'react-spinners/RingLoader'
-import { css } from '@emotion/react'
 
 const Units = () => {
   const { id } = useParams();
@@ -28,7 +27,7 @@ const Units = () => {
       </Button>
       <br></br>
       <div style={{ width: '50rem', height: '30rem', position: 'relative', overflow: 'hidden' }}>
-        <Image fluid style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://plus.unsplash.com/premium_photo-1661778812498-d56d7f09d1fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80' alt='apartment door'/>
+        <Image fluid style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://images.unsplash.com/photo-1588471980726-8346cb477a33?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1540&q=80' alt='apartment door'/>
       </div>
     </div>
   )

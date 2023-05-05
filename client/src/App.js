@@ -17,30 +17,27 @@ import EditExpense from './components/Expense/EditExpense';
 import ReportPage from './components/Expense/Reports/ReportPage';
 import Lease from './components/Property/Leases/Lease';
 import NewLease from './components/Property/Leases/NewLease';
-import RingLoader from 'react-spinners/RingLoader';
+import './App.css';
 
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
-import { useCheckSessionMutation } from './app/services/authAPI'
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
-  const [ checkSession, { isLoading } ] = useCheckSessionMutation(); 
   console.log('currentUser in app: ', currentUser)
 
   useEffect(() => {
-    checkSession()
-      .then(response => {
-        setCurrentUser(response.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }, [checkSession]);
+    fetch("/check_session")
+      .then((r) => {
+        if (r.ok) {
+          r.json()
+          .then((currentUser) => setCurrentUser(currentUser)
+          )}
+      });
+  }, []);
 
   return (
     <div>
-      <RingLoader color={'#F5A623'} loading={isLoading}/>
       <div className='ui row'>
         <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       </div>

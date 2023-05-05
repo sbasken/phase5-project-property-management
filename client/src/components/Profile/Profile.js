@@ -23,7 +23,7 @@ const Profile = ({ currentUser }) => {
                     </Card.Meta>
                     <Card.Description>
                     <Icon name='calendar'/>
-                        Joined in {joinedYear}
+                        happy Panda since {joinedYear}
                     <br></br>
                     <Icon name='mail'/>
                     {currentUser? currentUser.email : 'email'}

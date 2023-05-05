@@ -7,16 +7,17 @@ import { Link } from 'react-router-dom';
 import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
 
 const PropertyPage = () => {
-    const { data: properties = [], isLoading, isSuccess, isError, error } = useGetPropertiesQuery()
+    const { data: properties = [], isLoading, isError, error, isSuccess } = useGetPropertiesQuery()
+    console.log(properties)
 
     let content
 
     if (isLoading) {
         content = <h1>Loading...</h1>
-    } else if (isSuccess) {
-        content = properties.map(property => (<PropertyCard key={property.id} property={property}/>))
     } else if (isError) {
         content = <div>{error.toString()}</div>
+    } else if (isSuccess && properties.length > 0) {
+        content = properties.map(property => (<PropertyCard key={property.id} property={property}/>))
     }
 
     const noPropertiesYetMessage = (
@@ -27,7 +28,7 @@ const PropertyPage = () => {
             </Button>
         <br></br>
         <div style={{ width: '50rem', height: '30rem', position: 'relative', overflow: 'hidden' }}>
-            <Image fluid style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://images.unsplash.com/photo-1560706834-afe1ba5d6737?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1973&q=80' alt='building entrance'/>
+            <Image fluid style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://www.bhg.com/thmb/TXKtfIyA_UUCOWtMsLXetN5Wvb8=/1493x0/filters:no_upscale():strip_icc()/gray-exterior-white-trim-path-09767f9e-83bad323e9d2473b90e69add9165c12f.jpg' alt='building entrance'/>
         </div>
         </div>
     )

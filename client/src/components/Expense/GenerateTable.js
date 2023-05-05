@@ -96,7 +96,7 @@ const GenerateTable = ({ category }) => {
                 </Table.Header>
 
                 <Table.Body>
-                    {tableRow}
+                    {tableRow.length > 0 ? tableRow : <Table.Cell>None</Table.Cell>}
                 </Table.Body>
             </Table>
         </div>
