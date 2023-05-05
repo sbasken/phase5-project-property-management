@@ -1,4 +1,3 @@
-import React from 'react'
 import DatePicker from 'react-datepicker';
 
 import { Button, Form } from 'semantic-ui-react'

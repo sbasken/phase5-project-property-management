@@ -117,10 +117,6 @@ const Lease = () => {
                                 <Table.Cell>Email Address</Table.Cell>
                                 <Table.Cell>{leaseToDisplay[0].tenant.email}</Table.Cell>
                             </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Email Address</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].tenant.email}</Table.Cell>
-                            </Table.Row>
                         </Table.Body>
                     </Table>
                     

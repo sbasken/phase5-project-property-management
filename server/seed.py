@@ -104,7 +104,7 @@ if __name__ == '__main__':
             tenant = Tenant(
                 name = fake.name(),
                 email = fake.email(),
-                phone_number = f"({random.randint(100, 999)}) {random.randint(100, 999)} - {random.randint(1000, 9999)}"
+                phone_number = f"{random.randint(100, 999)} - {random.randint(100, 999)} - {random.randint(1000, 9999)}"
             )
             tenant.password_hash = tenant.name + 'pw'
             print("Committing tenant data...")

@@ -55,8 +55,6 @@ const Signup = ({ setCurrentUser }) => {
                     } catch (error) {
                         alert('Oops, username and password don\'t match');
                     }
-                    console.log(values)
-                    // signupUser(values)
 
                 }
             }
