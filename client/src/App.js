@@ -56,7 +56,7 @@ function App() {
         <Route path='/expenses/:id' element={<EditExpense/>} />
         <Route path='/expenses/reports/:id' element={<ReportPage />} />
         <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/signup' element={<Signup setCurrentUser={setCurrentUser}/>} />
         <Route path='/profile' element={<Profile currentUser={currentUser}/>} />
         <Route path='/properties/:id/units' element={<Units />} />
         <Route path='/properties/:id/units/add-new' element={<NewUnit />} />

@@ -31,16 +31,22 @@ class Signup(Resource):
 
     def post(self):
         data = request.get_json()
+        print(data)
 
         try:
+            print('Creating user...')
             new_user = User(
                 username = data['username'],
                 email = data['email'],
                 type = data['type']
             )
+            print('password hashing...')
             new_user.password_hash = data['password']
-            db.sessoin.add(new_user)
+            print('session adding...')
+            db.session.add(new_user)
+            print('session commiting...')
             db.session.commit()
+            print('setting session user_id...')
             session['user_id'] = new_user.id
             return make_response(new_user.to_dict(rules=('properties',)), 201)
         except:
@@ -91,10 +97,15 @@ class Properties(Resource):
         found_user = User.query.filter(User.id == session.get('user_id')).first()
         if found_user.type == 'owner':
             properties = [ p.to_dict(rules=('units',)) for p in Property.query.filter(Property.owner_id == found_user.id).all() ]
-            return make_response(properties, 200)
+            if properties:
+                return make_response(properties, 200)
+            else:
+                return make_response({'message': 'No properties yet'}, 200)
         if found_user.type == 'agent':
-            properties = [ p.to_dict() for p in Property.query.filter(Property.agent_id == found_user.id).all() ]
-            return make_response(properties, 200)
+            if properties:
+                return make_response(properties, 200)
+            else:
+                return make_response({'message': 'No properties yet'}, 200)
     
     def post(self):
 

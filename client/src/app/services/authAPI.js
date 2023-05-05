@@ -20,44 +20,29 @@ export const authAPI = createApi({
                 method: 'DELETE',
             }),
         }),
-        checkSession: builder.mutation({
-            query: () => '/check_session'
-        }),
-        getUser: builder.query({
-            query: () => {
-                '/users'
-            },
-            invalidatesTags: ['User'],
-        }),
-        deleteUser: builder.mutation({
-            query: (id) => ({
-                url: `/users/${id}`,
-                method: 'DELETE'
+        signupUser: builder.mutation({
+            query: (userData) => ({
+                url: '/signup',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: userData
             }),
             invalidatesTags: ['User']
         }),
-        editUser: builder.mutation({
-            query: updatedUser => {
-                return {
-                  url: `/users/${updatedUser.id}`,
-                  method: 'PATCH',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(updatedUser)
-                }
+        checkSession: builder.mutation({
+            query: () => {
+                '/check_session'
             },
-            invalidatesTags: ['User']
+            providesTags: ['User'],
         })
-
     })
 })
 
 export const {
      useLoginUserMutation, 
      useLogoutUserMutation, 
-     useCheckSessionMutation,
-     useGetUserQuery, 
-     useDeleteUserMutation,
-     useEditUserMutation
+     useSignupUserMutation,
+     useCheckSessionMutation
 } = authAPI

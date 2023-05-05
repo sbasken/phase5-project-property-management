@@ -26,7 +26,7 @@ const Login = ({ setCurrentUser }) => {
         try {
           const { data } = await loginUser(values)
           setCurrentUser(data)
-          navigate('/properties')
+          navigate('/')
         } catch (error) {
           alert('Oops, username and password don\'t match');
         }
