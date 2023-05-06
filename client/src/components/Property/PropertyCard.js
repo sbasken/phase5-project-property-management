@@ -44,7 +44,7 @@ const PropertyCard = ({ property }) => {
                     {property.address}
                 </Card.Description>
             </Card.Content>
-            <Button.Group>
+            <Button.Group color='teal'>
             <Button 
                 animated='fade' 
                 floated='right' 

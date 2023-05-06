@@ -87,7 +87,7 @@ const GenerateTable = ({ category }) => {
                     <Table.HeaderCell>Unit ID</Table.HeaderCell>
                     <Table.HeaderCell>Property ID</Table.HeaderCell>
                     <Table.HeaderCell textAlign='right'>
-                        <Button as={Link} to={'/expenses/add-new'}>
+                        <Button as={Link} to={'/expenses/add-new'} color='teal'>
                         ＋
                         </Button>
                         

@@ -1,14 +1,23 @@
 import React from 'react'
 import PropertyCard from './PropertyCard'
 import RingLoader from 'react-spinners/RingLoader';
+import Map from './Map';
 import { Grid, Button, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
+import { useJsApiLoader } from '@react-google-maps/api'
 
 import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
 
 const PropertyPage = () => {
     const { data: properties = [], isLoading, isError, error, isSuccess } = useGetPropertiesQuery()
-    console.log(properties)
+    const { isLoaded } = useJsApiLoader({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
+    });
+    console.log(process.env.REACT_APP_GOOGLEMAPS_KEY)
+    
+    if (!isLoaded) {
+        return <div>Map is loading...</div>
+    }
 
     let content
 
@@ -17,7 +26,7 @@ const PropertyPage = () => {
     } else if (isError) {
         content = <div>{error.toString()}</div>
     } else if (isSuccess && properties.length > 0) {
-        content = properties.map(property => (<PropertyCard key={property.id} property={property}/>))
+        content = properties.map((property) => <PropertyCard key={property.id} property={property}/>)
     }
 
     const noPropertiesYetMessage = (
@@ -47,7 +56,9 @@ const PropertyPage = () => {
                     </Grid.Column>
                     { content }
                 </Grid> : (noPropertiesYetMessage)}
-                
+                <Grid.Row style={{width: '100vw', height: '100vh', paddingTop: '15px'}}>
+                    <Map />
+                </Grid.Row>
             </div>
         </div>
 

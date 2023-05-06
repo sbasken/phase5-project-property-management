@@ -17,6 +17,7 @@ import EditExpense from './components/Expense/EditExpense';
 import ReportPage from './components/Expense/Reports/ReportPage';
 import Lease from './components/Property/Leases/Lease';
 import NewLease from './components/Property/Leases/NewLease';
+import EditLease from './components/Property/Leases/EditLease';
 import './App.css';
 
 import { Route, Routes } from "react-router-dom";
@@ -60,6 +61,7 @@ function App() {
         <Route path='/properties/:id/units/:unitid' element={<EditUnit />} />
         <Route path='/properties/:id/units/:unitid/lease' element={<Lease />} />
         <Route path='/properties/:id/units/:unitid/lease/add-new' element={<NewLease />} />
+        <Route path='/properties/:id/units/:unitid/lease/edit' element={<EditLease />} />
       </Routes>
       </div>
     </div>

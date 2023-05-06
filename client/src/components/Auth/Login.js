@@ -1,7 +1,7 @@
 import React from 'react'
 import RingLoader from 'react-spinners/RingLoader';
 import * as yup from "yup";
-import { Grid, Form, Button } from 'semantic-ui-react'
+import { Grid, Form, Button, Icon } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import { useNavigate, Link } from 'react-router-dom';
 import { useLoginUserMutation } from '../../app/services/authAPI';
@@ -74,7 +74,11 @@ const Login = ({ setCurrentUser }) => {
             </Form>
           </Grid.Column>
         </Grid>
-          <h4 style={{textAlign:'center'}}>No a panda yet? Sign up <Link to="/signup">here</Link></h4>
+          <h4 style={{textAlign:'center'}}>
+            <Icon color='teal' name='arrow alternate circle right'/>
+            No a panda yet? Sign up 
+            <Link to="/signup">  here  </Link>
+            <Icon color='teal' name='arrow alternate circle left'/></h4>
       </div>
     </div>
   )

@@ -19,7 +19,6 @@ const Lease = () => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1>You have no lease for this unit yet.</h1>
             <Button animated='fade' as={Link} to={`/properties/${id}/units/${unitid}/lease/add-new`}>
-                
                 <Button.Content visible>New Lease</Button.Content>
                 <Button.Content hidden>
                     <Icon name='user plus'/>
@@ -47,78 +46,92 @@ const Lease = () => {
                         </Button>
                     </Grid.Column>
                     <Grid.Column width={13}>
-                    <Table color='teal' textAlign='left'>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>Lease Information</Table.HeaderCell>
-                                <Table.HeaderCell></Table.HeaderCell>
-                                <Table.HeaderCell></Table.HeaderCell>
-                                <Table.HeaderCell></Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
+                        <Button.Group color='teal' floated='right' style={{ marginBottom: '10px'}}>
+                        <Button animated='fade' as={Link} to={`/properties/${id}/units/${unitid}/lease/edit`}>
+                            <Button.Content visible>Edit</Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='edit'/>
+                            </Button.Content>
+                        </Button>
+                        <Button animated='fade' as={Link} to={`/properties/${id}/units/${unitid}/lease/edit`}>
+                            <Button.Content visible>Delete</Button.Content>
+                            <Button.Content hidden>
+                                <Icon name='trash'/>
+                            </Button.Content>
+                        </Button>
+                        </Button.Group>
+                        <Table color='teal' textAlign='left'>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Lease Information</Table.HeaderCell>
+                                    <Table.HeaderCell></Table.HeaderCell>
+                                    <Table.HeaderCell></Table.HeaderCell>
+                                    <Table.HeaderCell></Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
 
-                        <Table.Body>
-                            <Table.Row>
-                                <Table.Cell>Start Date</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].start_date}</Table.Cell>
-                                <Table.Cell></Table.Cell>
-                                <Table.Cell></Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>End Date</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].end_date}</Table.Cell>
-                                <Table.Cell></Table.Cell>
-                                <Table.Cell></Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Rent</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].rent}</Table.Cell>
-                                <Table.Cell></Table.Cell>
-                                <Table.Cell></Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Deposit</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].deposit}</Table.Cell>
-                                <Table.Cell></Table.Cell>
-                                <Table.Cell></Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Unit ID</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].unit_id}</Table.Cell>
-                                <Table.Cell></Table.Cell>
-                                <Table.Cell></Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Tenant ID</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].tenant_id}</Table.Cell>
-                                <Table.Cell></Table.Cell>
-                                <Table.Cell></Table.Cell>
-                            </Table.Row>
-                        </Table.Body>
-                    </Table>
-                    <Table color='pink' >
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>Tenant Information</Table.HeaderCell>
-                                <Table.HeaderCell></Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
+                            <Table.Body>
+                                <Table.Row>
+                                    <Table.Cell>Start Date</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].start_date}</Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                    <Table.Cell>End Date</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].end_date}</Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                    <Table.Cell>Rent</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].rent}</Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                    <Table.Cell>Deposit</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].deposit}</Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                    <Table.Cell>Unit ID</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].unit_id}</Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                    <Table.Cell>Tenant ID</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].tenant_id}</Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                    <Table.Cell></Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table>
+                        <Table color='pink' >
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Tenant Information</Table.HeaderCell>
+                                    <Table.HeaderCell></Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
 
-                        <Table.Body>
-                            <Table.Row>
-                                <Table.Cell>Name</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].tenant.name}</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Phone Number</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].tenant.phone_number}</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>Email Address</Table.Cell>
-                                <Table.Cell>{leaseToDisplay[0].tenant.email}</Table.Cell>
-                            </Table.Row>
-                        </Table.Body>
-                    </Table>
+                            <Table.Body>
+                                <Table.Row>
+                                    <Table.Cell>Name</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].tenant.name}</Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                    <Table.Cell>Phone Number</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].tenant.phone_number}</Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                    <Table.Cell>Email Address</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].tenant.email}</Table.Cell>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table>
                     
                     </Grid.Column>
                 </Grid>

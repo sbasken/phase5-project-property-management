@@ -43,7 +43,7 @@ const UnitCard = ({ unit }) => {
             {unit.owner_occupied ? 'Owner Occupied': 'Rental Property'}
           </Card.Description>
         </Card.Content>
-        <Button.Group >
+        <Button.Group color='teal'>
           <Button 
             animated='fade' 
             floated='right' 
