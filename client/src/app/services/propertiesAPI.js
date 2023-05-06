@@ -46,7 +46,7 @@ export const propertiesAPI = createApi({
                   body: JSON.stringify(updatedProperty)
                 }
               },
-              invalidatesTags: ['Property']
+            invalidatesTags: ['Property']
         })
 
     })

@@ -1,13 +1,14 @@
+import React from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import { useAddPropertyMutation } from '../../app/services/propertiesAPI';
 import { useFormik } from "formik";
 import { useNavigate } from 'react-router-dom'
+import { Autocomplete } from '@react-google-maps/api'
 import * as yup from "yup";
 
 const NewProperty = ({ currentUser }) => {
     const [ addProperty, isLoading, isError, error ] = useAddPropertyMutation()
     let navigate = useNavigate();
-    console.log(currentUser.id)
 
     const formSchema = yup.object().shape({
         nickname: yup.string()
@@ -48,6 +49,14 @@ const NewProperty = ({ currentUser }) => {
             }
         }
     })
+
+    const autocompleteRef = React.useRef(null)
+
+    const handlePlaceChanged = () => {
+        const place = autocompleteRef.current.getPlace()
+        const address = place.formatted_address
+        formik.setFieldValue('address', address)
+    }
 
     if (isError) {
         return <div>Error: {error.message}</div>;
@@ -94,15 +103,22 @@ const NewProperty = ({ currentUser }) => {
             </Form.Group>
             <Form.Group widths='equal'>
                 <Form.Field validate>
-                    <label>Address</label>
-                    <input 
-                        type="text"
-                        name="address"
-                        placeholder='Address' 
-                        value={formik.values.address}
-                        onChange={formik.handleChange}
-                    />
-                    <p style={{ color: "orange" }}> {formik.errors.address}</p>
+                        <label>Address</label>
+                    <Autocomplete
+                        onLoad={(autocomplete) => {
+                            autocompleteRef.current = autocomplete
+                          }}
+                        onPlaceChanged={handlePlaceChanged}
+                    >
+                        <input 
+                            type="text"
+                            name="address"
+                            placeholder='Address' 
+                            value={formik.values.address}
+                            onChange={formik.handleChange}
+                        />
+                    </Autocomplete>
+                        <p style={{ color: "orange" }}> {formik.errors.address}</p>
                 </Form.Field>
             </Form.Group>
             <Form.Group widths='equal'>

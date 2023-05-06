@@ -12,6 +12,7 @@ const PropertyPage = () => {
     const { data: properties = [], isLoading, isError, error, isSuccess } = useGetPropertiesQuery()
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
+        libraries: ['places']
     });
     console.log(process.env.REACT_APP_GOOGLEMAPS_KEY)
     

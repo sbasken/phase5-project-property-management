@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import { useGetPropertyQuery, useEditPropertyMutation } from '../../app/services/propertiesAPI';
-// import { useEditPropertyMutation } from '../app/services/propertiesAPI';
+import { Autocomplete } from '@react-google-maps/api'
 
 import { useFormik } from "formik";
 import { useNavigate, useParams } from 'react-router-dom'
@@ -59,6 +59,14 @@ const EditProperty = ({ currentUser }) => {
             }
         }
     })
+
+    const autocompleteRef = React.useRef(null)
+
+    const handlePlaceChanged = () => {
+        const place = autocompleteRef.current.getPlace()
+        const address = place.formatted_address
+        formik.setFieldValue('address', address)
+    }
 
     useEffect(() => {
         if (isSuccess) {
@@ -136,13 +144,20 @@ const EditProperty = ({ currentUser }) => {
             <Form.Group widths='equal'>
                 <Form.Field validate>
                     <label>Address</label>
-                    <input 
-                        type="text"
-                        name="address"
-                        placeholder='Address' 
-                        value={formik.values.address}
-                        onChange={formik.handleChange}
-                    />
+                    <Autocomplete
+                        onLoad={(autocomplete) => {
+                            autocompleteRef.current = autocomplete
+                          }}
+                        onPlaceChanged={handlePlaceChanged}
+                    >
+                        <input 
+                            type="text"
+                            name="address"
+                            placeholder='Address' 
+                            value={formik.values.address}
+                            onChange={formik.handleChange}
+                        />
+                    </Autocomplete>
                     <p style={{ color: "orange" }}> {formik.errors.address}</p>
                 </Form.Field>
             </Form.Group>
