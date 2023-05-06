@@ -4,23 +4,30 @@ import RingLoader from 'react-spinners/RingLoader';
 import Map from './Map';
 import { Grid, Button, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import { useJsApiLoader } from '@react-google-maps/api'
-
+import { useLoadScript } from '@react-google-maps/api'
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
 
 const PropertyPage = () => {
     const { data: properties = [], isLoading, isError, error, isSuccess } = useGetPropertiesQuery()
-    const { isLoaded } = useJsApiLoader({
+    const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
         libraries: ['places']
     });
-    console.log(process.env.REACT_APP_GOOGLEMAPS_KEY)
     
     if (!isLoaded) {
         return <div>Map is loading...</div>
     }
 
     let content
+    let latLngList = []
+    const generateLatLng =  async (address) => {
+        const results = await getGeocode({ address });
+        const { lat, lng } = await getLatLng(results[0])
+        console.log('lat, lng', lat, lng)
+        console.log('results', results)
+        return lat, lng
+    }
 
     if (isLoading) {
         content = <h1>Loading...</h1>
@@ -28,6 +35,8 @@ const PropertyPage = () => {
         content = <div>{error.toString()}</div>
     } else if (isSuccess && properties.length > 0) {
         content = properties.map((property) => <PropertyCard key={property.id} property={property}/>)
+        const latlng = properties.map(property => generateLatLng(property.address))
+        latLngList.push(latlng)
     }
 
     const noPropertiesYetMessage = (
