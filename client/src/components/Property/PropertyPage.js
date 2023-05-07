@@ -1,7 +1,7 @@
 import React from 'react'
 import PropertyCard from './PropertyCard'
 import RingLoader from 'react-spinners/RingLoader';
-import Map from './Map';
+// import Map from './Map';
 import { Grid, Button, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'

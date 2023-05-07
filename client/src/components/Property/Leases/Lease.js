@@ -1,13 +1,31 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom'
-import { Grid, Button, Icon, Table, Image } from 'semantic-ui-react'
-import { useGetLeasesQuery } from '../../../app/services/leasesAPI'
+import { Grid, Button, Icon, Table, Image, Confirm } from 'semantic-ui-react'
+import { useGetLeasesQuery, useDeleteLeaseMutation } from '../../../app/services/leasesAPI'
 import RingLoader from 'react-spinners/RingLoader'
 
 const Lease = () => {
     const { data: leases = [], isLoading, isError, error } = useGetLeasesQuery()
     const { id, unitid } = useParams()
     const leaseToDisplay = leases.filter(lease => lease.unit_id === parseInt(unitid))
-    console.log(leaseToDisplay)
+    const [ deleteLease ] = useDeleteLeaseMutation()
+    const [ open, setOpen ] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    function handleDeleteClick() {
+        handleOpen();
+    }
+
+    function handleConfirm() {
+        deleteLease(leaseToDisplay[0].id)
+        handleClose();
+    }
+
+    function handleCancel() {
+        handleClose();
+    }
 
 
     if (isError) {
@@ -53,12 +71,17 @@ const Lease = () => {
                                 <Icon name='edit'/>
                             </Button.Content>
                         </Button>
-                        <Button animated='fade' as={Link} to={`/properties/${id}/units/${unitid}/lease/edit`}>
+                        <Button animated='fade' onClick={handleDeleteClick}>
                             <Button.Content visible>Delete</Button.Content>
                             <Button.Content hidden>
                                 <Icon name='trash'/>
                             </Button.Content>
                         </Button>
+                        <Confirm
+                            open={open}
+                            onCancel={handleCancel}
+                            onConfirm={handleConfirm}
+                        />
                         </Button.Group>
                         <Table color='teal' textAlign='left'>
                             <Table.Header>
