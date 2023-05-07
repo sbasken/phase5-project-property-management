@@ -340,6 +340,11 @@ class Leases(Resource):
 
 class LeaseByID(Resource):
 
+    def get(self, id):
+        found_lease = Lease.query.filter(Lease.id == id).first()
+        return make_response(found_lease.to_dict(), 200)
+        
+
     def patch(self, id):
         data = request.get_json()
         to_update = Lease.query.filter(Lease.id == id).first()

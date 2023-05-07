@@ -61,7 +61,7 @@ function App() {
         <Route path='/properties/:id/units/:unitid' element={<EditUnit />} />
         <Route path='/properties/:id/units/:unitid/lease' element={<Lease />} />
         <Route path='/properties/:id/units/:unitid/lease/add-new' element={<NewLease />} />
-        <Route path='/properties/:id/units/:unitid/lease/edit' element={<EditLease />} />
+        <Route path='/properties/:id/units/:unitid/lease/:leaseid/:tenantid' element={<EditLease />} />
       </Routes>
       </div>
     </div>

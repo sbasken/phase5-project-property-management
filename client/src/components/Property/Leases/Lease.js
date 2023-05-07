@@ -7,7 +7,7 @@ const Lease = () => {
     const { data: leases = [], isLoading, isError, error } = useGetLeasesQuery()
     const { id, unitid } = useParams()
     const leaseToDisplay = leases.filter(lease => lease.unit_id === parseInt(unitid))
-
+    console.log(leaseToDisplay)
 
 
     if (isError) {
@@ -47,7 +47,7 @@ const Lease = () => {
                     </Grid.Column>
                     <Grid.Column width={13}>
                         <Button.Group color='teal' floated='right' style={{ marginBottom: '10px'}}>
-                        <Button animated='fade' as={Link} to={`/properties/${id}/units/${unitid}/lease/edit`}>
+                        <Button animated='fade' as={Link} to={`/properties/${id}/units/${unitid}/lease/${leaseToDisplay[0].id}/${leaseToDisplay[0].tenant_id}`}>
                             <Button.Content visible>Edit</Button.Content>
                             <Button.Content hidden>
                                 <Icon name='edit'/>
@@ -63,7 +63,7 @@ const Lease = () => {
                         <Table color='teal' textAlign='left'>
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell>Lease Information</Table.HeaderCell>
+                                    <Table.HeaderCell>Lease Information for lease #{leaseToDisplay[0].id}</Table.HeaderCell>
                                     <Table.HeaderCell></Table.HeaderCell>
                                     <Table.HeaderCell></Table.HeaderCell>
                                     <Table.HeaderCell></Table.HeaderCell>

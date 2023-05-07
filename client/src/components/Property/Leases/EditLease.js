@@ -1,17 +1,22 @@
 import DatePicker from 'react-datepicker';
+import * as yup from "yup";
+import { useEffect } from 'react'
 import { Button, Form } from 'semantic-ui-react'
-import { useAddTenantMutation } from '../../../app/services/tenantsAPI';
-import { useAddLeaseMutation } from '../../../app/services/leasesAPI';
+import { useGetLeaseQuery } from '../../../app/services/leasesAPI';
+import { useGetTenantQuery } from '../../../app/services/tenantsAPI';
+import { useEditTenantMutation } from '../../../app/services/tenantsAPI';
+import { useEditLeaseMutation } from '../../../app/services/leasesAPI';
 import { useFormik } from "formik";
 import { useNavigate, useParams } from 'react-router-dom'
-import * as yup from "yup";
 
 const EditLease = () => {
-  const [ addLease, {isLoading, isError, error} ] = useAddLeaseMutation()
-  const [ addTenant ] = useAddTenantMutation()
+  const { id, unitid, leaseid, tenantid } = useParams();
+  const { data: lease = [], isSuccess: leaseIsSuccess } = useGetLeaseQuery(leaseid)
+  const { data: tenant = [], isSuccess: tenantIsSuccess } = useGetTenantQuery(tenantid)
+  const [ editLease, {isLoading, isError, error} ] = useEditLeaseMutation()
+  const [ editTenant ] = useEditTenantMutation()
   let navigate = useNavigate();
-  const { id, unitid } = useParams();
-  // console.log(currentUser.id)
+
   const phoneNumberRegEx = /^(\d{3}[ \-]*)*?\d{3}[ \-]*\d{4}$/
   
   const formSchema = yup.object().shape({
@@ -43,23 +48,22 @@ const EditLease = () => {
         end_date: 0,
         rent: 0,
         deposit: 0,
-        unit_id: unitid,
+        unit_id: 0,
         tenant_id: 0
       },
       validationSchema: formSchema,
       onSubmit: async (values) => {
         if (formik.isValid) {
           try {
-            console.log("Creating a new tenant...")
+            console.log("Updating a new tenant...")
             const tenantData = {
               name : values.name,
               phone_number : values.phone_number,
               email : values.email
             }
-            console.log('tenantData',tenantData)
-            const { data } = await addTenant(tenantData)
+            const { data } = await editTenant(tenantData)
             console.log(data)
-            console.log("Tenant successfully created!")
+            console.log("Tenant successfully updated!")
             const leaseData = {
               start_date : values.start_date,
               end_date : values.end_date,
@@ -68,9 +72,9 @@ const EditLease = () => {
               unit_id: values.unit_id,
               tenant_id : data.id
             }
-            const { data: lease } = await addLease(leaseData)
+            const { data: lease } = await editLease(leaseData)
             console.log(lease)
-            console.log('Lease successfully created!') 
+            console.log('Lease successfully updated!') 
             navigate(`/properties/${id}/units/${unitid}/lease`)
           } catch (error) {
             alert('Please try again.')
@@ -79,10 +83,27 @@ const EditLease = () => {
     }
   })
 
-    console.log(formik.values)
-    if (isError) {
-        return <div>Error: {error.message}</div>;
+  useEffect(() => {
+    if (leaseIsSuccess && tenantIsSuccess) {
+      formik.setValues({
+        name: tenant.name,
+        phone_number: tenant.phone_number,
+        email: tenant.email,
+        start_date: new Date(lease.start_date),
+        end_date: new Date(lease.end_date),
+        rent: lease.rent,
+        deposit: lease.deposit,
+        unit_id: lease.unit_id,
+        tenant_id: lease.tenant_id
+      });
     }
+}, [leaseIsSuccess, tenantIsSuccess]);
+
+
+  console.log(formik.values)
+  if (isError) {
+      return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className='ui container hidden divider'>
