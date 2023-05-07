@@ -273,15 +273,19 @@ class Tenants(Resource):
     
     def post(self):
         data = request.get_json()
-
-        new_tenant = Tenant(
-            name = data['name'],
-            phone_number = data['phone_number'],
-            email = data['email'],
-        )
-        db.session.add(new_tenant)
-        db.session.commit()
-        return make_response(new_tenant.to_dict(), 201)
+        email = data['email']
+        check_tenant = Tenant.query.filter(Tenant.email == email).first()
+        if check_tenant:
+            return make_response(check_tenant.to_dict(), 200)
+        else:
+            new_tenant = Tenant(
+                name = data['name'],
+                phone_number = data['phone_number'],
+                email = data['email'],
+            )
+            db.session.add(new_tenant)
+            db.session.commit()
+            return make_response(new_tenant.to_dict(), 201)
 
 class TenantByID(Resource):
 
@@ -297,6 +301,7 @@ class TenantByID(Resource):
                 setattr(to_update, key, data[key])
                 db.session.add(to_update)
                 db.session.commit()
+            return make_response(to_update.to_dict(), 200)
         else:
             return {'error': 'Tenant not found'}, 404
     
@@ -347,12 +352,19 @@ class LeaseByID(Resource):
 
     def patch(self, id):
         data = request.get_json()
+        start_date_str = data['start_date']
+        start_date_obj = datetime.strptime(start_date_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+        end_date_str = data['end_date']
+        end_date_obj = datetime.strptime(end_date_str, '%Y-%m-%dT%H:%M:%S.%fZ')
         to_update = Lease.query.filter(Lease.id == id).first()
         if to_update:
             for key in data:
                 setattr(to_update, key, data[key])
-                db.session.add(to_update)
-                db.session.commit()
+            to_update.start_date = start_date_obj
+            to_update.end_date = end_date_obj
+            db.session.add(to_update)
+            db.session.commit()
+            return make_response(to_update.to_dict(), 200)
         else:
             return {'error': 'Tenant not found'}, 404
     

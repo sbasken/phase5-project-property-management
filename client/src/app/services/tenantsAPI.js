@@ -36,7 +36,7 @@ export const tenantsAPI = createApi({
         }),
         editTenant: builder.mutation({
             query: updatedTenant => {
-                // console.log('in editTenant', updatedTenant);
+                console.log('in editTenant', updatedTenant);
                 return {
                   url: `/tenants/${updatedTenant.id}`,
                   method: 'PATCH',

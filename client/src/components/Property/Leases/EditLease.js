@@ -52,31 +52,35 @@ const EditLease = () => {
         tenant_id: 0
       },
       validationSchema: formSchema,
-      onSubmit: async (values) => {
+      onSubmit: (values) => {
         if (formik.isValid) {
           try {
             console.log("Updating a new tenant...")
             const tenantData = {
+              id: tenantid,
               name : values.name,
               phone_number : values.phone_number,
               email : values.email
             }
-            const { data } = await editTenant(tenantData)
-            console.log(data)
+            const { data } = editTenant(tenantData)
             console.log("Tenant successfully updated!")
+            console.log('Updating lease information...')
             const leaseData = {
+              id: leaseid,
               start_date : values.start_date,
               end_date : values.end_date,
               rent : values.rent,
               deposit : values.deposit,
               unit_id: values.unit_id,
-              tenant_id : data.id
+              tenant_id : tenantid
             }
-            const { data: lease } = await editLease(leaseData)
+            console.log('LEASE',leaseData)
+            const { data: lease } = editLease(leaseData)
             console.log(lease)
             console.log('Lease successfully updated!') 
             navigate(`/properties/${id}/units/${unitid}/lease`)
           } catch (error) {
+            console.log(error)
             alert('Please try again.')
         }
       }

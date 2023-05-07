@@ -68,12 +68,12 @@ const NewLease = () => {
               unit_id: values.unit_id,
               tenant_id : data.id
             }
-            const { data: lease } = await addLease(leaseData)
-            console.log(lease)
-            console.log('Lease successfully created!') 
-            navigate(`/properties/${id}/units/${unitid}/lease`)
+              const { data: lease = [] } = await addLease(leaseData)
+              console.log(lease)
+              console.log('Lease successfully created!') 
+              navigate(`/properties/${id}/units/${unitid}/lease`)
           } catch (error) {
-            alert('Please try again.')
+            alert('Tenant could not be created. Please try again.')
         }
       }
     }
