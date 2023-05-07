@@ -4,40 +4,62 @@ import RingLoader from 'react-spinners/RingLoader';
 import Map from './Map';
 import { Grid, Button, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import { useLoadScript } from '@react-google-maps/api'
-import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
+// import { useLoadScript } from '@react-google-maps/api'
+// import { getGeocode, getLatLng } from 'use-places-autocomplete';
+
+// const libraries = ['places']
 
 const PropertyPage = () => {
     const { data: properties = [], isLoading, isError, error, isSuccess } = useGetPropertiesQuery()
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
-        libraries: ['places']
-    });
+    // const { isLoaded } = useLoadScript({
+    //     googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
+    //     libraries,
+    // });
     
-    if (!isLoaded) {
-        return <div>Map is loading...</div>
-    }
+    // if (!isLoaded) {
+    //     return <div>Map is loading...</div>
+    // }
 
     let content
-    let latLngList = []
-    const generateLatLng =  async (address) => {
-        const results = await getGeocode({ address });
-        const { lat, lng } = await getLatLng(results[0])
-        console.log('lat, lng', lat, lng)
-        console.log('results', results)
-        return lat, lng
-    }
+
+    // const generateLatLng = async (address) => {
+    //     try {
+    //         const results = await getGeocode({ address });
+    //         console.log('result:', results)
+    //         if (results.length === 0) {
+    //          return;
+    //         } else {
+    //             const { lat, lng } = await getLatLng(results);
+    //             if (lat && lng) {
+    //                 return {lat, lng};
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.error('Error while generating lat and lng:', error);
+    //     }
+    // };
 
     if (isLoading) {
         content = <h1>Loading...</h1>
     } else if (isError) {
         content = <div>{error.toString()}</div>
-    } else if (isSuccess && properties.length > 0) {
-        content = properties.map((property) => <PropertyCard key={property.id} property={property}/>)
-        const latlng = properties.map(property => generateLatLng(property.address))
-        latLngList.push(latlng)
+    } 
+
+    if (isSuccess && properties.length > 0) {
+            content = properties.map((property) => {
+                // const latlng = generateLatLng(property.address)
+                // console.log('latlng generated', latlng)
+                return (
+                    <>
+                        <PropertyCard key={property.id} property={property}/>
+                        {/* <Map key={property.id} latlng={latlng} /> */}
+                    </>
+                )
+            })
+            
     }
+    
 
     const noPropertiesYetMessage = (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -66,9 +88,6 @@ const PropertyPage = () => {
                     </Grid.Column>
                     { content }
                 </Grid> : (noPropertiesYetMessage)}
-                <Grid.Row style={{width: '100vw', height: '100vh', paddingTop: '15px'}}>
-                    <Map />
-                </Grid.Row>
             </div>
         </div>
 

@@ -4,11 +4,9 @@ import { Grid, Button } from 'semantic-ui-react';
 
 const ContactUs = () => {
     const form = useRef();
-    console.log(process.env.REACT_APP_EMAILJS_KEY);
 
     const sendEmail = (e) => {
         e.preventDefault();
-        console.log(process.env.REACT_APP_EMAILJS_KEY);
 
         emailjs.sendForm('service_vod9gft', 'template_944s8hf', form.current, process.env.REACT_APP_EMAILJS_KEY)
         .then((result) => {
