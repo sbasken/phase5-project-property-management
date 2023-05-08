@@ -23,6 +23,11 @@ export const usersAPI = createApi({
                   body: JSON.stringify(updatedUser)
                 }
             }
+        }),
+        getAgents: builder.query({
+            query: () => ({
+                url: `/users/agents`
+            })
         })
 
     })
@@ -30,5 +35,6 @@ export const usersAPI = createApi({
 
 export const { 
     useDeleteUserMutation,
-    useEditUserMutation
+    useEditUserMutation,
+    useGetAgentsQuery
 } = usersAPI

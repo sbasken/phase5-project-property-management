@@ -88,6 +88,13 @@ class Users(Resource):
             return make_response(found_user.to_dict(rules=('properties',)), 200)
         if found_user.type == 'agent':
             return make_response(found_user.to_dict(), 200)
+        
+class Agents(Resource):
+
+    def get(self):
+
+        agents = [ agent.to_dict() for agent in User.query.filter(User.type == 'agent').all()]
+        return make_response(agents, 200)
 
     
 class Properties(Resource):
@@ -388,6 +395,7 @@ api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Users, '/users', endpoint='users')
+api.add_resource(Agents, '/users/agents', endpoint='users/agents')
 api.add_resource(Properties, '/properties', endpoint='properties')
 api.add_resource(PropertyByID, '/properties/<int:id>', endpoint='properties/<int:id>')
 api.add_resource(UnitsByProperty, '/properties/<int:property_id>/units', endpoint='properties/<int:property_id>/units')
