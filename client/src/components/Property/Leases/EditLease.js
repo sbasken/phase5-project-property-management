@@ -208,7 +208,7 @@ const EditLease = () => {
                   <p style={{ color: "orange" }}> {formik.errors.unit_id}</p>
                 </Form.Field>
             </Form.Group>
-            <Button type='submit' onClick={formik.handleSubmit}>Submit</Button>
+            <Button color='teal' type='submit' onClick={formik.handleSubmit}>Submit</Button>
         </Form>
     </div>
   )

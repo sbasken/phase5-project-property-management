@@ -38,12 +38,12 @@ const ExpensePage = () => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1>You have no Expenses yet.</h1>
             { properties.length > 0 ?
-            <Button as={Link} to='/expenses/add-new'>
+            <Button as={Link} to='/expenses/add-new'  basic color='orange' content='Orange'>
                 Add New
             </Button> : <>
             <p>or properties.</p>
             <p> 🐾 Please Add property first 🐾</p>
-            <Button as={Link} to='/properties'>
+            <Button as={Link} to='/properties'  basic color='orange' content='Orange'>
                 Go to Property Page
             </Button>
             </>}
@@ -67,7 +67,12 @@ const ExpensePage = () => {
                     { properties && properties.length > 0 ? menu_items : null}
                 </Menu>
                 { category ? <>
-                <Button animated='fade' as={Link} to={`/expenses/reports/${category}`}>
+                <Button 
+                    basic color='orange' content='Orange'
+                    animated='fade' 
+                    as={Link} 
+                    to={`/expenses/reports/${category}`}
+                >
                     <Button.Content visible>Generate Report</Button.Content>
                     <Button.Content hidden>
                         <Icon name='clipboard list'/>

@@ -135,9 +135,10 @@ const Signup = ({ setCurrentUser }) => {
                     <p style={{ color: "orange" }}> { formik.errors.agreeTS }</p>
                 </Form.Field>
                 <Button
-                className='ui button' 
-                onClick={formik.handleSubmit}
-                type='submit'>Sign Up</Button>
+                    color='teal'
+                    className='ui button' 
+                    onClick={formik.handleSubmit}
+                    type='submit'>Sign Up</Button>
             </Form>
         </div>
   )

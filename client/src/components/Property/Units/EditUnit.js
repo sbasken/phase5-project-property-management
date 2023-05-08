@@ -113,7 +113,7 @@ const EditUnit = () => {
                             />
                         </Form.Field>
                     </Form.Group>
-                    <Button type='submit'>Submit</Button>
+                    <Button color='teal' type='submit'>Submit</Button>
                 </Form>
             </div>
         </div>
