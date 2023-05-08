@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Checkbox, Form, Radio } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -10,7 +10,12 @@ YupPassword(yup);
 
 const Signup = ({ setCurrentUser }) => {
     const [ signupUser, { isLoading } ] = useSignupUserMutation();
+    const [ isTenant, setIsTenant ] = useState(false)
     const navigate = useNavigate();
+
+    const handleClick = () => {
+        setIsTenant(!isTenant)
+    }
 
         const formSchema = yup.object().shape({
             username: yup.string()
@@ -62,7 +67,13 @@ const Signup = ({ setCurrentUser }) => {
         })
     return (
         <div className='ui container hidden divider'>
-            <h1>Sign up Form</h1>
+            <h1>{isTenant ? "Tenant Sign Up Form": "Owner/ Agent Sign up Form"}</h1>
+            <Button 
+                basic 
+                color='orange' 
+                content='Orange'
+                onClick={handleClick}
+            >{ isTenant ? "Owner/ Agent Sign Up Form Here" : "Tenant Sign Up Form Here"}</Button>
             <Form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
                 <Form.Field validate>
                     <label>Username</label>

@@ -100,9 +100,10 @@ if __name__ == '__main__':
             expenses.append(expense)
 
         print('Creating tenant data...')
-        for i in range(10):
+        for i in range(5):
             tenant = Tenant(
                 name = fake.name(),
+                username = fake.user_name(),
                 email = fake.email(),
                 phone_number = f"{random.randint(100, 999)} - {random.randint(100, 999)} - {random.randint(1000, 9999)}"
             )

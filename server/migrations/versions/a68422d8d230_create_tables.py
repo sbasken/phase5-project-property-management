@@ -1,8 +1,8 @@
 """Create tables
 
-Revision ID: 58783508f530
+Revision ID: a68422d8d230
 Revises: 
-Create Date: 2023-05-01 20:38:07.328928
+Create Date: 2023-05-08 14:13:15.131181
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '58783508f530'
+revision = 'a68422d8d230'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,13 +21,15 @@ def upgrade():
     op.create_table('tenants',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
+    sa.Column('username', sa.String(), nullable=True),
     sa.Column('phone_number', sa.String(), nullable=True),
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('_password_hash', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email')
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -71,8 +73,8 @@ def upgrade():
     sa.Column('date', sa.DateTime(), nullable=False),
     sa.Column('expense_type', sa.String(), nullable=False),
     sa.Column('amount', sa.Float(), nullable=True),
-    sa.Column('unit_id', sa.Integer(), nullable=False),
-    sa.Column('property_id', sa.Integer(), nullable=False),
+    sa.Column('unit_id', sa.Integer(), nullable=True),
+    sa.Column('property_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['property_id'], ['properties.id'], name=op.f('fk_expenses_property_id_properties')),
@@ -86,10 +88,10 @@ def upgrade():
     sa.Column('rent', sa.Integer(), nullable=True),
     sa.Column('deposit', sa.Integer(), nullable=True),
     sa.Column('unit_id', sa.Integer(), nullable=False),
-    sa.Column('tenent_id', sa.Integer(), nullable=False),
+    sa.Column('tenant_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['tenent_id'], ['tenants.id'], name=op.f('fk_leases_tenent_id_tenants')),
+    sa.ForeignKeyConstraint(['tenant_id'], ['tenants.id'], name=op.f('fk_leases_tenant_id_tenants')),
     sa.ForeignKeyConstraint(['unit_id'], ['units.id'], name=op.f('fk_leases_unit_id_units')),
     sa.PrimaryKeyConstraint('id')
     )

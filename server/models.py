@@ -110,6 +110,7 @@ class Tenant(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    username = db.Column(db.String, unique=True)
     phone_number = db.Column(db.String)
     email = db.Column(db.String, nullable=False, unique=True)
     _password_hash = db.Column(db.String)

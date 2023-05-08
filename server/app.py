@@ -59,6 +59,7 @@ class CheckSession(Resource):
         current_user = User.query.filter(User.id == user_id).first()
         return make_response(current_user.to_dict(rules=('properties',)), 200)
 
+
 class Login(Resource):
 
     def post(self):
@@ -292,6 +293,7 @@ class Tenants(Resource):
         else:
             new_tenant = Tenant(
                 name = data['name'],
+                username = data['username'],
                 phone_number = data['phone_number'],
                 email = data['email'],
             )
