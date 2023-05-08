@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Image, Grid, Button, Icon, Confirm } from 'semantic-ui-react'
+import { Card, Image, Button, Icon, Confirm } from 'semantic-ui-react'
 
 import { useDeletePropertyMutation } from '../../app/services/propertiesAPI'
 
@@ -25,7 +25,6 @@ const PropertyCard = ({ property }) => {
     }
 
   return (
-    <Grid.Column computer={6} tablet={16} mobile={16} >
         <Card 
             style={{ height: '280px' }}
         >
@@ -75,7 +74,6 @@ const PropertyCard = ({ property }) => {
             />
             </Button.Group>
         </Card>
-    </Grid.Column>
   )
 }
 

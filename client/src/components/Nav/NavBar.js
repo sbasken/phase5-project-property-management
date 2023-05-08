@@ -22,7 +22,7 @@ const NavBar = ({ currentUser, setCurrentUser }) => {
     return (
         <div>
             <RingLoader color={'#F5A623'} loading={isLoading}/>
-            <div className="ui pointing secondary menu">
+            <div className="nav ui pointing secondary menu" >
                 <div className="header item">🐼</div>
                     <NavLink 
                         className="item" 

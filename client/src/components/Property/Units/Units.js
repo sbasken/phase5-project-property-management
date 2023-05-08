@@ -1,6 +1,6 @@
 import React from 'react'
 import UnitCard from './UnitCard'
-import { Grid, Button, Icon, Image } from 'semantic-ui-react'
+import { Grid, Button, Icon, Image, Menu } from 'semantic-ui-react'
 import { Link, useParams } from 'react-router-dom'
 import { useGetUnitsQuery } from '../../../app/services/unitsAPI'
 import RingLoader from 'react-spinners/RingLoader'
@@ -38,39 +38,46 @@ const Units = () => {
     
       { units && units.length > 0 ? 
       <>
-        <Grid Columns={3} stackable>
-          <Grid.Column width={2}>
-            <Button 
-              animated='fade' 
-              as={Link} 
-              to={`/properties/${id}/units/add-new`}
-              style={{ marginTop: '10px' }}
-            >
-              <Button.Content visible>Add More</Button.Content>
-              <Button.Content hidden>
-                <Icon name='key' />
-              </Button.Content>
-            </Button>
-              
-            <Button animated='fade' style={{ marginTop: '10px' }}>
-              <Button.Content visible>Notify All</Button.Content>
-              <Button.Content hidden>
-                <Icon name='mail' />
-              </Button.Content>
-            </Button>
-            <Button 
-              animated='fade' 
-              as={Link} 
-              to={'/properties'}
-              style={{ marginTop: '10px' }}
-            >
-              <Button.Content visible>Go Back</Button.Content>
-              <Button.Content hidden>
-                <Icon name='arrow left'/>
-              </Button.Content>
-            </Button>
+        <Grid stackable>
+          <Grid.Column width={3}>
+            <Menu fluid vertical tabular>
+              <Button 
+                animated='fade' 
+                as={Link} 
+                to={`/properties/${id}/units/add-new`}
+                style={{ marginTop: '10px' }}
+              >
+                <Button.Content visible>Add More</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='key' />
+                </Button.Content>
+              </Button>
+                
+              <Button animated='fade' style={{ marginTop: '10px' }}>
+                <Button.Content visible>Notify All</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='mail' />
+                </Button.Content>
+              </Button>
+              <Button 
+                animated='fade' 
+                as={Link} 
+                to={'/properties'}
+                style={{ marginTop: '10px' }}
+              >
+                <Button.Content visible>Go Back</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='arrow left'/>
+                </Button.Content>
+              </Button>
+            </Menu>
           </Grid.Column>
-            { units.map(unit => <UnitCard key={unit.id} unit={unit}/>) }
+
+          <Grid.Column stretched width={13}>
+            <Grid columns={2} stackable>
+              { units.map(unit => <UnitCard key={unit.id} unit={unit}/>) }
+            </Grid>
+          </Grid.Column>
         </Grid>
       </> : (noUnitsYetMessage)}
     </div>

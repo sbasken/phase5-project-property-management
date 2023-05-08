@@ -2,24 +2,24 @@ import React from 'react'
 import PropertyCard from './PropertyCard'
 import RingLoader from 'react-spinners/RingLoader';
 // import Map from './Map';
-import { Grid, Button, Image } from 'semantic-ui-react'
+import { Grid, Button, Image, Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
-// import { useLoadScript } from '@react-google-maps/api'
+import { useLoadScript } from '@react-google-maps/api'
 // import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
-// const libraries = ['places']
+const libraries = ['places']
 
 const PropertyPage = () => {
     const { data: properties = [], isLoading, isError, error, isSuccess } = useGetPropertiesQuery()
-    // const { isLoaded } = useLoadScript({
-    //     googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
-    //     libraries,
-    // });
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
+        libraries,
+    });
     
-    // if (!isLoaded) {
-    //     return <div>Map is loading...</div>
-    // }
+    if (!isLoaded) {
+        return <div>Map is loading...</div>
+    }
 
     let content
 
@@ -51,10 +51,10 @@ const PropertyPage = () => {
                 // const latlng = generateLatLng(property.address)
                 // console.log('latlng generated', latlng)
                 return (
-                    <>
-                        <PropertyCard key={property.id} property={property}/>
+                    <Grid.Column key={property.id} computer={8} tablet={16} mobile={16}>
+                        <PropertyCard property={property}/>
                         {/* <Map key={property.id} latlng={latlng} /> */}
-                    </>
+                    </Grid.Column>
                 )
             })
             
@@ -64,7 +64,7 @@ const PropertyPage = () => {
     const noPropertiesYetMessage = (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1>You have no properties yet.</h1>
-            <Button as={Link} to='/properties/add-new'>
+            <Button as={Link} to='/properties/add-new' color='yellow'>
                 Add More
             </Button>
         <br></br>
@@ -79,14 +79,20 @@ const PropertyPage = () => {
             <RingLoader color={'#F5A623'} loading={isLoading} />
             <div className='ui container hidden divider'>
                 { properties && properties.length > 0 ? 
-                <Grid Columns={3}>
-                    <Grid.Column width={2}>
-                    <Button as={Link} to='/properties/add-new' style={{ marginTop: '10px' }}>
-                        Add More
-                    </Button>
-                    <Image src='https://wdy.h-cdn.co/assets/16/05/480x480/square-1454612525-baby-pandas.jpg' size='tiny' circular style={{ marginTop: '10px' }}/>
+                <Grid stackable>
+                    <Grid.Column width={3} >
+                        <Menu fluid vertical tabular>
+                            <Button className='.yellow.button' as={Link} to='/properties/add-new' style={{ marginTop: '10px' }} color=''>
+                                Add More
+                            </Button>
+                        </Menu>
                     </Grid.Column>
-                    { content }
+
+                    <Grid.Column stretched width={13}>
+                        <Grid columns={2} stackable>
+                            { content }
+                        </Grid>
+                    </Grid.Column>
                 </Grid> : (noPropertiesYetMessage)}
             </div>
         </div>
