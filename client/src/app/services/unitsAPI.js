@@ -36,7 +36,6 @@ export const unitsAPI = createApi({
         }),
         editUnit: builder.mutation({
             query: values => {
-                // console.log('in editUnit', updatedUnit);
                 return {
                   url: `/units/${values.id}`,
                   method: 'PATCH',

@@ -36,7 +36,6 @@ export const propertiesAPI = createApi({
         }),
         editProperty: builder.mutation({
             query: updatedProperty => {
-                // console.log('in editProperty', updatedProperty);
                 return {
                   url: `/properties/${updatedProperty.id}`,
                   method: 'PATCH',

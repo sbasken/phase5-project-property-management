@@ -11,11 +11,10 @@ const GenerateReport = () => {
   const { data: expenses = [] } = useGetExpensesQuery();
   const [ filteredExpenses, setFilteredExpenses ] = useState([])
   const selectedYear = useSelector(state => state.selectedYear.value)
-  console.log(filteredExpenses)
 
   useEffect(() => {
     const filteredList = expenses.filter(expense => expense.property_id === property.id);
-    setFilteredExpenses(filteredList.filter(expense => new Date(expense.date).getFullYear() === selectedYear));
+    setFilteredExpenses(filteredList.filter(expense => new Date(expense.date).getFullYear().toString().includes(selectedYear)));
   }, [expenses, property.id, selectedYear]);
 
   // Group expenses by expense_type and calculate the total amount for each group
@@ -24,9 +23,6 @@ const GenerateReport = () => {
     const expenseType = expense.expense_type;
     const amount = expense.amount;
     const unit_id = expense.unit_id
-    const year = new Date(expense.date).getFullYear()
-    // console.log('expense:', expense);
-    // console.log('year:', year);
 
     if ((unit_id === null || unit_id === 0) && (!groups[expenseType] || !groups[expenseType + ': BLDG'])) {
         groups[expenseType + ': BLDG'] = { expense_type: expenseType + ': BLDG', total_amount: 0 };

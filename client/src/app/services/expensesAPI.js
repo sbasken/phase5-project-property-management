@@ -38,7 +38,6 @@ export const expensesAPI = createApi({
         }),
         editExpense: builder.mutation({
             query: updatedExpense => {
-                // console.log('in editExpense', updatedExpense);
                 return {
                   url: `/expenses/${updatedExpense.id}`,
                   method: 'PATCH',
