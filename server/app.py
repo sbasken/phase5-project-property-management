@@ -218,9 +218,13 @@ class Expenses(Resource):
         user_id = session.get('user_id')
         found_user = User.query.filter_by(id=user_id).first()
         if found_user.type == 'owner':
-            expenses = Expense.query.join(Property).filter(Property.owner_id == user_id).order_by(Expense.date).all()
-            expense_list = [exp.to_dict() for exp in expenses]
-            return expense_list
+            owner_expenses = Expense.query.join(Property).filter(Property.owner_id == user_id).order_by(Expense.date).all()
+            owner_expense_list = [exp.to_dict() for exp in owner_expenses]
+            return owner_expense_list
+        elif found_user.type == 'agent':
+            agent_expenses = Expense.query.join(Property).filter(Property.agent_id == user_id).order_by(Expense.date).all()
+            agent_expense_list = [ exp.to_dict() for exp in agent_expenses]
+            return agent_expense_list
 
     def post(self):
         data = request.get_json()

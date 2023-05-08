@@ -10,7 +10,7 @@ const ReportPage = () => {
         <Grid stackable>
             <Grid.Column width={3} >
                     <Dropdown />
-                    <Button animated='fade' as={Link} to='/expenses'>
+                    <Button animated='fade' as={Link} to='/expenses' style={{ marginTop: '4px' }}>
                         <Button.Content visible>Go Back</Button.Content>
                         <Button.Content hidden>
                             <Icon name='arrow left'/>

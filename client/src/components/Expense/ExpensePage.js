@@ -7,6 +7,7 @@ import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
 const ExpensePage = () => {
     const { data: properties = [], isLoading, isError, error } = useGetPropertiesQuery()
     const [ category, setCategory ] = useState(null)
+    console.log(properties)
 
     function handleClick(e, { value }) {
         setCategory(value);

@@ -18,17 +18,17 @@ const DropdownExampleSearchDropdown = () => {
     }
 
     return (
-    <Dropdown
-        button
-        className='icon'
-        floating
-        labeled
-        icon='calendar'
-        options={yearOptions}
-        search
-        text='Filter'
-        onChange={handleOptionChange}
-    />
+        <Dropdown
+            button
+            className='icon'
+            floating
+            labeled
+            icon='calendar'
+            options={yearOptions}
+            search
+            text='Filter'
+            onChange={handleOptionChange}
+        />
     )
 }
 
