@@ -34,6 +34,6 @@ As an Agent:
 - I can view my profile and update.
 
 ## Table relationships
-![image](https://dbdiagram.io/d)
+![image](https://dbdiagram.io/d/64588003dca9fb07c4abadfb)
 
 
