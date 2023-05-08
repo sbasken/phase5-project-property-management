@@ -10,7 +10,7 @@ import { useLoadScript } from '@react-google-maps/api'
 
 const libraries = ['places']
 
-const PropertyPage = () => {
+const PropertyPage = ({ currentUser }) => {
     const { data: properties = [], isLoading, isError, error, isSuccess } = useGetPropertiesQuery()
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
@@ -52,7 +52,7 @@ const PropertyPage = () => {
                 // console.log('latlng generated', latlng)
                 return (
                     <Grid.Column key={property.id} computer={8} tablet={16} mobile={16}>
-                        <PropertyCard property={property}/>
+                        <PropertyCard property={property} currentUser={currentUser}/>
                         {/* <Map key={property.id} latlng={latlng} /> */}
                     </Grid.Column>
                 )

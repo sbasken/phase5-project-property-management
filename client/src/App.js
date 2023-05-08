@@ -46,7 +46,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
-        <Route path='/properties' element={<PropertyPage />} />
+        <Route path='/properties' element={<PropertyPage currentUser={currentUser}/>} />
         <Route path='/properties/:id' element={<EditProperty currentUser={currentUser}/>} />
         <Route path='/properties/add-new' element={<NewProperty currentUser={currentUser}/>} />
         <Route path='/expenses' element={<ExpensePage />} />
@@ -56,7 +56,7 @@ function App() {
         <Route path='/login' element={<Login setCurrentUser={setCurrentUser}/>} />
         <Route path='/signup' element={<Signup setCurrentUser={setCurrentUser}/>} />
         <Route path='/profile' element={<Profile currentUser={currentUser}/>} />
-        <Route path='/properties/:id/units' element={<Units />} />
+        <Route path='/properties/:id/units' element={<Units currentUser={currentUser}/>} />
         <Route path='/properties/:id/units/add-new' element={<NewUnit />} />
         <Route path='/properties/:id/units/:unitid' element={<EditUnit />} />
         <Route path='/properties/:id/units/:unitid/lease' element={<Lease />} />

@@ -102,6 +102,7 @@ class Properties(Resource):
             else:
                 return make_response({'message': 'No properties yet'}, 200)
         if found_user.type == 'agent':
+            properties = [ p.to_dict(rules=('units',)) for p in Property.query.filter(Property.agent_id == found_user.id).all() ]
             if properties:
                 return make_response(properties, 200)
             else:
@@ -207,7 +208,7 @@ class UnitsByProperty(Resource):
 
     def get(self, property_id):
         found_user = User.query.filter(User.id == session.get('user_id')).first()
-        if found_user.type == 'owner':
+        if found_user:
             found_units = [ u.to_dict() for u in Unit.query.filter(Unit.property_id == property_id).all() ]
             return make_response(found_units, 200)
     
@@ -319,7 +320,7 @@ class Leases(Resource):
     def get(self):
         user_id = session.get('user_id')
         found_user = User.query.filter_by(id=user_id).first()
-        if found_user.type == 'owner':
+        if found_user.type:
             leases_list = [l.to_dict() for l in Lease.query.all()]
             return make_response(leases_list, 200)
 

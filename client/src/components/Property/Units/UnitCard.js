@@ -4,7 +4,7 @@ import { Card, Image, Button, Grid, Icon, Confirm } from 'semantic-ui-react'
 import { useDeleteUnitMutation } from '../../../app/services/unitsAPI'
 
 
-const UnitCard = ({ unit }) => {
+const UnitCard = ({ unit, currentUser }) => {
   const { id } = useParams()
   const [ open, setOpen ] = useState(false);
   const [ deleteUnit ] = useDeleteUnitMutation()
@@ -55,6 +55,7 @@ const UnitCard = ({ unit }) => {
                 <Icon name='folder open outline' />
             </Button.Content>
           </Button>
+          {currentUser.type === 'owner' ? <>
           <Button animated='fade' floated='right' as={Link} to={`/properties/${id}/units/${unit.id}`}>
             <Button.Content visible>Edit</Button.Content>
             <Button.Content hidden>
@@ -66,7 +67,7 @@ const UnitCard = ({ unit }) => {
             <Button.Content hidden>
               <Icon name='delete' />
             </Button.Content>
-          </Button>
+          </Button></> : null}
           <Confirm
             open={open}
             onCancel={handleCancel}

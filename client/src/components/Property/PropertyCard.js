@@ -4,7 +4,7 @@ import { Card, Image, Button, Icon, Confirm } from 'semantic-ui-react'
 
 import { useDeletePropertyMutation } from '../../app/services/propertiesAPI'
 
-const PropertyCard = ({ property }) => {
+const PropertyCard = ({ property, currentUser }) => {
     const [ deleteProperty ] = useDeletePropertyMutation()
     const [ open, setOpen ] = useState(false);
     console.log(property)
@@ -37,7 +37,7 @@ const PropertyCard = ({ property }) => {
         </div>
             <Card.Content>
                 <Card.Header>{property.nickname}</Card.Header>
-                {property.agent_id ? 
+                {(property.agent_id && currentUser.type === 'owner' )? 
                 <Card.Meta style={{ color: 'orange'}}>
                     <span >Managed By {property.agent.username} </span>
                     <p>{property.agent.email}</p>
@@ -59,6 +59,7 @@ const PropertyCard = ({ property }) => {
                     <Icon name='folder open outline' />
                 </Button.Content>
             </Button>
+            {currentUser.type === 'owner'? <>
             <Button animated='fade' floated='right' as={Link} to={`/properties/${property.id}`}>
                 <Button.Content visible>Edit</Button.Content>
                 <Button.Content hidden>
@@ -75,7 +76,8 @@ const PropertyCard = ({ property }) => {
               open={open}
               onCancel={handleCancel}
               onConfirm={handleConfirm}
-            />
+            /></> : null}
+            
             </Button.Group>
         </Card>
   )

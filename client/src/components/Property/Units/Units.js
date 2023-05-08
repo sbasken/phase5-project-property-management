@@ -5,13 +5,13 @@ import { Link, useParams } from 'react-router-dom'
 import { useGetUnitsQuery } from '../../../app/services/unitsAPI'
 import RingLoader from 'react-spinners/RingLoader'
 
-const Units = () => {
+const Units = ({ currentUser }) => {
   const { id } = useParams();
   const { data: units = [], isLoading } = useGetUnitsQuery(id)
   // isLoading, isSuccess, isError, error
   // console.log(property)
-  // console.log(units)
-  // console.log(id)
+  console.log(units)
+  console.log(id)
 
   const noUnitsYetMessage = (
     // <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -75,7 +75,7 @@ const Units = () => {
 
           <Grid.Column stretched width={13}>
             <Grid columns={2} stackable>
-              { units.map(unit => <UnitCard key={unit.id} unit={unit}/>) }
+              { units.map(unit => <UnitCard key={unit.id} unit={unit} currentUser={currentUser}/>) }
             </Grid>
           </Grid.Column>
         </Grid>
