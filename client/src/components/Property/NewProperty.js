@@ -13,12 +13,10 @@ const NewProperty = ({ currentUser }) => {
     let navigate = useNavigate();
 
     const agentsOptions = agents?.map(agent => ({
-        key: `${agent.id}`,
+        key: agent.id,
         text: `${agent.username}`,
-        value: `${agent.id}`
+        value: agent.id
     }));
-
-    console.log(agentsOptions)
 
     const formSchema = yup.object().shape({
         nickname: yup.string()
@@ -36,7 +34,8 @@ const NewProperty = ({ currentUser }) => {
         address: yup.string()
             .required('No address provided.'),
         image_url: yup.string(),
-        owner_id: yup.number()
+        owner_id: yup.number(),
+        agent_id: yup.number()
       })
 
     const formik = useFormik({
@@ -53,12 +52,14 @@ const NewProperty = ({ currentUser }) => {
         onSubmit: (values) => {
             console.log("Creating a new property...")
             if (formik.isValid) {
-                addProperty(values)
+                const newValues = {...values, agent_id: parseInt(values.agent_id)}
+                addProperty(newValues)
                 console.log("Property successfully created!")
                 navigate('/properties')
             }
         }
     })
+    console.log(formik.values)
 
     const autocompleteRef = React.useRef(null)
 
@@ -165,25 +166,11 @@ const NewProperty = ({ currentUser }) => {
                     >
                     <option value=''>Select Agent</option>
                           {agentsOptions?.map((agentOption) => (
-                            <option key={agentOption.key} value={agentOption.value}>
+                            <option key={agentOption.key} value={parseInt(agentOption.value)}>
                                 {agentOption.text}
                             </option>
                           ))}
                     </select>
-                    {/* <select 
-                    type="number"
-                    name="unit_id"
-                    placeholder='Unite ID' 
-                    value={formik.values.unit_id}
-                    onChange={formik.handleChange}
-                >
-                    <option value=''>Select a unit</option>
-                        {unitOptions?.map((unitOption) => (
-                            <option key={unitOption.key} value={unitOption.value}>
-                                {unitOption.text}
-                            </option>
-                        ))}
-                </select> */}
                     <p style={{ color: "orange" }}> {formik.errors.agent_id}</p>
                 </Form.Field>
             </Form.Group>
