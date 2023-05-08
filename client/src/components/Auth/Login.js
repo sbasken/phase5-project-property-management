@@ -68,8 +68,9 @@ const Login = ({ setCurrentUser }) => {
                 </Form.Field>
                 <br/>
                 <Button 
-                className='ui button' 
-                type='submit'>Log In</Button>
+                  color='teal'
+                  className='ui button' 
+                  type='submit'>Log In</Button>
                 <br/>
             </Form>
           </Grid.Column>

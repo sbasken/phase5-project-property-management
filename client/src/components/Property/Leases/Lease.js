@@ -36,7 +36,12 @@ const Lease = () => {
         return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1>You have no lease for this unit yet.</h1>
-            <Button animated='fade' as={Link} to={`/properties/${id}/units/${unitid}/lease/add-new`}>
+            <Button 
+                basic color='orange' content='Orange'
+                animated='fade' 
+                as={Link} 
+                to={`/properties/${id}/units/${unitid}/lease/add-new`}
+            >
                 <Button.Content visible>New Lease</Button.Content>
                 <Button.Content hidden>
                     <Icon name='user plus'/>
@@ -56,7 +61,12 @@ const Lease = () => {
             <div className='ui container hidden divider'>
                 <Grid stackable>
                     <Grid.Column width={3} >
-                        <Button animated='fade' as={Link} to={`/properties/${id}/units`}>
+                        <Button 
+                            basic color='orange' content='Orange'
+                            animated='fade' 
+                            as={Link} 
+                            to={`/properties/${id}/units`}
+                        >
                             <Button.Content visible>Go Back</Button.Content>
                             <Button.Content hidden>
                                 <Icon name='arrow left'/>

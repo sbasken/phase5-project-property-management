@@ -151,7 +151,11 @@ const NewExpense = () => {
                 </select>
                 <p style={{ color: "orange" }}> {formik.errors.unit_id}</p>
             </Form.Field>
-            <Button onClick={formik.handleSubmit} type='submit'>Submit</Button>
+            <Button 
+                onClick={formik.handleSubmit} 
+                type='submit'
+                color='teal'
+            >Submit</Button>
         </Form>
     </div>
   )

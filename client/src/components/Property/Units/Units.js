@@ -17,14 +17,15 @@ const Units = ({ currentUser }) => {
     // <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h1>You have no units for this property yet.</h1>
-      <Button animated='fade' as={Link} to={`/properties/${id}/units/add-new`}>
+      {currentUser.type === 'owner' ? 
+      <Button animated='fade' as={Link} to={`/properties/${id}/units/add-new`} basic color='orange' content='Orange'>
         <Button.Content visible>Add Unit</Button.Content>
         <Button.Content hidden>
           <Link to={`/properties/${id}/units/add-new`}>
             <Icon name='key'/>
           </Link>
         </Button.Content>
-      </Button>
+      </Button> : <p style={{ color: 'orange' }}>Please contact property owner to add units to the property</p> }
       <br></br>
       <div style={{ width: '50rem', height: '30rem', position: 'relative', overflow: 'hidden' }}>
         <Image fluid style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://images.unsplash.com/photo-1588471980726-8346cb477a33?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1540&q=80' alt='apartment door'/>
@@ -41,7 +42,8 @@ const Units = ({ currentUser }) => {
         <Grid stackable>
           <Grid.Column width={3}>
             <Menu fluid vertical tabular>
-              <Button 
+              <Button
+                basic color='orange' content='Orange'
                 animated='fade' 
                 as={Link} 
                 to={`/properties/${id}/units/add-new`}
@@ -53,13 +55,14 @@ const Units = ({ currentUser }) => {
                 </Button.Content>
               </Button>
                 
-              <Button animated='fade' style={{ marginTop: '10px' }}>
+              <Button basic color='orange' content='Orange' animated='fade' style={{ marginTop: '10px' }}>
                 <Button.Content visible>Notify All</Button.Content>
                 <Button.Content hidden>
                   <Icon name='mail' />
                 </Button.Content>
               </Button>
               <Button 
+                basic color='orange' content='Orange'
                 animated='fade' 
                 as={Link} 
                 to={'/properties'}

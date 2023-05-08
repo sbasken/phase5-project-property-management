@@ -64,12 +64,19 @@ const PropertyPage = ({ currentUser }) => {
     const noPropertiesYetMessage = (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1>You have no properties yet.</h1>
-            <Button as={Link} to='/properties/add-new' color='yellow'>
+            {currentUser.type === 'owner'? 
+            <Button as={Link} to='/properties/add-new' basic color='orange' content='Orange'>
                 Add More
-            </Button>
+            </Button> : <p style={{ color: 'orange' }}>Please contact property owner to add you as their agent to their property</p>
+            }
         <br></br>
         <div style={{ width: '50rem', height: '30rem', position: 'relative', overflow: 'hidden' }}>
-            <Image fluid style={{ width: '100%', height: '100%', objectFit: 'cover' }} src='https://www.bhg.com/thmb/TXKtfIyA_UUCOWtMsLXetN5Wvb8=/1493x0/filters:no_upscale():strip_icc()/gray-exterior-white-trim-path-09767f9e-83bad323e9d2473b90e69add9165c12f.jpg' alt='building entrance'/>
+            <Image 
+                fluid 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                src='https://www.bhg.com/thmb/TXKtfIyA_UUCOWtMsLXetN5Wvb8=/1493x0/filters:no_upscale():strip_icc()/gray-exterior-white-trim-path-09767f9e-83bad323e9d2473b90e69add9165c12f.jpg' 
+                alt='building entrance'
+            />
         </div>
         </div>
     )
@@ -82,7 +89,13 @@ const PropertyPage = ({ currentUser }) => {
                 <Grid stackable>
                     <Grid.Column width={3} >
                         <Menu fluid vertical tabular>
-                            <Button className='.yellow.button' as={Link} to='/properties/add-new' style={{ marginTop: '10px' }} color=''>
+                            <Button 
+                                className='.yellow.button' 
+                                as={Link} 
+                                to='/properties/add-new' 
+                                style={{ marginTop: '10px' }} 
+                                basic color='orange' content='Orange'
+                            >
                                 Add More
                             </Button>
                         </Menu>
