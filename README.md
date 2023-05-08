@@ -1,7 +1,7 @@
 # Property Panda
 
 ## Property Management Made Easy
-Hardships Property Owner Faces
+Hardships Property Owners Face
 - Managing properties in general is a pain.
 - Keeping track of all the expenses.
 - Managing things in various files on local computer, especially when you are a co-owner.
@@ -9,7 +9,7 @@ Hardships Property Owner Faces
 - Issues with calculating total for each expense category depending on status of units manually for taxes. 
 
 
-## Introductino
+## Introduction
 No More Tears During Tax Season
 - Property Panda is a web application designed to help property owners keep track of all their expenses
 - Automatically generates report.
