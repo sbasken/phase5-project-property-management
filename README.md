@@ -1,19 +1,18 @@
 # Property Panda
 
+## Introduction
+No More Tears During Tax Season
+- Property Panda is a web application designed to help property owners keep track of all their expenses
+- Automatically generates report.
+- It is also designed to make other tasks related to managing properties in general easier.
+
 ## Property Management Made Easy
-Hardships Property Owner Faces
+Hardships Property Owners Face
 - Managing properties in general is a pain.
 - Keeping track of all the expenses.
 - Managing things in various files on local computer, especially when you are a co-owner.
 - Taxes are complicated and hard to understand. (It’s an excruciatingly painful process every year.)
 - Issues with calculating total for each expense category depending on status of units manually for taxes. 
-
-
-## Introductino
-No More Tears During Tax Season
-- Property Panda is a web application designed to help property owners keep track of all their expenses
-- Automatically generates report.
-- It is also designed to make other tasks related to managing properties in general easier.
 
 ## User Story
 
