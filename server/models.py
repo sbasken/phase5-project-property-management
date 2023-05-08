@@ -23,7 +23,7 @@ class User(db.Model, SerializerMixin):
         foreign_keys='Property.owner_id',
         cascade='all, delete-orphan')
 
-    agents_properties = db.relationship(
+    agent_properties = db.relationship(
         'Property', backref='agent',
         foreign_keys='Property.agent_id',
         cascade='all, delete-orphan')

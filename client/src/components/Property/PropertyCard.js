@@ -7,6 +7,7 @@ import { useDeletePropertyMutation } from '../../app/services/propertiesAPI'
 const PropertyCard = ({ property }) => {
     const [ deleteProperty ] = useDeletePropertyMutation()
     const [ open, setOpen ] = useState(false);
+    console.log(property)
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -26,7 +27,7 @@ const PropertyCard = ({ property }) => {
 
   return (
         <Card 
-            style={{ height: '280px' }}
+            style={{ height: '300px' }}
         >
         <div style={{ height: '60%', overflow: 'hidden' }}>
             <Image
@@ -36,9 +37,12 @@ const PropertyCard = ({ property }) => {
         </div>
             <Card.Content>
                 <Card.Header>{property.nickname}</Card.Header>
-                {/* <Card.Meta>
-                    <span></span>
-                </Card.Meta> */}
+                {property.agent_id ? 
+                <Card.Meta style={{ color: 'orange'}}>
+                    <span >Managed By {property.agent.username} </span>
+                    <p>{property.agent.email}</p>
+                </Card.Meta>
+                : null}
                 <Card.Description>
                     {property.address}
                 </Card.Description>
