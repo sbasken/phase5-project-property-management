@@ -19,6 +19,7 @@ def index(id=0):
 # def is_Logged_in():
 #     user_id = session.get('user_id')
 #     ok_list = [
+#         '',
 #         'signup',
 #         'login',
 #         'logout',

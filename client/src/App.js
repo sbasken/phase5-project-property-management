@@ -25,6 +25,7 @@ import { useState, useEffect } from'react';
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
+  console.log('In app, currentUser', currentUser);
 
   useEffect(() => {
     fetch("/check_session")
