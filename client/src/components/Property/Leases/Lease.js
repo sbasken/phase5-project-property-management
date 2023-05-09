@@ -113,13 +113,13 @@ const Lease = () => {
                             <Table.Body>
                                 <Table.Row>
                                     <Table.Cell>Start Date</Table.Cell>
-                                    <Table.Cell>{leaseToDisplay[0].start_date}</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].start_date.split(' ')[0]}</Table.Cell>
                                     <Table.Cell></Table.Cell>
                                     <Table.Cell></Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
                                     <Table.Cell>End Date</Table.Cell>
-                                    <Table.Cell>{leaseToDisplay[0].end_date}</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].start_date.split(' ')[0]}</Table.Cell>
                                     <Table.Cell></Table.Cell>
                                     <Table.Cell></Table.Cell>
                                 </Table.Row>

@@ -44,7 +44,8 @@ const NewLease = () => {
         rent: 0,
         deposit: 0,
         unit_id: unitid,
-        tenant_id: 0
+        tenant_id: 0,
+        username: null
       },
       validationSchema: formSchema,
       onSubmit: async (values) => {
@@ -54,7 +55,8 @@ const NewLease = () => {
             const tenantData = {
               name : values.name,
               phone_number : values.phone_number,
-              email : values.email
+              email : values.email,
+              username: null
             }
             console.log('tenantData',tenantData)
             const { data } = await addTenant(tenantData)

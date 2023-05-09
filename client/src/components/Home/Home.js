@@ -15,7 +15,7 @@ const Home = () => {
       >
         <Grid.Column style={{ paddingLeft:'2px'}}>
           <br></br>
-          <h2> We work hard while you sleep like a panda</h2>
+          <h2 style={{ color: 'teal'}}> We work hard while you sleep like a panda</h2>
           <p>We understand that managing properties can be overwhelming.</p> 
           <p>Which is why we've created a user-friendly platform to simplify the process. </p>
           <p>Our application allows you to easily track and manage expenses, income, and lease information all in one place. </p>

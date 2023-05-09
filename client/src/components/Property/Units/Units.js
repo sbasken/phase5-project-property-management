@@ -55,12 +55,12 @@ const Units = ({ currentUser }) => {
                 </Button.Content>
               </Button>
                 
-              <Button basic color='orange' content='Orange' animated='fade' style={{ marginTop: '10px' }}>
+              {/* <Button basic color='orange' content='Orange' animated='fade' style={{ marginTop: '10px' }}>
                 <Button.Content visible>Notify All</Button.Content>
                 <Button.Content hidden>
                   <Icon name='mail' />
                 </Button.Content>
-              </Button>
+              </Button> */}
               <Button 
                 basic color='orange' content='Orange'
                 animated='fade' 
