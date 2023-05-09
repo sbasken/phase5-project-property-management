@@ -1,8 +1,9 @@
+import RingLoader from 'react-spinners/RingLoader'
+import ContactTenant from './ContactTenant';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom'
 import { Grid, Button, Icon, Table, Image, Confirm } from 'semantic-ui-react'
 import { useGetLeasesQuery, useDeleteLeaseMutation } from '../../../app/services/leasesAPI'
-import RingLoader from 'react-spinners/RingLoader'
 
 const Lease = () => {
     const { data: leases = [], isLoading, isError, error } = useGetLeasesQuery()
@@ -10,9 +11,14 @@ const Lease = () => {
     const leaseToDisplay = leases.filter(lease => lease.unit_id === parseInt(unitid))
     const [ deleteLease ] = useDeleteLeaseMutation()
     const [ open, setOpen ] = useState(false);
+    const [ toggleEmail, setToggleEmail ] = useState(false)
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    function handleEmailToggle() {
+        setToggleEmail(!toggleEmail)
+    }
 
     function handleDeleteClick() {
         handleOpen();
@@ -66,6 +72,7 @@ const Lease = () => {
                             animated='fade' 
                             as={Link} 
                             to={`/properties/${id}/units`}
+                            style={{ marginTop: '10px' }}
                         >
                             <Button.Content visible>Go Back</Button.Content>
                             <Button.Content hidden>
@@ -146,7 +153,21 @@ const Lease = () => {
                             <Table.Header>
                                 <Table.Row>
                                     <Table.HeaderCell>Tenant Information</Table.HeaderCell>
-                                    <Table.HeaderCell></Table.HeaderCell>
+                                    <Table.HeaderCell>
+                                    <Button
+                                        basic
+                                        color='teal' 
+                                        content='Orange' 
+                                        animated='fade' 
+                                        floated='right'
+                                        onClick={handleEmailToggle}
+                                    >
+                                        <Button.Content visible>Email</Button.Content>
+                                        <Button.Content hidden>
+                                        <Icon name='mail' />
+                                        </Button.Content>
+                                    </Button>
+                                    </Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
 
@@ -165,7 +186,7 @@ const Lease = () => {
                                 </Table.Row>
                             </Table.Body>
                         </Table>
-                    
+                        { toggleEmail ? <ContactTenant tenant={leaseToDisplay[0].tenant}/> : null}
                     </Grid.Column>
                 </Grid>
             </div>
