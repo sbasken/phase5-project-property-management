@@ -13,19 +13,19 @@ from models import User, Property, Unit, Expense, Tenant, Lease
 @app.route('/')
 @app.route('/<int:id>')
 def index(id=0):
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.before_request
-def is_Logged_in():
-    user_id = session.get('user_id')
-    ok_list = [
-        'signup',
-        'login',
-        'logout',
-        'check_session'
-    ]
-    if (not user_id) and (request.endpoint not in ok_list):
-        return {'message': 'Please login or signup first'}, 401
+# @app.before_request
+# def is_Logged_in():
+#     user_id = session.get('user_id')
+#     ok_list = [
+#         'signup',
+#         'login',
+#         'logout',
+#         'check_session'
+#     ]
+#     if (not user_id) and (request.endpoint not in ok_list):
+#         return {'message': 'Please login or signup first'}, 401
 
 class Home(Resource):
     
