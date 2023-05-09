@@ -7,7 +7,7 @@ import { useGetPropertyQuery } from '../../../app/services/propertiesAPI'
 
 const GenerateReport = () => {
   const { id } = useParams()
-  const { data: property = [], isLoading, isSuccess, isError, error } = useGetPropertyQuery(id)
+  const { data: property = [] } = useGetPropertyQuery(id)
   const { data: expenses = [] } = useGetExpensesQuery();
   const [ filteredExpenses, setFilteredExpenses ] = useState([])
   const selectedYear = useSelector(state => state.selectedYear.value)

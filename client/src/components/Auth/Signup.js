@@ -9,7 +9,7 @@ import { useSignupUserMutation } from '../../app/services/authAPI';
 YupPassword(yup);
 
 const Signup = ({ setCurrentUser }) => {
-    const [ signupUser, { isLoading } ] = useSignupUserMutation();
+    const [ signupUser ] = useSignupUserMutation();
     const [ isTenant, setIsTenant ] = useState(false)
     const navigate = useNavigate();
 

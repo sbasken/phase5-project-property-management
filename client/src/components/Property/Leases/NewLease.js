@@ -7,12 +7,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import * as yup from "yup";
 
 const NewLease = () => {
-  const [ addLease, {isLoading, isError, error} ] = useAddLeaseMutation()
+  const [ addLease, { isError, error} ] = useAddLeaseMutation()
   const [ addTenant ] = useAddTenantMutation()
   let navigate = useNavigate();
   const { id, unitid } = useParams();
   // console.log(currentUser.id)
-  const phoneNumberRegEx = /^(\d{3}[ \-]*)*?\d{3}[ \-]*\d{4}$/
+  const phoneNumberRegEx = /^(\d{3}[ -]*)*?\d{3}[ -]*\d{4}$/
   
   const formSchema = yup.object().shape({
     name: yup.string()

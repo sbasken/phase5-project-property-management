@@ -12,7 +12,7 @@ const options = [
   ]
 
 const NewUnit = () => {
-    const [ addUnit, isLoading, isError, error ] = useAddUnitMutation()
+    const [ addUnit, isError, error ] = useAddUnitMutation()
     const { id } = useParams()
     let navigate = useNavigate();
 

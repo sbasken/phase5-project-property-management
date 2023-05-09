@@ -13,11 +13,11 @@ const EditLease = () => {
   const { id, unitid, leaseid, tenantid } = useParams();
   const { data: lease = [], isSuccess: leaseIsSuccess } = useGetLeaseQuery(leaseid)
   const { data: tenant = [], isSuccess: tenantIsSuccess } = useGetTenantQuery(tenantid)
-  const [ editLease, {isLoading, isError, error} ] = useEditLeaseMutation()
+  const [ editLease, { isError, error} ] = useEditLeaseMutation()
   const [ editTenant ] = useEditTenantMutation()
   let navigate = useNavigate();
 
-  const phoneNumberRegEx = /^(\d{3}[ \-]*)*?\d{3}[ \-]*\d{4}$/
+  const phoneNumberRegEx = /^(\d{3}[ -]*)*?\d{3}[ -]*\d{4}$/
   
   const formSchema = yup.object().shape({
     name: yup.string()
@@ -63,6 +63,7 @@ const EditLease = () => {
               email : values.email
             }
             const { data } = editTenant(tenantData)
+            console.log('Updated tenant data', data)
             console.log("Tenant successfully updated!")
             console.log('Updating lease information...')
             const leaseData = {

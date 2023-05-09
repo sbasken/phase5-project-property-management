@@ -8,7 +8,7 @@ import { Autocomplete } from '@react-google-maps/api'
 import * as yup from "yup";
 
 const NewProperty = ({ currentUser }) => {
-    const [ addProperty, isLoading, isError, error ] = useAddPropertyMutation()
+    const [ addProperty, isError, error ] = useAddPropertyMutation()
     const { data: agents = [] } = useGetAgentsQuery();
     let navigate = useNavigate();
 
