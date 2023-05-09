@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const authAPI = createApi({
     reducerPath: 'authAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://property-panda-app.onrender.com'
+        baseUrl: '/'
     }),
     tagTypes: ['User'],
     endpoints: builder => ({
