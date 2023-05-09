@@ -15,12 +15,12 @@ if __name__ == '__main__':
     with app.app_context():
         
         print("Deleting all records...")
-        User.query.delete()
-        Property.query.delete()
-        Unit.query.delete()
-        Expense.query.delete()
         Tenant.query.delete()
         Lease.query.delete()
+        Expense.query.delete()
+        Unit.query.delete()
+        Property.query.delete()
+        User.query.delete()
 
         print('Creating owners...')
         users = []
@@ -59,10 +59,10 @@ if __name__ == '__main__':
         print('Creating properties...')
         properties = []
         property_ids = []
-        p1 = Property(nickname='Ballard', address=fake.address(), owner_id=1)
+        p1 = Property(nickname='Ballard', address=fake.address(), owner_id=5)
         properties.append(p1)
         property_ids.append(p1.id)
-        p2 = Property(nickname='Phinny Ridge', address=fake.address(), owner_id=1)
+        p2 = Property(nickname='Phinny Ridge', address=fake.address(), owner_id=5)
         properties.append(p2)
         property_ids.append(p2.id)
 
@@ -73,9 +73,9 @@ if __name__ == '__main__':
 
         print('Creating units...')
         units = []
-        u1 = Unit(unit_number="A1", property_id=1)
+        u1 = Unit(unit_number="A1", property_id=7)
         units.append(u1)
-        u2 = Unit(unit_number="A2", property_id=1)
+        u2 = Unit(unit_number="A2", property_id=7)
         units.append(u2)
 
         print("Committing unit data...")
@@ -86,13 +86,13 @@ if __name__ == '__main__':
         expenses = []
         expense_type = ['maintenance', 'repairs', 'management fees', 'insurance', 'interest','mortgage' ]
 
-        for i in range(10):
+        for i in range(5):
             expense = Expense(
                 date = fake.date_this_year(),
                 expense_type = random.choice(expense_type),
                 amount = random.randint(-1000, 0),
-                unit_id = random.randint(1, 2),
-                property_id = random.randint(1, 2)
+                unit_id = random.randint(3, 4),
+                property_id = 7
             )
             print("Committing expense data...")
             db.session.add(expense)
@@ -100,7 +100,7 @@ if __name__ == '__main__':
             expenses.append(expense)
 
         print('Creating tenant data...')
-        for i in range(5):
+        for i in range(2):
             tenant = Tenant(
                 name = fake.name(),
                 username = fake.user_name(),
@@ -121,8 +121,8 @@ if __name__ == '__main__':
                 end_date = date2,
                 rent = random.randint(1500, 3000),
                 deposit = random.randint(1500, 3000),
-                unit_id = i + 1,
-                tenant_id = random.randint(1,7)
+                unit_id = i + 3,
+                tenant_id = i + 6
             )
             print("Committing lease data...")
             db.session.add(lease)

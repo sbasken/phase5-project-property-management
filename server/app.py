@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import jsonify, make_response, request, session
+from flask import jsonify, make_response, render_template, request, session
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
@@ -8,6 +8,12 @@ from datetime import datetime
 
 from config import app, api, db
 from models import User, Property, Unit, Expense, Tenant, Lease
+
+
+@app.route('/')
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template('index.html')
 
 @app.before_request
 def is_Logged_in():

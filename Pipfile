@@ -17,6 +17,10 @@ flask-session = "*"
 requests = "*"
 faker = "==15.3.2"
 datetime = "*"
+python-dotenv = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
+honcho = "*"
 
 [dev-packages]
 
