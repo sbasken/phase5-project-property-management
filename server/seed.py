@@ -122,7 +122,7 @@ if __name__ == '__main__':
                 rent = random.randint(1500, 3000),
                 deposit = random.randint(1500, 3000),
                 unit_id = i + 1,
-                tenant_id = random.randint(1,7)
+                tenant_id = random.randint(1,5)
             )
             print("Committing lease data...")
             db.session.add(lease)
