@@ -8,7 +8,7 @@ import { Autocomplete } from '@react-google-maps/api'
 import * as yup from "yup";
 
 const NewProperty = ({ currentUser }) => {
-    const [ addProperty, isError, error ] = useAddPropertyMutation()
+    const [ addProperty ] = useAddPropertyMutation()
     const { data: agents = [] } = useGetAgentsQuery();
     let navigate = useNavigate();
 
@@ -67,10 +67,6 @@ const NewProperty = ({ currentUser }) => {
         const place = autocompleteRef.current.getPlace()
         const address = place.formatted_address
         formik.setFieldValue('address', address)
-    }
-
-    if (isError) {
-        return <div>Error: {error.message}</div>;
     }
 
   return (
