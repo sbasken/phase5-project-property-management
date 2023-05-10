@@ -8,8 +8,6 @@ import RingLoader from 'react-spinners/RingLoader'
 const Units = ({ currentUser }) => {
   const { id } = useParams();
   const { data: units = [], isLoading } = useGetUnitsQuery(id)
-  // isLoading, isSuccess, isError, error
-  // console.log(property)
   console.log(units)
   console.log(id)
 
@@ -42,6 +40,7 @@ const Units = ({ currentUser }) => {
         <Grid stackable>
           <Grid.Column width={3}>
             <Menu fluid vertical tabular>
+              { currentUser.type === 'owner' ? 
               <Button
                 basic color='orange' content='Orange'
                 animated='fade' 
@@ -53,7 +52,7 @@ const Units = ({ currentUser }) => {
                 <Button.Content hidden>
                   <Icon name='key' />
                 </Button.Content>
-              </Button>
+              </Button> : <Image src='https://wdy.h-cdn.co/assets/16/05/480x480/square-1454612525-baby-pandas.jpg' size='tiny' circular style={{ marginTop: '10px' }}/>}
                 
               {/* <Button basic color='orange' content='Orange' animated='fade' style={{ marginTop: '10px' }}>
                 <Button.Content visible>Notify All</Button.Content>

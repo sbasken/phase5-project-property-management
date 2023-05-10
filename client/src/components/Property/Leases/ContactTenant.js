@@ -16,8 +16,10 @@ const ContactTenant = ({ tenant }) => {
         emailjs.send('service_vod9gft', 'template_y8b6lon', emailObj, process.env.REACT_APP_EMAILJS_KEY)
         .then((result) => {
             console.log(result.text);
+            alert('Email sent!')
         }, (error) => {
             console.log(error.text);
+            alert('Email sent!')
         });
         e.target.reset();
     };
