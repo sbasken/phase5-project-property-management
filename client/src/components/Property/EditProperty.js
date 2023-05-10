@@ -3,7 +3,7 @@ import { Button, Form } from 'semantic-ui-react'
 import { useGetPropertyQuery, useEditPropertyMutation } from '../../app/services/propertiesAPI';
 import { useGetAgentsQuery } from '../../app/services/usersAPI';
 import { Autocomplete } from '@react-google-maps/api'
-
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { useFormik } from "formik";
 import { useNavigate, useParams } from 'react-router-dom'
 import * as yup from "yup";
@@ -54,15 +54,18 @@ const EditProperty = ({ currentUser }) => {
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
-            console.log(values.id)
+            console.log(values)
             console.log("Updating property...")
-            if (formik.isValid) {
-                editProperty(values)
+            const { address } = values;
+            getGeocode({ address }).then((results) => {
+                const { lat, lng } = getLatLng(results[0]);
+                console.log("📍 Coordinates: ", { lat, lng });
+                editProperty({ ...values, latitude: lat, longitude: lng })
                 .then(() => {
                     console.log("Property successfully updated!")
                     navigate('/properties')
                 })
-            }
+            })
         }
     })
 
@@ -94,7 +97,7 @@ const EditProperty = ({ currentUser }) => {
     }
 
     if (isError) {
-        return <div>Error: {error.message}</div>;
+        return <div>Error: {error && error.message}</div>;
     }
 
 

@@ -1,17 +1,18 @@
-import { GoogleMap, Marker } from '@react-google-maps/api';
+// import { GoogleMap, Marker } from '@react-google-maps/api';
 
-const Map = ({ markers }) => {
+// const Map = ({ markers }) => {
 
-    //version 1
-    return (
-        <GoogleMap zoom={10} center={{lat: 47.6062, lng: -122.3321}} mapContainerStyle={{ width: '80%', height: '80%' }}>
-            { markers.map(marker => {
-                console.log('inside markers map', marker)
-                return <Marker key={marker.lat + marker.lng} position={marker}/>
+//     //version 1
+//     return (
+//         <GoogleMap zoom={10} center={{lat: 47.6062, lng: -122.3321}} mapContainerStyle={{ width: '80%', height: '80%' }}>
+//             { markers.map(marker => {
+//                 console.log('inside markers map', marker)
+//                 return <Marker key={marker.lat + marker.lng} position={marker}/>
             
-            })}
-        </GoogleMap>
-    );
+//             })}
+//         </GoogleMap>
+        
+//     );
 
     /////// version 2
 //   const [markerContent, setMarkerContent] = useState(null);
@@ -35,9 +36,9 @@ const Map = ({ markers }) => {
 //       { markerContent}
 //     </GoogleMap>
 //   );
-};
+// };
 
 
-export default Map
+// export default Map
 
 //        

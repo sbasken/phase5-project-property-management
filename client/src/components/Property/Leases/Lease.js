@@ -119,19 +119,19 @@ const Lease = () => {
                                 </Table.Row>
                                 <Table.Row>
                                     <Table.Cell>End Date</Table.Cell>
-                                    <Table.Cell>{leaseToDisplay[0].start_date.split(' ')[0]}</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].end_date.split(' ')[0]}</Table.Cell>
                                     <Table.Cell></Table.Cell>
                                     <Table.Cell></Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
                                     <Table.Cell>Rent</Table.Cell>
-                                    <Table.Cell>{leaseToDisplay[0].rent}</Table.Cell>
+                                    <Table.Cell>${leaseToDisplay[0].rent}</Table.Cell>
                                     <Table.Cell></Table.Cell>
                                     <Table.Cell></Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
                                     <Table.Cell>Deposit</Table.Cell>
-                                    <Table.Cell>{leaseToDisplay[0].deposit}</Table.Cell>
+                                    <Table.Cell>${leaseToDisplay[0].deposit}</Table.Cell>
                                     <Table.Cell></Table.Cell>
                                     <Table.Cell></Table.Cell>
                                 </Table.Row>
@@ -174,15 +174,15 @@ const Lease = () => {
                             <Table.Body>
                                 <Table.Row>
                                     <Table.Cell>Name</Table.Cell>
-                                    <Table.Cell>{leaseToDisplay[0].tenant.name}</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].tenant?.name}</Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
                                     <Table.Cell>Phone Number</Table.Cell>
-                                    <Table.Cell>{leaseToDisplay[0].tenant.phone_number}</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].tenant?.phone_number}</Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
                                     <Table.Cell>Email Address</Table.Cell>
-                                    <Table.Cell>{leaseToDisplay[0].tenant.email}</Table.Cell>
+                                    <Table.Cell>{leaseToDisplay[0].tenant?.email}</Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>

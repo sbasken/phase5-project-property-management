@@ -5,10 +5,11 @@ import { useGetAgentsQuery } from '../../app/services/usersAPI';
 import { useFormik } from "formik";
 import { useNavigate } from 'react-router-dom'
 import { Autocomplete } from '@react-google-maps/api'
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import * as yup from "yup";
 
 const NewProperty = ({ currentUser }) => {
-    const [ addProperty, isLoading, isError, error ] = useAddPropertyMutation()
+    const [ addProperty ] = useAddPropertyMutation()
     const { data: agents = [] } = useGetAgentsQuery();
     let navigate = useNavigate();
 
@@ -21,8 +22,8 @@ const NewProperty = ({ currentUser }) => {
     const formSchema = yup.object().shape({
         nickname: yup.string()
             .required('Required')
-            .min(5, 'Nicknamename needs to be at least 5 characters long.')
-            .max(15, 'Nicknamename needs to be at least 5 characters long.'),
+            .min(5, 'Nickname needs to be at least 5 characters long.')
+            .max(15, 'Nickname needs to be at least 5 characters long.'),
         latitude: yup.number()
             .nullable()
             .min(-90, 'Latitude must be greater than or equal to -90')
@@ -51,27 +52,29 @@ const NewProperty = ({ currentUser }) => {
         validationSchema: formSchema,
         onSubmit: (values) => {
             console.log("Creating a new property...")
-            if (formik.isValid) {
-                const newValues = {...values, agent_id: parseInt(values.agent_id)}
-                addProperty(newValues)
-                console.log("Property successfully created!")
-                navigate('/properties')
-            }
+            const newValues = {...values, agent_id: parseInt(values.agent_id)}
+            const { address } = values;
+            getGeocode({ address }).then((results) => {
+                const { lat, lng } = getLatLng(results[0]);
+                console.log("📍 Coordinates: ", { lat, lng });
+                addProperty({ ...newValues, latitude: lat, longitude: lng })
+                .then(() => {
+                    console.log("Property successfully createded!")
+                    navigate('/properties')
+                })
+            })
         }
     })
-    console.log(formik.values)
+    console.log('formvalues',formik.values)
 
     const autocompleteRef = React.useRef(null)
 
     const handlePlaceChanged = () => {
         const place = autocompleteRef.current.getPlace()
-        const address = place.formatted_address
+        const address = place?.formatted_address
         formik.setFieldValue('address', address)
     }
-
-    if (isError) {
-        return <div>Error: {error.message}</div>;
-    }
+    
 
   return (
     <div className='ui container hidden divider'>

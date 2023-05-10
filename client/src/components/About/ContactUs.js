@@ -11,8 +11,10 @@ const ContactUs = () => {
         emailjs.sendForm('service_vod9gft', 'template_944s8hf', form.current, process.env.REACT_APP_EMAILJS_KEY)
         .then((result) => {
             console.log(result.text);
+            alert('Email sent!')
         }, (error) => {
             console.log(error.text);
+            alert('There was an error sending email! Please try again later')
         });
         e.target.reset();
     };

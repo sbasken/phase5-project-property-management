@@ -1,12 +1,10 @@
 import React from 'react'
 import PropertyCard from './PropertyCard'
 import RingLoader from 'react-spinners/RingLoader';
-// import Map from './Map';
 import { Grid, Button, Image, Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { useGetPropertiesQuery } from '../../app/services/propertiesAPI'
-import { useLoadScript } from '@react-google-maps/api'
-// import { getGeocode, getLatLng } from 'use-places-autocomplete';
+import { useLoadScript, GoogleMap, Marker } from '@react-google-maps/api'
 
 const libraries = ['places']
 
@@ -22,23 +20,7 @@ const PropertyPage = ({ currentUser }) => {
     }
 
     let content
-
-    // const generateLatLng = async (address) => {
-    //     try {
-    //         const results = await getGeocode({ address });
-    //         console.log('result:', results)
-    //         if (results.length === 0) {
-    //          return;
-    //         } else {
-    //             const { lat, lng } = await getLatLng(results);
-    //             if (lat && lng) {
-    //                 return {lat, lng};
-    //             }
-    //         }
-    //     } catch (error) {
-    //         console.error('Error while generating lat and lng:', error);
-    //     }
-    // };
+    let markers
 
     if (isLoading) {
         content = <h1>Loading...</h1>
@@ -47,16 +29,18 @@ const PropertyPage = ({ currentUser }) => {
     } 
 
     if (isSuccess && properties.length > 0) {
-            content = properties.map((property) => {
-                // const latlng = generateLatLng(property.address)
-                // console.log('latlng generated', latlng)
-                return (
-                    <Grid.Column key={property.id} computer={8} tablet={16} mobile={16}>
-                        <PropertyCard property={property} currentUser={currentUser}/>
-                        {/* <Map key={property.id} latlng={latlng} /> */}
-                    </Grid.Column>
-                )
-            })
+        content = properties.map((property) => {
+            return (
+                <Grid.Column key={property.id} computer={8} tablet={16} mobile={16}>
+                    <PropertyCard property={property} currentUser={currentUser}/> 
+                </Grid.Column>
+            )
+        })
+        markers = properties.map((property) => {
+            if (property.latitude && property.longitude) {
+                return <Marker position={{lat: property.latitude, lng: property.longitude}}/>
+            }
+        })
             
     }
     
@@ -89,7 +73,7 @@ const PropertyPage = ({ currentUser }) => {
                 <Grid stackable>
                     <Grid.Column width={3} >
                         <Menu fluid vertical tabular>
-                            <Button 
+                            { currentUser.type === 'owner' ? <Button 
                                 className='.yellow.button' 
                                 as={Link} 
                                 to='/properties/add-new' 
@@ -97,14 +81,20 @@ const PropertyPage = ({ currentUser }) => {
                                 basic color='orange' content='Orange'
                             >
                                 Add More
-                            </Button>
+                            </Button> : <Image src='https://wdy.h-cdn.co/assets/16/05/480x480/square-1454612525-baby-pandas.jpg' size='tiny' circular style={{ marginTop: '10px' }}/>}
+                            
                         </Menu>
                     </Grid.Column>
 
                     <Grid.Column stretched width={13}>
                         <Grid columns={2} stackable>
-                            { content }
+                            { content }  
                         </Grid>
+                        <div style={{width: '80vw', height: '80vh', marginTop: '5vh'}}>
+                            <GoogleMap zoom={10} center={{lat: 47.6062, lng: -122.3321}} mapContainerStyle={{ width: '80%', height: '80%' }}>
+                                { markers }
+                            </GoogleMap>
+                        </div>
                     </Grid.Column>
                 </Grid> : (noPropertiesYetMessage)}
             </div>
