@@ -21,13 +21,13 @@ const About = () => {
                         <List.Item>
                         <List.Icon name='mail' />
                         <List.Content>
-                            <a href='mailto:hello@seattlepanda.com'>hello@seattlepanda.com</a>
+                            <a href='mailto:sbasken@gmail,com'>Email Me</a>
                         </List.Content>
                         </List.Item>
                         <List.Item>
                         <List.Icon name='linkify' />
                         <List.Content>
-                            <a href='http://www.semantic-ui.com'>propertypanda.com</a>
+                            <a href='https://www.linkedin.com/in/sakibasken/'>LinkedIn</a>
                         </List.Content>
                         </List.Item>
                     </List>
