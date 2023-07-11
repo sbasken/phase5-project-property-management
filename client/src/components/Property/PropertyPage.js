@@ -11,7 +11,7 @@ const libraries = ['places']
 const PropertyPage = ({ currentUser }) => {
     const { data: properties = [], isLoading, isError, error, isSuccess } = useGetPropertiesQuery()
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
+        googleMapsApiKey: "AIzaSyBgusvZwjxg1-bT2EVMc2-frImWN-0ev4s",
         libraries,
     });
     
