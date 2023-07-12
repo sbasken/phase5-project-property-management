@@ -18,7 +18,7 @@ const About = () => {
                         <List.Icon name='marker' />
                         <List.Content>Seattle, WA</List.Content>
                         </List.Item>
-                        <List.Item>
+                        {/* <List.Item>
                         <List.Icon name='mail' />
                         <List.Content>
                             <a href='mailto:sbasken@gmail,com'>Email Me</a>
@@ -29,7 +29,7 @@ const About = () => {
                         <List.Content>
                             <a href='https://www.linkedin.com/in/sakibasken/'>LinkedIn</a>
                         </List.Content>
-                        </List.Item>
+                        </List.Item> */}
                     </List>
                 </Grid.Column>
                 <Grid.Column textAlign='center'>
