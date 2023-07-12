@@ -14,6 +14,7 @@ const PropertyPage = ({ currentUser }) => {
         googleMapsApiKey: "AIzaSyBgusvZwjxg1-bT2EVMc2-frImWN-0ev4s",
         libraries,
     });
+    // Restricted ApiKey
     
     if (!isLoaded) {
         return <div>Map is loading...</div>
