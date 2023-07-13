@@ -11,10 +11,9 @@ const libraries = ['places']
 const PropertyPage = ({ currentUser }) => {
     const { data: properties = [], isLoading, isError, error, isSuccess } = useGetPropertiesQuery()
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyBgusvZwjxg1-bT2EVMc2-frImWN-0ev4s",
+        googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
         libraries,
     });
-    // Restricted ApiKey
     
     if (!isLoaded) {
         return <div>Map is loading...</div>
