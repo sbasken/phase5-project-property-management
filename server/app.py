@@ -4,6 +4,8 @@ from flask import jsonify, make_response, render_template, request, session
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
+import requests
 
 
 from config import app, api, db
@@ -14,6 +16,24 @@ from models import User, Property, Unit, Expense, Tenant, Lease
 @app.route('/<int:id>')
 def index(id=0):
     return render_template("index.html")
+
+@app.route('/ping')
+def ping():
+    return jsonify({"status": "alive"}), 200
+
+def keep_alive():
+    try:
+        response = requests.get('https://property-panda-app.onrender.com/ping')
+        if response.status_code == 200:
+            print("Keep-Alive request sent successfully.")
+        else:
+            print("Keep-Alive request failed.")
+    except Exception as e:
+        print(f"Error during Keep-Alive request: {e}")
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=keep_alive, trigger="interval", minutes=15)
+scheduler.start()
 
 # @app.before_request
 # def is_Logged_in():
@@ -33,7 +53,8 @@ class Home(Resource):
     def get(self):
 
         return f'<h1>Welcome to our API!<h1>'
-    
+
+
 class Signup(Resource):
 
     def post(self):
@@ -418,4 +439,7 @@ api.add_resource(Leases, '/leases', endpoint='leases')
 api.add_resource(LeaseByID, '/leases/<int:id>', endpoint='leases/<int:id>')
 
 if __name__ == '__main__':
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=keep_alive, trigger="interval", minutes=14)
+    scheduler.start()
     app.run(port=5555, debug=True)
