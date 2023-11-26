@@ -440,6 +440,6 @@ api.add_resource(LeaseByID, '/leases/<int:id>', endpoint='leases/<int:id>')
 
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=keep_alive, trigger="interval", minutes=10)
+    scheduler.add_job(func=keep_alive, trigger="interval", minutes=12)
     scheduler.start()
     app.run(port=5555, debug=True)
