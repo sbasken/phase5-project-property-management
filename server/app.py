@@ -31,8 +31,18 @@ def keep_alive():
     except Exception as e:
         print(f"Error during Keep-Alive request: {e}")
 
+def get_properties():
+    try:
+        response = requests.get('https://property-panda-app.onrender.com/properties')
+        if response.status_code == 200:
+            print("Get properties request sent successfully.")
+        else:
+            print("Get properties request failed.")
+    except Exception as e:
+        print(f"Error during get properties request: {e}")
+
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=keep_alive, trigger="interval", minutes=15)
+scheduler.add_job(func=keep_alive, trigger="interval", minutes=13)
 scheduler.start()
 
 # @app.before_request
